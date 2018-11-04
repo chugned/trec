@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="43" pref="43" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Component id="register_first_name_label" min="-2" max="-2" attributes="0"/>
+                  <Component id="register_last_name_label" min="-2" max="-2" attributes="0"/>
+                  <Component id="register_password_label" min="-2" max="-2" attributes="0"/>
+                  <Component id="register_reenter_password_label" min="-2" max="-2" attributes="0"/>
+                  <Component id="register_age_label" min="-2" max="-2" attributes="0"/>
+                  <Component id="register_occupation_label" min="-2" max="-2" attributes="0"/>
+                  <Component id="register_username_label" alignment="0" max="32767" attributes="0"/>
+                  <Component id="register_email_label" alignment="0" max="32767" attributes="0"/>
+                  <Component id="register_gender_label" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Component id="register_age_field" alignment="0" max="32767" attributes="0"/>
+                  <Component id="register_gender_combo_box" alignment="0" pref="218" max="32767" attributes="0"/>
+                  <Component id="register_reenter_password_field" alignment="0" max="32767" attributes="0"/>
+                  <Component id="register_password_field" alignment="0" max="32767" attributes="0"/>
+                  <Component id="register_username_field" alignment="0" max="32767" attributes="0"/>
+                  <Component id="register_email_field" alignment="0" max="32767" attributes="0"/>
+                  <Component id="register_last_name_field" alignment="0" max="32767" attributes="0"/>
+                  <Component id="register_first_name_field" alignment="0" max="32767" attributes="0"/>
+                  <Component id="register_occupation_field" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <Component id="register_welcome_label" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace pref="61" max="32767" attributes="0"/>
+              <Component id="register_cancel_button" min="-2" pref="121" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
+              <Component id="register_register_button" min="-2" pref="121" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <Component id="register_welcome_label" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="register_first_name_field" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="register_first_name_label" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="register_last_name_field" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="register_last_name_label" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="register_email_label" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="register_email_field" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="register_username_field" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="register_username_label" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="register_password_field" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="register_password_label" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="register_reenter_password_field" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="register_reenter_password_label" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="register_gender_label" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="register_gender_combo_box" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="register_age_field" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="register_age_label" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="register_occupation_field" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="register_occupation_label" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="register_cancel_button" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="register_register_button" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="23" max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JButton" name="register_cancel_button">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cancel"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="register_cancel_buttonMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="register_register_button">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Register"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="register_register_buttonMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JFormattedTextField" name="register_first_name_field">
+    </Component>
+    <Component class="javax.swing.JFormattedTextField" name="register_last_name_field">
+    </Component>
+    <Component class="javax.swing.JFormattedTextField" name="register_username_field">
+    </Component>
+    <Component class="javax.swing.JPasswordField" name="register_password_field">
+    </Component>
+    <Component class="javax.swing.JPasswordField" name="register_reenter_password_field">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="register_reenter_password_fieldActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="register_gender_combo_box">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="2">
+            <StringItem index="0" value="Male"/>
+            <StringItem index="1" value="Female"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JFormattedTextField" name="register_age_field">
+    </Component>
+    <Component class="javax.swing.JFormattedTextField" name="register_occupation_field">
+    </Component>
+    <Component class="javax.swing.JLabel" name="register_first_name_label">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="First name:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="register_last_name_label">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Last name:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="register_username_label">
+      <Properties>
+        <Property name="horizontalAlignment" type="int" value="4"/>
+        <Property name="text" type="java.lang.String" value="Username:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="register_password_label">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Password:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="register_reenter_password_label">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Re-enter password:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="register_gender_label">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Gender:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="register_age_label">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Age:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="register_occupation_label">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Occupation:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="register_welcome_label">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Dialog" size="16" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Enter your data below:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="register_email_label">
+      <Properties>
+        <Property name="horizontalAlignment" type="int" value="4"/>
+        <Property name="text" type="java.lang.String" value="Email:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JFormattedTextField" name="register_email_field">
+    </Component>
+  </SubComponents>
+</Form>

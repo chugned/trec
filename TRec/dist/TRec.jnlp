@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="TRec.jnlp">
+  <information>
+    <title>TRec</title>
+    <vendor>basic</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="TRec.jar" size="46540" download="eager" />
+  </resources>
+  <application-desc main-class="trec.TRec"  name="TRec" >
+  </application-desc>
+  <update check="always"/>
+</jnlp>
