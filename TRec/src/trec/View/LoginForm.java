@@ -6,13 +6,17 @@
 package trec.View;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import trec.Controller.UserController;
+import trec.Model.Database;
+import trec.Model.User;
 
 /**
  *
  * @author basic
  */
 public class LoginForm extends javax.swing.JFrame {
-
+  
   /**
    * Creates new form LoginForm
    */
@@ -84,11 +88,8 @@ public class LoginForm extends javax.swing.JFrame {
               .addGroup(layout.createSequentialGroup()
                 .addGap(47, 47, 47)
                 .addComponent(login_username_field, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
-              .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                  .addComponent(login_password_field, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addComponent(login_login_button, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+              .addComponent(login_password_field, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addComponent(login_login_button, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
           .addComponent(login_trec_welcome_label))
         .addContainerGap(17, Short.MAX_VALUE))
     );
@@ -127,12 +128,19 @@ public class LoginForm extends javax.swing.JFrame {
 
   private void login_login_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_login_login_buttonMouseClicked
     // TODO add your handling code here:
-    AppHomeForm app_home_form = new AppHomeForm();
-    app_home_form.setVisible(true);
-    app_home_form.pack();
-    app_home_form.setLocationRelativeTo(null);
-    app_home_form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    this.dispose();
+    User current_user = Database.getInstance().isUserValid(login_username_field.getText(), String.copyValueOf(login_password_field.getPassword()));
+    if(current_user == null) {
+      JOptionPane.showMessageDialog(null, "You entered wrong username or password.\nNo account? You can always register.", "Login error", JOptionPane.INFORMATION_MESSAGE);
+    } else {
+      UserController.getInstance().setCurrentUser(current_user);
+      // activity switch
+      AppHomeForm app_home_form = new AppHomeForm();
+      app_home_form.setVisible(true);
+      app_home_form.pack();
+      app_home_form.setLocationRelativeTo(null);
+      app_home_form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      this.dispose();
+    }
   }//GEN-LAST:event_login_login_buttonMouseClicked
 
   /**

@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="TRec.jar" size="46540" download="eager" />
+    <jar href="TRec.jar" size="51284" download="eager" />
   </resources>
   <application-desc main-class="trec.TRec"  name="TRec" >
   </application-desc>

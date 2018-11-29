@@ -77,6 +77,7 @@ public class TRec extends JApplet {
       login_form.setVisible(true);
       login_form.pack();
       login_form.setLocationRelativeTo(null);
+      login_form.setSize(444, 224);
       login_form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //      this.setVisible(false);
       }

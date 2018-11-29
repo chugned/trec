@@ -6,6 +6,10 @@
 package trec.View;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import trec.Model.Database;
+import trec.Model.Helper;
+import trec.Model.User;
 
 /**
  *
@@ -29,7 +33,7 @@ public class RegisterForm extends javax.swing.JFrame {
   // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
   private void initComponents() {
 
-    register_cancel_button = new javax.swing.JButton();
+    register_back_button = new javax.swing.JButton();
     register_register_button = new javax.swing.JButton();
     register_first_name_field = new javax.swing.JFormattedTextField();
     register_last_name_field = new javax.swing.JFormattedTextField();
@@ -53,10 +57,11 @@ public class RegisterForm extends javax.swing.JFrame {
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-    register_cancel_button.setText("Cancel");
-    register_cancel_button.addMouseListener(new java.awt.event.MouseAdapter() {
+    register_back_button.setText("Back");
+    register_back_button.setActionCommand("Back");
+    register_back_button.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
-        register_cancel_buttonMouseClicked(evt);
+        register_back_buttonMouseClicked(evt);
       }
     });
 
@@ -133,7 +138,7 @@ public class RegisterForm extends javax.swing.JFrame {
         .addGap(0, 0, Short.MAX_VALUE))
       .addGroup(layout.createSequentialGroup()
         .addContainerGap(61, Short.MAX_VALUE)
-        .addComponent(register_cancel_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addComponent(register_back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addGap(110, 110, 110)
         .addComponent(register_register_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addGap(61, 61, 61))
@@ -182,7 +187,7 @@ public class RegisterForm extends javax.swing.JFrame {
           .addComponent(register_occupation_label))
         .addGap(41, 41, 41)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(register_cancel_button)
+          .addComponent(register_back_button)
           .addComponent(register_register_button))
         .addContainerGap(23, Short.MAX_VALUE))
     );
@@ -190,7 +195,7 @@ public class RegisterForm extends javax.swing.JFrame {
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
-  private void register_cancel_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_register_cancel_buttonMouseClicked
+  private void register_back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_register_back_buttonMouseClicked
     // TODO add your handling code here:
     LoginForm login_form = new LoginForm();
     login_form.setVisible(true);
@@ -198,7 +203,7 @@ public class RegisterForm extends javax.swing.JFrame {
     login_form.setLocationRelativeTo(null);
     login_form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.dispose();
-  }//GEN-LAST:event_register_cancel_buttonMouseClicked
+  }//GEN-LAST:event_register_back_buttonMouseClicked
 
   private void register_reenter_password_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_register_reenter_password_fieldActionPerformed
     // TODO add your handling code here:
@@ -206,12 +211,48 @@ public class RegisterForm extends javax.swing.JFrame {
 
   private void register_register_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_register_register_buttonMouseClicked
     // TODO add your handling code here:
-    LoginForm login_form = new LoginForm();
-    login_form.setVisible(true);
-    login_form.pack();
-    login_form.setLocationRelativeTo(null);
-    login_form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    this.dispose();
+    Helper helper = new Helper();
+    
+    if(register_first_name_field.getText().equals("") || 
+            register_last_name_field.getText().equals("") ||
+            register_email_field.getText().equals("") ||
+            register_username_field.getText().equals("") ||
+            register_age_field.getText().equals("") ||
+            register_occupation_field.getText().equals(""))
+    {
+      // Show please enter all user data message
+      JOptionPane.showMessageDialog(null, "Please enter all user data.", "Registration error", JOptionPane.INFORMATION_MESSAGE);
+    } else if(String.copyValueOf(register_password_field.getPassword()).equals("") ||
+      String.copyValueOf(register_reenter_password_field.getPassword()).equals("")) {
+      JOptionPane.showMessageDialog(null, "Please enter password.", "Invalid password", JOptionPane.INFORMATION_MESSAGE);
+    } else if(!String.copyValueOf(register_password_field.getPassword())
+            .equals(String.copyValueOf(register_reenter_password_field.getPassword()))) {
+      JOptionPane.showMessageDialog(null, "Passwords do not match.", "Invalid password", JOptionPane.INFORMATION_MESSAGE);
+    } else if(!helper.isNumeric(register_age_field.getText())) {
+      JOptionPane.showMessageDialog(null, "Please enter valid age.", "Invalid age", JOptionPane.INFORMATION_MESSAGE);
+    } else {
+      User new_user = new User();
+      new_user.setFirstName(register_first_name_field.getText());
+      new_user.setLastName(register_last_name_field.getText());
+      new_user.setEmail(register_email_field.getText());
+      new_user.setUsername(register_username_field.getText());
+      new_user.setPassword(String.copyValueOf(register_password_field.getPassword()));
+      new_user.setGender(register_gender_combo_box.getName());
+      new_user.setAge(Integer.parseInt(register_age_field.getText()));
+      new_user.setOccupation(register_occupation_field.getText());
+
+      Database.getInstance().addUser(new_user);
+      // show registration successful message and clear contents
+      JOptionPane.showMessageDialog(null, "Registration successful!", "Success!", JOptionPane.INFORMATION_MESSAGE);
+      register_first_name_field.setText("");
+      register_last_name_field.setText("");
+      register_email_field.setText("");
+      register_username_field.setText("");
+      register_password_field.setText("");
+      register_reenter_password_field.setText("");
+      register_age_field.setText("");
+      register_occupation_field.setText("");
+    }
   }//GEN-LAST:event_register_register_buttonMouseClicked
 
   /**
@@ -252,7 +293,7 @@ public class RegisterForm extends javax.swing.JFrame {
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JFormattedTextField register_age_field;
   private javax.swing.JLabel register_age_label;
-  private javax.swing.JButton register_cancel_button;
+  private javax.swing.JButton register_back_button;
   private javax.swing.JFormattedTextField register_email_field;
   private javax.swing.JLabel register_email_label;
   private javax.swing.JFormattedTextField register_first_name_field;

@@ -57,7 +57,7 @@
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace pref="61" max="32767" attributes="0"/>
-              <Component id="register_cancel_button" min="-2" pref="121" max="-2" attributes="0"/>
+              <Component id="register_back_button" min="-2" pref="121" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
               <Component id="register_register_button" min="-2" pref="121" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
@@ -118,7 +118,7 @@
               </Group>
               <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="register_cancel_button" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="register_back_button" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="register_register_button" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="23" max="32767" attributes="0"/>
@@ -127,12 +127,13 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="register_cancel_button">
+    <Component class="javax.swing.JButton" name="register_back_button">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Cancel"/>
+        <Property name="text" type="java.lang.String" value="Back"/>
+        <Property name="actionCommand" type="java.lang.String" value="Back"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="register_cancel_buttonMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="register_back_buttonMouseClicked"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="register_register_button">
