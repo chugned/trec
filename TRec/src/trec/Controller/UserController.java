@@ -5,6 +5,7 @@
  */
 package trec.Controller;
 
+import trec.Model.Database;
 import trec.Model.User;
 
 /**
@@ -31,5 +32,17 @@ public class UserController {
   
   public User getCurrentUser() {
     return current_user_;
+  }
+  
+  public void addUser(User user){
+    Database.getInstance().addUser(user);
+  }
+  
+  public boolean checkForUsername(String username) {
+    return Database.getInstance().checkForUsername(username);
+  }
+  
+  public int getNumberOfUsers() {
+    return Database.getInstance().getNumberOfUsers();
   }
 }

@@ -6,6 +6,7 @@
 package trec.View;
 
 import javax.swing.JFrame;
+import trec.Controller.UserController;
 
 /**
  *
@@ -18,8 +19,11 @@ public class AppHomeForm extends javax.swing.JFrame {
    */
   public AppHomeForm() {
     initComponents();
+    if(!UserController.getInstance().getCurrentUser().isAdmin()) {
+      home_menu_bar_adminhub.setVisible(false);
+    }
   }
-
+  
   /**
    * This method is called from within the constructor to initialize the form.
    * WARNING: Do NOT modify this code. The content of this method is always
@@ -158,6 +162,7 @@ public class AppHomeForm extends javax.swing.JFrame {
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
+ 
   private void home_search_destinations_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_home_search_destinations_buttonMouseClicked
     // TODO add your handling code here:
     DestinationsForm destinations_form = new DestinationsForm();

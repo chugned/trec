@@ -18,6 +18,15 @@ public class Database {
   
   private Database() {
     users_list_ = new ArrayList<>();
+    // hard code admin
+    User admin = new User("Eman", "Basic", "eman.basic@hotmail.com", "admin", 
+            "admin", "Male", 21, "Student");
+    admin.setRole("Admin");
+    users_list_.add(admin);
+    // TODO hard code other users
+    User josip = new User("Josip", "Letica", "joisp.letica@hotmail.com", "josip123", 
+            "letica123", "Male", 21, "Student");
+    users_list_.add(josip);
   }
   
   public static Database getInstance() {
@@ -36,5 +45,17 @@ public class Database {
         return user;
     }
     return null;
+  }
+  
+  public boolean checkForUsername(String username) {
+    for(User user : users_list_) {
+      if(user.getUsername().equals(username))
+        return true;
+    }
+    return false;
+  }
+  
+  public int getNumberOfUsers() {
+    return users_list_.size();
   }
 }

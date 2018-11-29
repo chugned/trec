@@ -7,6 +7,7 @@ package trec.View;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import trec.Controller.UserController;
 import trec.Model.Database;
 import trec.Model.Helper;
 import trec.Model.User;
@@ -220,16 +221,17 @@ public class RegisterForm extends javax.swing.JFrame {
             register_age_field.getText().equals("") ||
             register_occupation_field.getText().equals(""))
     {
-      // Show please enter all user data message
       JOptionPane.showMessageDialog(null, "Please enter all user data.", "Registration error", JOptionPane.INFORMATION_MESSAGE);
     } else if(String.copyValueOf(register_password_field.getPassword()).equals("") ||
-      String.copyValueOf(register_reenter_password_field.getPassword()).equals("")) {
+            String.copyValueOf(register_reenter_password_field.getPassword()).equals("")) {
       JOptionPane.showMessageDialog(null, "Please enter password.", "Invalid password", JOptionPane.INFORMATION_MESSAGE);
     } else if(!String.copyValueOf(register_password_field.getPassword())
             .equals(String.copyValueOf(register_reenter_password_field.getPassword()))) {
       JOptionPane.showMessageDialog(null, "Passwords do not match.", "Invalid password", JOptionPane.INFORMATION_MESSAGE);
     } else if(!helper.isNumeric(register_age_field.getText())) {
       JOptionPane.showMessageDialog(null, "Please enter valid age.", "Invalid age", JOptionPane.INFORMATION_MESSAGE);
+    } else if(UserController.getInstance().checkForUsername(register_username_field.getText())) {
+      JOptionPane.showMessageDialog(null, "Username already exists!", "Registration error", JOptionPane.INFORMATION_MESSAGE);
     } else {
       User new_user = new User();
       new_user.setFirstName(register_first_name_field.getText());
@@ -240,9 +242,7 @@ public class RegisterForm extends javax.swing.JFrame {
       new_user.setGender(register_gender_combo_box.getName());
       new_user.setAge(Integer.parseInt(register_age_field.getText()));
       new_user.setOccupation(register_occupation_field.getText());
-
-      Database.getInstance().addUser(new_user);
-      // show registration successful message and clear contents
+      UserController.getInstance().addUser(new_user);      
       JOptionPane.showMessageDialog(null, "Registration successful!", "Success!", JOptionPane.INFORMATION_MESSAGE);
       register_first_name_field.setText("");
       register_last_name_field.setText("");
