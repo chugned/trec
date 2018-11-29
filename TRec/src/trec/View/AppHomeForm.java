@@ -5,8 +5,10 @@
  */
 package trec.View;
 
+import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import trec.Controller.UserController;
+import trec.Model.User;
 
 /**
  *
@@ -19,7 +21,9 @@ public class AppHomeForm extends javax.swing.JFrame {
    */
   public AppHomeForm() {
     initComponents();
-    home_menu_bar_adminhub.setVisible(UserController.getInstance().getCurrentUser().isAdmin());
+    User current_user = UserController.getInstance().getCurrentUser();
+    home_menu_bar_adminhub.setVisible(current_user.isAdmin());
+    home_greet_label.setText("Hi " + current_user.getFirstName() + ", welcome to T-Rec!");    
   }
   
   /**
@@ -39,6 +43,7 @@ public class AppHomeForm extends javax.swing.JFrame {
     home_get_recommendations_button = new javax.swing.JButton();
     home_evaluate_hotels_button = new javax.swing.JButton();
     home_acommondations_button = new javax.swing.JButton();
+    home_greet_label = new javax.swing.JLabel();
     home_menu_bar = new javax.swing.JMenuBar();
     home_menu_bar_logout = new javax.swing.JMenu();
     home_menu_bar_adminhub = new javax.swing.JMenu();
@@ -46,7 +51,7 @@ public class AppHomeForm extends javax.swing.JFrame {
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
     home_welcome_label.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-    home_welcome_label.setText("Welcome to T-REC! - A tourist recommendation system");
+    home_welcome_label.setText("- a tourist recommendation system");
 
     home_search_destinations_button.setText("Search for destinations");
     home_search_destinations_button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -54,11 +59,21 @@ public class AppHomeForm extends javax.swing.JFrame {
         home_search_destinations_buttonMouseClicked(evt);
       }
     });
+    home_search_destinations_button.addKeyListener(new java.awt.event.KeyAdapter() {
+      public void keyPressed(java.awt.event.KeyEvent evt) {
+        home_search_destinations_buttonKeyPressed(evt);
+      }
+    });
 
     home_edit_profile_button.setText("Edit profile");
     home_edit_profile_button.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
         home_edit_profile_buttonMouseClicked(evt);
+      }
+    });
+    home_edit_profile_button.addKeyListener(new java.awt.event.KeyAdapter() {
+      public void keyPressed(java.awt.event.KeyEvent evt) {
+        home_edit_profile_buttonKeyPressed(evt);
       }
     });
 
@@ -96,6 +111,14 @@ public class AppHomeForm extends javax.swing.JFrame {
         home_acommondations_buttonMouseClicked(evt);
       }
     });
+    home_acommondations_button.addKeyListener(new java.awt.event.KeyAdapter() {
+      public void keyPressed(java.awt.event.KeyEvent evt) {
+        home_acommondations_buttonKeyPressed(evt);
+      }
+    });
+
+    home_greet_label.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+    home_greet_label.setText("Hi <first_name>, welcome to T-REC!");
 
     home_menu_bar_logout.setText("Logout");
     home_menu_bar_logout.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -120,40 +143,48 @@ public class AppHomeForm extends javax.swing.JFrame {
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addGap(22, 22, 22)
-        .addComponent(home_welcome_label)
-        .addContainerGap(37, Short.MAX_VALUE))
-      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-        .addGap(0, 0, Short.MAX_VALUE)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-          .addComponent(home_statistics_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(home_get_recommendations_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(home_evaluate_hotels_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(home_evaluate_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(home_search_destinations_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(home_acommondations_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(home_edit_profile_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addGap(114, 114, 114))
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addGroup(layout.createSequentialGroup()
+            .addGap(46, 46, 46)
+            .addComponent(home_welcome_label, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addGroup(layout.createSequentialGroup()
+            .addGap(19, 19, 19)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(home_greet_label, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                  .addComponent(home_edit_profile_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addComponent(home_get_recommendations_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addComponent(home_statistics_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addComponent(home_evaluate_hotels_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                  .addComponent(home_evaluate_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addComponent(home_search_destinations_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addComponent(home_acommondations_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+        .addContainerGap(16, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
         .addGap(22, 22, 22)
+        .addComponent(home_greet_label)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
         .addComponent(home_welcome_label)
+        .addGap(27, 27, 27)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(home_edit_profile_button)
+          .addComponent(home_acommondations_button))
+        .addGap(21, 21, 21)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(home_get_recommendations_button)
+          .addComponent(home_search_destinations_button))
         .addGap(18, 18, 18)
-        .addComponent(home_edit_profile_button)
-        .addGap(18, 18, 18)
-        .addComponent(home_acommondations_button)
-        .addGap(18, 18, 18)
-        .addComponent(home_search_destinations_button)
-        .addGap(18, 18, 18)
-        .addComponent(home_evaluate_button)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(home_statistics_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(home_evaluate_button))
         .addGap(18, 18, 18)
         .addComponent(home_evaluate_hotels_button)
-        .addGap(18, 18, 18)
-        .addComponent(home_get_recommendations_button)
-        .addGap(18, 18, 18)
-        .addComponent(home_statistics_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         .addContainerGap(26, Short.MAX_VALUE))
     );
 
@@ -236,6 +267,27 @@ public class AppHomeForm extends javax.swing.JFrame {
     this.dispose();
   }//GEN-LAST:event_home_menu_bar_adminhubMouseClicked
 
+  private void home_edit_profile_buttonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_home_edit_profile_buttonKeyPressed
+    // TODO add your handling code here:
+    if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+      home_edit_profile_buttonMouseClicked(null);
+    }
+  }//GEN-LAST:event_home_edit_profile_buttonKeyPressed
+
+  private void home_acommondations_buttonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_home_acommondations_buttonKeyPressed
+    // TODO add your handling code here:
+    if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+      home_acommondations_buttonMouseClicked(null);
+    }
+  }//GEN-LAST:event_home_acommondations_buttonKeyPressed
+
+  private void home_search_destinations_buttonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_home_search_destinations_buttonKeyPressed
+    // TODO add your handling code here:
+    if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+      home_search_destinations_buttonMouseClicked(null);
+    }
+  }//GEN-LAST:event_home_search_destinations_buttonKeyPressed
+
   /**
    * @param args the command line arguments
    */
@@ -277,6 +329,7 @@ public class AppHomeForm extends javax.swing.JFrame {
   private javax.swing.JButton home_evaluate_button;
   private javax.swing.JButton home_evaluate_hotels_button;
   private javax.swing.JButton home_get_recommendations_button;
+  private javax.swing.JLabel home_greet_label;
   private javax.swing.JMenuBar home_menu_bar;
   private javax.swing.JMenu home_menu_bar_adminhub;
   private javax.swing.JMenu home_menu_bar_logout;

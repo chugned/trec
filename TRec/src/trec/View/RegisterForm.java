@@ -237,17 +237,17 @@ public class RegisterForm extends javax.swing.JFrame {
             register_age_field.getText().equals("") ||
             register_occupation_field.getText().equals(""))
     {
-      JOptionPane.showMessageDialog(null, "Please enter all user data.", "Registration error", JOptionPane.INFORMATION_MESSAGE);
+      JOptionPane.showMessageDialog(null, "Please enter all user data.", "Registration error", JOptionPane.ERROR_MESSAGE);
     } else if(String.copyValueOf(register_password_field.getPassword()).equals("") ||
             String.copyValueOf(register_reenter_password_field.getPassword()).equals("")) {
-      JOptionPane.showMessageDialog(null, "Please enter password.", "Invalid password", JOptionPane.INFORMATION_MESSAGE);
+      JOptionPane.showMessageDialog(null, "Please enter password.", "Invalid password", JOptionPane.ERROR_MESSAGE);
     } else if(!String.copyValueOf(register_password_field.getPassword())
             .equals(String.copyValueOf(register_reenter_password_field.getPassword()))) {
-      JOptionPane.showMessageDialog(null, "Passwords do not match.", "Invalid password", JOptionPane.INFORMATION_MESSAGE);
+      JOptionPane.showMessageDialog(null, "Passwords do not match.", "Invalid password", JOptionPane.ERROR_MESSAGE);
     } else if(!helper.isNumeric(register_age_field.getText())) {
-      JOptionPane.showMessageDialog(null, "Please enter valid age.", "Invalid age", JOptionPane.INFORMATION_MESSAGE);
+      JOptionPane.showMessageDialog(null, "Please enter valid age.", "Invalid age", JOptionPane.ERROR_MESSAGE);
     } else if(UserController.getInstance().checkForUsername(register_username_field.getText())) {
-      JOptionPane.showMessageDialog(null, "Username already exists!", "Registration error", JOptionPane.INFORMATION_MESSAGE);
+      JOptionPane.showMessageDialog(null, "Username already exists!", "Registration error", JOptionPane.ERROR_MESSAGE);
     } else {
       User new_user = new User();
       new_user.setFirstName(register_first_name_field.getText());

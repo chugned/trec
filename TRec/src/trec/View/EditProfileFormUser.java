@@ -253,16 +253,16 @@ public class EditProfileFormUser extends javax.swing.JFrame {
             UserController.getInstance().updateUser(changed_user, username_field.getText());
             JOptionPane.showMessageDialog(null, "User data successfully changed!", "Success", JOptionPane.INFORMATION_MESSAGE);
           } else {
-            JOptionPane.showMessageDialog(null, "Please enter valid age format.", "Age format error", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Please enter valid age format.", "Age format error", JOptionPane.ERROR_MESSAGE);
           }
         } else {
-          JOptionPane.showMessageDialog(null, "Gender can either be \"Male\" or \"Female\"", "Gender error", JOptionPane.INFORMATION_MESSAGE);
+          JOptionPane.showMessageDialog(null, "Gender can either be \"Male\" or \"Female\"", "Gender error", JOptionPane.ERROR_MESSAGE);
         }
       } else {
-        JOptionPane.showMessageDialog(null, "Please enter a valid password.", "Passwrod error", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Please enter a valid password.", "Passwrod error", JOptionPane.ERROR_MESSAGE);
       }
     } else {
-      JOptionPane.showMessageDialog(null, "Please enter a valid username.", "Username error", JOptionPane.INFORMATION_MESSAGE);
+      JOptionPane.showMessageDialog(null, "Please enter a valid username.", "Username error", JOptionPane.ERROR_MESSAGE);
     }
   }//GEN-LAST:event_save_buttonMouseClicked
 

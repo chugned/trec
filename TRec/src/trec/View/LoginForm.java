@@ -73,6 +73,11 @@ public class LoginForm extends javax.swing.JFrame {
     login_password_label.setText("Password:");
 
     login_password_field.setText("jPasswordField1");
+    login_password_field.addFocusListener(new java.awt.event.FocusAdapter() {
+      public void focusGained(java.awt.event.FocusEvent evt) {
+        login_password_fieldFocusGained(evt);
+      }
+    });
     login_password_field.addKeyListener(new java.awt.event.KeyAdapter() {
       public void keyPressed(java.awt.event.KeyEvent evt) {
         login_password_fieldKeyPressed(evt);
@@ -80,6 +85,11 @@ public class LoginForm extends javax.swing.JFrame {
     });
 
     login_username_field.setText(" Enter your username");
+    login_username_field.addFocusListener(new java.awt.event.FocusAdapter() {
+      public void focusGained(java.awt.event.FocusEvent evt) {
+        login_username_fieldFocusGained(evt);
+      }
+    });
     login_username_field.addKeyListener(new java.awt.event.KeyAdapter() {
       public void keyPressed(java.awt.event.KeyEvent evt) {
         login_username_fieldKeyPressed(evt);
@@ -151,7 +161,7 @@ public class LoginForm extends javax.swing.JFrame {
     // TODO add your handling code here:
     User current_user = Database.getInstance().isUserValid(login_username_field.getText(), String.copyValueOf(login_password_field.getPassword()));
     if(current_user == null) {
-      JOptionPane.showMessageDialog(null, "You entered wrong username or password.\nNo account? You can always register.", "Login error", JOptionPane.INFORMATION_MESSAGE);
+      JOptionPane.showMessageDialog(null, "You entered wrong username or password.\nNo account? You can always register.", "Login error", JOptionPane.ERROR_MESSAGE);
     } else {
       UserController.getInstance().setCurrentUser(current_user);
       // activity switch
@@ -191,6 +201,16 @@ public class LoginForm extends javax.swing.JFrame {
       login_register_buttonMouseClicked(null);
     }
   }//GEN-LAST:event_login_register_buttonKeyPressed
+
+  private void login_username_fieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_login_username_fieldFocusGained
+    // TODO add your handling code here:
+    login_username_field.setText("");
+  }//GEN-LAST:event_login_username_fieldFocusGained
+
+  private void login_password_fieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_login_password_fieldFocusGained
+    // TODO add your handling code here:
+    login_password_field.setText("");
+  }//GEN-LAST:event_login_password_fieldFocusGained
 
   /**
    * @param args the command line arguments
