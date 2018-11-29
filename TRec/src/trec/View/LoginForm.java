@@ -5,6 +5,7 @@
  */
 package trec.View;
 
+import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import trec.Controller.UserController;
@@ -49,11 +50,21 @@ public class LoginForm extends javax.swing.JFrame {
         login_register_buttonMouseClicked(evt);
       }
     });
+    login_register_button.addKeyListener(new java.awt.event.KeyAdapter() {
+      public void keyPressed(java.awt.event.KeyEvent evt) {
+        login_register_buttonKeyPressed(evt);
+      }
+    });
 
     login_login_button.setText("Log in");
     login_login_button.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
         login_login_buttonMouseClicked(evt);
+      }
+    });
+    login_login_button.addKeyListener(new java.awt.event.KeyAdapter() {
+      public void keyPressed(java.awt.event.KeyEvent evt) {
+        login_login_buttonKeyPressed(evt);
       }
     });
 
@@ -62,8 +73,18 @@ public class LoginForm extends javax.swing.JFrame {
     login_password_label.setText("Password:");
 
     login_password_field.setText("jPasswordField1");
+    login_password_field.addKeyListener(new java.awt.event.KeyAdapter() {
+      public void keyPressed(java.awt.event.KeyEvent evt) {
+        login_password_fieldKeyPressed(evt);
+      }
+    });
 
     login_username_field.setText(" Enter your username");
+    login_username_field.addKeyListener(new java.awt.event.KeyAdapter() {
+      public void keyPressed(java.awt.event.KeyEvent evt) {
+        login_username_fieldKeyPressed(evt);
+      }
+    });
 
     login_trec_welcome_label.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
     login_trec_welcome_label.setText("Welcome to T-REC - a tourist recommendation system");
@@ -142,6 +163,34 @@ public class LoginForm extends javax.swing.JFrame {
       this.dispose();
     }
   }//GEN-LAST:event_login_login_buttonMouseClicked
+
+  private void login_login_buttonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_login_login_buttonKeyPressed
+    // TODO add your handling code here:
+    if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+      login_login_buttonMouseClicked(null);
+    }
+  }//GEN-LAST:event_login_login_buttonKeyPressed
+
+  private void login_password_fieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_login_password_fieldKeyPressed
+    // TODO add your handling code here:
+    if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+      login_login_buttonMouseClicked(null);
+    }
+  }//GEN-LAST:event_login_password_fieldKeyPressed
+
+  private void login_username_fieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_login_username_fieldKeyPressed
+    // TODO add your handling code here:
+    if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+      login_login_buttonMouseClicked(null);
+    }
+  }//GEN-LAST:event_login_username_fieldKeyPressed
+
+  private void login_register_buttonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_login_register_buttonKeyPressed
+    // TODO add your handling code here:
+    if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+      login_register_buttonMouseClicked(null);
+    }
+  }//GEN-LAST:event_login_register_buttonKeyPressed
 
   /**
    * @param args the command line arguments

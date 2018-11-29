@@ -16,8 +16,8 @@ public class Helper {
   
   public Helper() {}
   
-  public static boolean isNumeric(String str)
-  {
+  public static boolean isNumeric(String str) {
+    if(str.equals("")) return false;
     NumberFormat formatter = NumberFormat.getInstance();
     ParsePosition pos = new ParsePosition(0);
     formatter.parse(str, pos);

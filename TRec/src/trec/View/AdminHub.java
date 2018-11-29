@@ -161,6 +161,12 @@ public class AdminHub extends javax.swing.JFrame {
 
   private void adminhub_manage_users_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminhub_manage_users_buttonMouseClicked
     // TODO add your handling code here:
+    EditProfileFormAdmin editProfileFormAdmin = new EditProfileFormAdmin();
+    editProfileFormAdmin.setVisible(true);
+    editProfileFormAdmin.pack();
+    editProfileFormAdmin.setLocationRelativeTo(null);
+    editProfileFormAdmin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.dispose();
   }//GEN-LAST:event_adminhub_manage_users_buttonMouseClicked
 
   private void adminhub_manage_hotels_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminhub_manage_hotels_buttonMouseClicked

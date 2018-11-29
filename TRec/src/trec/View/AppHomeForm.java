@@ -19,9 +19,7 @@ public class AppHomeForm extends javax.swing.JFrame {
    */
   public AppHomeForm() {
     initComponents();
-    if(!UserController.getInstance().getCurrentUser().isAdmin()) {
-      home_menu_bar_adminhub.setVisible(false);
-    }
+    home_menu_bar_adminhub.setVisible(UserController.getInstance().getCurrentUser().isAdmin());
   }
   
   /**
@@ -175,6 +173,21 @@ public class AppHomeForm extends javax.swing.JFrame {
 
   private void home_edit_profile_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_home_edit_profile_buttonMouseClicked
     // TODO add your handling code here:
+    if(UserController.getInstance().getCurrentUser().isAdmin()) {
+      EditProfileFormAdmin editProfileFormAdmin = new EditProfileFormAdmin();
+      editProfileFormAdmin.setVisible(true);
+      editProfileFormAdmin.pack();
+      editProfileFormAdmin.setLocationRelativeTo(null);
+      editProfileFormAdmin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      this.dispose();
+    } else {
+      EditProfileFormUser editProfileFormUser = new EditProfileFormUser();
+      editProfileFormUser.setVisible(true);
+      editProfileFormUser.pack();
+      editProfileFormUser.setLocationRelativeTo(null);
+      editProfileFormUser.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      this.dispose();
+    }
   }//GEN-LAST:event_home_edit_profile_buttonMouseClicked
 
   private void home_evaluate_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_home_evaluate_buttonMouseClicked

@@ -130,10 +130,10 @@
     <Component class="javax.swing.JButton" name="register_back_button">
       <Properties>
         <Property name="text" type="java.lang.String" value="Back"/>
-        <Property name="actionCommand" type="java.lang.String" value="Back"/>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="register_back_buttonMouseClicked"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="register_back_buttonKeyPressed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="register_register_button">
@@ -142,6 +142,7 @@
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="register_register_buttonMouseClicked"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="register_register_buttonKeyPressed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="register_first_name_field">
@@ -176,6 +177,9 @@
     <Component class="javax.swing.JFormattedTextField" name="register_age_field">
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="register_occupation_field">
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="register_occupation_fieldKeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="register_first_name_label">
       <Properties>

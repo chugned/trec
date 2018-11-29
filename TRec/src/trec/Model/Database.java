@@ -58,4 +58,26 @@ public class Database {
   public int getNumberOfUsers() {
     return users_list_.size();
   }
+  
+  public ArrayList<User> getUsers() {
+    return users_list_;
+  }
+  
+  public User getUserByUsername(String username) {
+    for(User user : users_list_) {
+      if(user.getUsername().equals(username))
+        return user;
+    }
+    return null;
+  }
+  
+  public void updateUser(User new_user, String username) {
+    for(User old_user : users_list_) {
+      if(old_user.getUsername().equals(username)) {
+        users_list_.remove(old_user);
+        break;
+      }
+    }
+    users_list_.add(new_user);
+  }
 }

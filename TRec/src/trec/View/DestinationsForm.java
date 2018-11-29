@@ -6,6 +6,7 @@
 package trec.View;
 
 import javax.swing.JFrame;
+import trec.Controller.UserController;
 
 /**
  *
@@ -18,6 +19,7 @@ public class DestinationsForm extends javax.swing.JFrame {
    */
   public DestinationsForm() {
     initComponents();
+    destinations_menu_bar_adminhub.setVisible(UserController.getInstance().getCurrentUser().isAdmin());
   }
 
   /**

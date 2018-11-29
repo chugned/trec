@@ -5,6 +5,7 @@
  */
 package trec.Controller;
 
+import java.util.ArrayList;
 import trec.Model.Database;
 import trec.Model.User;
 
@@ -44,5 +45,17 @@ public class UserController {
   
   public int getNumberOfUsers() {
     return Database.getInstance().getNumberOfUsers();
+  }
+  
+  public ArrayList<User> getUsers() {
+    return Database.getInstance().getUsers();
+  }
+  
+  public User getUserByUsername(String username) {
+    return Database.getInstance().getUserByUsername(username);
+  }
+  
+  public void updateUser(User user, String old_username) {
+    Database.getInstance().updateUser(user, old_username);
   }
 }

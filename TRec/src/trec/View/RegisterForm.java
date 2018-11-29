@@ -5,6 +5,7 @@
  */
 package trec.View;
 
+import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import trec.Controller.UserController;
@@ -59,10 +60,14 @@ public class RegisterForm extends javax.swing.JFrame {
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
     register_back_button.setText("Back");
-    register_back_button.setActionCommand("Back");
     register_back_button.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
         register_back_buttonMouseClicked(evt);
+      }
+    });
+    register_back_button.addKeyListener(new java.awt.event.KeyAdapter() {
+      public void keyPressed(java.awt.event.KeyEvent evt) {
+        register_back_buttonKeyPressed(evt);
       }
     });
 
@@ -70,6 +75,11 @@ public class RegisterForm extends javax.swing.JFrame {
     register_register_button.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
         register_register_buttonMouseClicked(evt);
+      }
+    });
+    register_register_button.addKeyListener(new java.awt.event.KeyAdapter() {
+      public void keyPressed(java.awt.event.KeyEvent evt) {
+        register_register_buttonKeyPressed(evt);
       }
     });
 
@@ -81,6 +91,12 @@ public class RegisterForm extends javax.swing.JFrame {
     });
 
     register_gender_combo_box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
+
+    register_occupation_field.addKeyListener(new java.awt.event.KeyAdapter() {
+      public void keyPressed(java.awt.event.KeyEvent evt) {
+        register_occupation_fieldKeyPressed(evt);
+      }
+    });
 
     register_first_name_label.setText("First name:");
 
@@ -254,6 +270,27 @@ public class RegisterForm extends javax.swing.JFrame {
       register_occupation_field.setText("");
     }
   }//GEN-LAST:event_register_register_buttonMouseClicked
+
+  private void register_register_buttonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_register_register_buttonKeyPressed
+    // TODO add your handling code here:
+    if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+      register_register_buttonMouseClicked(null);
+    }
+  }//GEN-LAST:event_register_register_buttonKeyPressed
+
+  private void register_back_buttonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_register_back_buttonKeyPressed
+    // TODO add your handling code here:
+    if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+      register_back_buttonMouseClicked(null);
+    }
+  }//GEN-LAST:event_register_back_buttonKeyPressed
+
+  private void register_occupation_fieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_register_occupation_fieldKeyPressed
+    // TODO add your handling code here:
+    if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+      register_register_buttonMouseClicked(null);
+    }
+  }//GEN-LAST:event_register_occupation_fieldKeyPressed
 
   /**
    * @param args the command line arguments
