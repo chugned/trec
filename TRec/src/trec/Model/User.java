@@ -5,12 +5,13 @@
  */
 package trec.Model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author basic
  */
 public class User {
-  private String first_name_;
   
   public User() {
     this.role_ = "User";
@@ -101,6 +102,7 @@ public class User {
     this.role_ = role;
   }
   
+  private String first_name_;
   private String last_name_;
   private String email_;
   private String username_;
@@ -109,5 +111,4 @@ public class User {
   private int age_;
   private String occupation_;
   private String role_;
-
 }

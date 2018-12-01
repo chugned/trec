@@ -5,21 +5,32 @@
  */
 package trec.View;
 
+import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import trec.Controller.UserController;
+import trec.Model.City;
+import trec.Model.Country;
+import trec.Model.Database;
+import trec.Model.Destination;
 
 /**
  *
  * @author basic
  */
 public class DestinationsForm extends javax.swing.JFrame {
-
+  private Country current_country_;
   /**
    * Creates new form DestinationsForm
    */
   public DestinationsForm() {
     initComponents();
     destinations_menu_bar_adminhub.setVisible(UserController.getInstance().getCurrentUser().isAdmin());
+    ArrayList<Country> country_list = Database.getInstance().getCountrys();
+    country_list.forEach((country) -> {
+      destinations_country_combo_box.addItem(country.getName());
+    });
+    current_country_ = country_list.get(0);
   }
 
   /**
@@ -39,7 +50,7 @@ public class DestinationsForm extends javax.swing.JFrame {
     destinations_list_combo_box = new javax.swing.JComboBox<>();
     jScrollPane1 = new javax.swing.JScrollPane();
     destinations_dest_desc_field = new javax.swing.JTextPane();
-    destinations_cancel_button = new javax.swing.JButton();
+    destinations_back_button = new javax.swing.JButton();
     destinations_bookmark_button = new javax.swing.JButton();
     home_menu_bar = new javax.swing.JMenuBar();
     destinations_menu_bar_logout = new javax.swing.JMenu();
@@ -53,20 +64,31 @@ public class DestinationsForm extends javax.swing.JFrame {
 
     destinations_list_label.setText("List of destinations:");
 
-    destinations_country_combo_box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Austria", "Spain", "United Kingdom", "Germany", "Italy" }));
+    destinations_country_combo_box.addItemListener(new java.awt.event.ItemListener() {
+      public void itemStateChanged(java.awt.event.ItemEvent evt) {
+        destinations_country_combo_boxItemStateChanged(evt);
+      }
+    });
 
-    destinations_city_combo_box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Graz", "Vienna", "Salzburg" }));
+    destinations_city_combo_box.addItemListener(new java.awt.event.ItemListener() {
+      public void itemStateChanged(java.awt.event.ItemEvent evt) {
+        destinations_city_combo_boxItemStateChanged(evt);
+      }
+    });
 
-    destinations_list_combo_box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Schlossberg", "Augarten Park", "Stadtpark", "Mur Insel" }));
+    destinations_list_combo_box.addItemListener(new java.awt.event.ItemListener() {
+      public void itemStateChanged(java.awt.event.ItemEvent evt) {
+        destinations_list_combo_boxItemStateChanged(evt);
+      }
+    });
 
     destinations_dest_desc_field.setEditable(false);
-    destinations_dest_desc_field.setText("The \"Schlossberg\" is one of the most attractive places one can visit in Graz. A great location that gives you a beautiful view to the whole town. There are several way one can get to the Schlossberg: by walking, by a lift or by a railee...");
     jScrollPane1.setViewportView(destinations_dest_desc_field);
 
-    destinations_cancel_button.setText("Cancel");
-    destinations_cancel_button.addMouseListener(new java.awt.event.MouseAdapter() {
+    destinations_back_button.setText("Back");
+    destinations_back_button.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
-        destinations_cancel_buttonMouseClicked(evt);
+        destinations_back_buttonMouseClicked(evt);
       }
     });
 
@@ -103,7 +125,7 @@ public class DestinationsForm extends javax.swing.JFrame {
         .addGap(17, 17, 17)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
           .addGroup(layout.createSequentialGroup()
-            .addComponent(destinations_cancel_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(destinations_back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGap(181, 181, 181)
             .addComponent(destinations_bookmark_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
           .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -139,7 +161,7 @@ public class DestinationsForm extends javax.swing.JFrame {
         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addGap(18, 18, 18)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(destinations_cancel_button)
+          .addComponent(destinations_back_button)
           .addComponent(destinations_bookmark_button))
         .addContainerGap(20, Short.MAX_VALUE))
     );
@@ -157,7 +179,7 @@ public class DestinationsForm extends javax.swing.JFrame {
     this.dispose();
   }//GEN-LAST:event_destinations_menu_bar_logoutMouseClicked
 
-  private void destinations_cancel_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_destinations_cancel_buttonMouseClicked
+  private void destinations_back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_destinations_back_buttonMouseClicked
     // TODO add your handling code here:
     AppHomeForm app_home_form = new AppHomeForm();
     app_home_form.setVisible(true);
@@ -165,10 +187,20 @@ public class DestinationsForm extends javax.swing.JFrame {
     app_home_form.setLocationRelativeTo(null);
     app_home_form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.dispose();
-  }//GEN-LAST:event_destinations_cancel_buttonMouseClicked
+  }//GEN-LAST:event_destinations_back_buttonMouseClicked
 
   private void destinations_bookmark_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_destinations_bookmark_buttonMouseClicked
     // TODO add your handling code here:
+    Destination destination = new Destination();
+    destination.setName(destinations_list_combo_box.getSelectedItem().toString());
+    destination.setDescription(destinations_dest_desc_field.getText());
+    
+    if(UserController.getInstance().addDestinationBookmark(destination, 
+            UserController.getInstance().getCurrentUser())) {
+      JOptionPane.showMessageDialog(null, "Bookmark added!", "Success!", JOptionPane.INFORMATION_MESSAGE);
+    } else {
+      JOptionPane.showMessageDialog(null, "Bookmark already exists!", "Bookmark error", JOptionPane.ERROR_MESSAGE);
+    }
   }//GEN-LAST:event_destinations_bookmark_buttonMouseClicked
 
   private void destinations_menu_bar_adminhubMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_destinations_menu_bar_adminhubMouseClicked
@@ -180,6 +212,55 @@ public class DestinationsForm extends javax.swing.JFrame {
     admin_hub.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.dispose();
   }//GEN-LAST:event_destinations_menu_bar_adminhubMouseClicked
+
+  private void destinations_country_combo_boxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_destinations_country_combo_boxItemStateChanged
+    // TODO add your handling code here:
+    String current_country_name = destinations_country_combo_box.getSelectedItem().toString();
+    current_country_ = UserController.getInstance().getCountryByName(current_country_name); 
+    ArrayList<City> city_list = current_country_.getCities();
+    destinations_city_combo_box.removeAllItems();
+    city_list.forEach((city) -> {
+      destinations_city_combo_box.addItem(city.getName());
+    });
+    
+    destinations_list_combo_box.removeAllItems();
+    ArrayList<Destination> destination_list = city_list.get(0).getDestinations();
+    destination_list.forEach((destination) -> {
+      destinations_list_combo_box.addItem(destination.getName());
+    });
+    
+    destinations_dest_desc_field.setText(destination_list.get(0).getDescription());
+  }//GEN-LAST:event_destinations_country_combo_boxItemStateChanged
+
+  private void destinations_city_combo_boxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_destinations_city_combo_boxItemStateChanged
+    // TODO add your handling code here:
+    ArrayList<City> city_list = current_country_.getCities();
+    int index = destinations_city_combo_box.getSelectedIndex();
+    City current_city;
+    if(index >= 0)
+      current_city = city_list.get(index);
+    else
+      current_city = city_list.get(0);
+    destinations_list_combo_box.removeAllItems();
+    ArrayList<Destination> destination_list = current_city.getDestinations();
+    destination_list.forEach((destination) -> {
+      destinations_list_combo_box.addItem(destination.getName());
+    });
+    
+    destinations_dest_desc_field.setText(destination_list.get(0).getDescription());
+  }//GEN-LAST:event_destinations_city_combo_boxItemStateChanged
+
+  private void destinations_list_combo_boxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_destinations_list_combo_boxItemStateChanged
+    // TODO add your handling code here:
+    ArrayList<City> city_list = current_country_.getCities();
+    City current_city = city_list.get(destinations_city_combo_box.getSelectedIndex());
+    ArrayList<Destination> destination_list = current_city.getDestinations();
+    int index = destinations_list_combo_box.getSelectedIndex();
+    if(index >= 0)
+      destinations_dest_desc_field.setText(destination_list.get(index).getDescription());
+    else
+      destinations_dest_desc_field.setText(destination_list.get(0).getDescription());
+  }//GEN-LAST:event_destinations_list_combo_boxItemStateChanged
 
   /**
    * @param args the command line arguments
@@ -217,8 +298,8 @@ public class DestinationsForm extends javax.swing.JFrame {
   }
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
+  private javax.swing.JButton destinations_back_button;
   private javax.swing.JButton destinations_bookmark_button;
-  private javax.swing.JButton destinations_cancel_button;
   private javax.swing.JLabel destinations_choose_city_label;
   private javax.swing.JLabel destinations_choose_country_label;
   private javax.swing.JComboBox<String> destinations_city_combo_box;

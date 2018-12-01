@@ -68,6 +68,7 @@
                                   <Component id="home_evaluate_button" min="-2" pref="210" max="-2" attributes="0"/>
                                   <Component id="home_search_destinations_button" min="-2" pref="210" max="-2" attributes="0"/>
                                   <Component id="home_acommondations_button" min="-2" pref="210" max="-2" attributes="0"/>
+                                  <Component id="home_bookmarks_button" min="-2" pref="210" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -95,12 +96,15 @@
                   <Component id="home_search_destinations_button" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="home_statistics_button" alignment="3" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="home_evaluate_button" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="home_statistics_button" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-              <Component id="home_evaluate_hotels_button" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="home_evaluate_hotels_button" min="-2" max="-2" attributes="0"/>
+                  <Component id="home_bookmarks_button" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace pref="26" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -181,6 +185,14 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Hi &lt;first_name&gt;, welcome to T-REC!"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="home_bookmarks_button">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="My bookmarks"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="home_bookmarks_buttonMouseClicked"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

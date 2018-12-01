@@ -47,119 +47,131 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="acommondations_cancel_button" min="-2" pref="121" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="back_button" min="-2" pref="121" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="181" max="-2" attributes="0"/>
-                      <Component id="acommondations_book_button" min="-2" pref="121" max="-2" attributes="0"/>
+                      <Component id="bookmark_button" min="-2" pref="121" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jScrollPane1" max="32767" attributes="0"/>
-                      <Group type="102" attributes="0">
+                  <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jScrollPane1" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="accommondations_choose_country_label" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="accommondations_choose_city_label" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="accommondations_hotels_label" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="choose_country_label" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="choose_city_label" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="destinations_list_label" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="accommondations_hotels_combo_box" alignment="0" min="-2" pref="219" max="-2" attributes="0"/>
-                              <Component id="accommondations_city_combo_box" alignment="0" min="-2" pref="219" max="-2" attributes="0"/>
-                              <Component id="accommondations_country_combo_box" alignment="0" min="-2" pref="219" max="-2" attributes="0"/>
+                              <Component id="accommodations_list_combo_box" alignment="0" min="-2" pref="219" max="-2" attributes="0"/>
+                              <Component id="city_combo_box" alignment="0" min="-2" pref="219" max="-2" attributes="0"/>
+                              <Component id="country_combo_box" alignment="0" min="-2" pref="219" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="21" max="32767" attributes="0"/>
+              <EmptySpace pref="17" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="accommondations_choose_country_label" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="accommondations_country_combo_box" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="choose_country_label" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="country_combo_box" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="accommondations_choose_city_label" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="accommondations_city_combo_box" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="choose_city_label" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="city_combo_box" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="accommondations_hotels_label" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="accommondations_hotels_combo_box" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="destinations_list_label" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="accommodations_list_combo_box" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="217" max="-2" attributes="0"/>
-              <EmptySpace pref="33" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="acommondations_cancel_button" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="acommondations_book_button" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="back_button" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="bookmark_button" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+              <EmptySpace pref="14" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="accommondations_choose_country_label">
+    <Component class="javax.swing.JButton" name="back_button">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Back"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="back_buttonMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="bookmark_button">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Bookmark"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="bookmark_buttonMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="choose_country_label">
       <Properties>
         <Property name="text" type="java.lang.String" value="Choose your destination country:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="accommondations_country_combo_box">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="5">
-            <StringItem index="0" value="Austria"/>
-            <StringItem index="1" value="Spain"/>
-            <StringItem index="2" value="United Kingdom"/>
-            <StringItem index="3" value="Germany"/>
-            <StringItem index="4" value="Italy"/>
-          </StringArray>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JLabel" name="accommondations_choose_city_label">
+    <Component class="javax.swing.JLabel" name="choose_city_label">
       <Properties>
         <Property name="text" type="java.lang.String" value="Choose a city:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="accommondations_city_combo_box">
+    <Component class="javax.swing.JLabel" name="destinations_list_label">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="List of accommodations:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="country_combo_box">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="3">
-            <StringItem index="0" value="Graz"/>
-            <StringItem index="1" value="Vienna"/>
-            <StringItem index="2" value="Salzburg"/>
-          </StringArray>
+          <StringArray count="0"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="country_combo_boxItemStateChanged"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JLabel" name="accommondations_hotels_label">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="List of hotels:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="accommondations_hotels_combo_box">
+    <Component class="javax.swing.JComboBox" name="city_combo_box">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="2">
-            <StringItem index="0" value="IBIS Hotel"/>
-            <StringItem index="1" value="Jufa Hotel"/>
-          </StringArray>
+          <StringArray count="0"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="city_combo_boxItemStateChanged"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="accommodations_list_combo_box">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="accommodations_list_combo_boxItemStateChanged"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
@@ -171,29 +183,12 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextPane" name="acommondations_hotel_desc_field">
+        <Component class="javax.swing.JTextPane" name="desc_field">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
-            <Property name="text" type="java.lang.String" value="The IBIS hotel was built in year 2008. It has 56 rooms ..."/>
           </Properties>
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="acommondations_cancel_button">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Cancel"/>
-      </Properties>
-      <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="acommondations_cancel_buttonMouseClicked"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="acommondations_book_button">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Book a staying"/>
-      </Properties>
-      <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="acommondations_book_buttonMouseClicked"/>
-      </Events>
-    </Component>
   </SubComponents>
 </Form>

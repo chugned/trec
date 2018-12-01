@@ -50,7 +50,7 @@
               <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="destinations_cancel_button" min="-2" pref="121" max="-2" attributes="0"/>
+                      <Component id="destinations_back_button" min="-2" pref="121" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="181" max="-2" attributes="0"/>
                       <Component id="destinations_bookmark_button" min="-2" pref="121" max="-2" attributes="0"/>
                   </Group>
@@ -97,7 +97,7 @@
               <Component id="jScrollPane1" min="-2" pref="217" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="destinations_cancel_button" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="destinations_back_button" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="destinations_bookmark_button" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="20" max="32767" attributes="0"/>
@@ -124,15 +124,12 @@
     <Component class="javax.swing.JComboBox" name="destinations_country_combo_box">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="5">
-            <StringItem index="0" value="Austria"/>
-            <StringItem index="1" value="Spain"/>
-            <StringItem index="2" value="United Kingdom"/>
-            <StringItem index="3" value="Germany"/>
-            <StringItem index="4" value="Italy"/>
-          </StringArray>
+          <StringArray count="0"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="destinations_country_combo_boxItemStateChanged"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
@@ -140,13 +137,12 @@
     <Component class="javax.swing.JComboBox" name="destinations_city_combo_box">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="3">
-            <StringItem index="0" value="Graz"/>
-            <StringItem index="1" value="Vienna"/>
-            <StringItem index="2" value="Salzburg"/>
-          </StringArray>
+          <StringArray count="0"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="destinations_city_combo_boxItemStateChanged"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
@@ -154,14 +150,12 @@
     <Component class="javax.swing.JComboBox" name="destinations_list_combo_box">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Schlossberg"/>
-            <StringItem index="1" value="Augarten Park"/>
-            <StringItem index="2" value="Stadtpark"/>
-            <StringItem index="3" value="Mur Insel"/>
-          </StringArray>
+          <StringArray count="0"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="destinations_list_combo_boxItemStateChanged"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
@@ -176,17 +170,16 @@
         <Component class="javax.swing.JTextPane" name="destinations_dest_desc_field">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
-            <Property name="text" type="java.lang.String" value="The &quot;Schlossberg&quot; is one of the most attractive places one can visit in Graz. A great location that gives you a beautiful view to the whole town. There are several way one can get to the Schlossberg: by walking, by a lift or by a railee..."/>
           </Properties>
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="destinations_cancel_button">
+    <Component class="javax.swing.JButton" name="destinations_back_button">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Cancel"/>
+        <Property name="text" type="java.lang.String" value="Back"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="destinations_cancel_buttonMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="destinations_back_buttonMouseClicked"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="destinations_bookmark_button">

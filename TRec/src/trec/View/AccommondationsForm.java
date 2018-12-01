@@ -5,21 +5,36 @@
  */
 package trec.View;
 
+import java.awt.ComponentOrientation;
+import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import trec.Controller.UserController;
+import trec.Model.Accommodation;
+import trec.Model.City;
+import trec.Model.Country;
+import trec.Model.Database;
 
 /**
  *
  * @author basic
  */
 public class AccommondationsForm extends javax.swing.JFrame {
-
+  private Country current_country_;
   /**
    * Creates new form AccommondationsFrom
    */
   public AccommondationsForm() {
     initComponents();
     acommondations_menu_bar_adminhub.setVisible(UserController.getInstance().getCurrentUser().isAdmin());
+    ArrayList<Country> country_list = Database.getInstance().getCountrys();
+    country_list.forEach((country) -> {
+      country_combo_box.addItem(country.getName());
+    });
+    current_country_ = country_list.get(0);
   }
 
   /**
@@ -31,51 +46,62 @@ public class AccommondationsForm extends javax.swing.JFrame {
   // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
   private void initComponents() {
 
-    accommondations_choose_country_label = new javax.swing.JLabel();
-    accommondations_country_combo_box = new javax.swing.JComboBox<>();
-    accommondations_choose_city_label = new javax.swing.JLabel();
-    accommondations_city_combo_box = new javax.swing.JComboBox<>();
-    accommondations_hotels_label = new javax.swing.JLabel();
-    accommondations_hotels_combo_box = new javax.swing.JComboBox<>();
+    back_button = new javax.swing.JButton();
+    bookmark_button = new javax.swing.JButton();
+    choose_country_label = new javax.swing.JLabel();
+    choose_city_label = new javax.swing.JLabel();
+    destinations_list_label = new javax.swing.JLabel();
+    country_combo_box = new javax.swing.JComboBox<>();
+    city_combo_box = new javax.swing.JComboBox<>();
+    accommodations_list_combo_box = new javax.swing.JComboBox<>();
     jScrollPane1 = new javax.swing.JScrollPane();
-    acommondations_hotel_desc_field = new javax.swing.JTextPane();
-    acommondations_cancel_button = new javax.swing.JButton();
-    acommondations_book_button = new javax.swing.JButton();
+    desc_field = new javax.swing.JTextPane();
     accommondations_menu_bar = new javax.swing.JMenuBar();
     acommondations_menu_bar_logout = new javax.swing.JMenu();
     acommondations_menu_bar_adminhub = new javax.swing.JMenu();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-    accommondations_choose_country_label.setText("Choose your destination country:");
-
-    accommondations_country_combo_box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Austria", "Spain", "United Kingdom", "Germany", "Italy" }));
-
-    accommondations_choose_city_label.setText("Choose a city:");
-
-    accommondations_city_combo_box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Graz", "Vienna", "Salzburg" }));
-
-    accommondations_hotels_label.setText("List of hotels:");
-
-    accommondations_hotels_combo_box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "IBIS Hotel", "Jufa Hotel" }));
-
-    acommondations_hotel_desc_field.setEditable(false);
-    acommondations_hotel_desc_field.setText("The IBIS hotel was built in year 2008. It has 56 rooms ...");
-    jScrollPane1.setViewportView(acommondations_hotel_desc_field);
-
-    acommondations_cancel_button.setText("Cancel");
-    acommondations_cancel_button.addMouseListener(new java.awt.event.MouseAdapter() {
+    back_button.setText("Back");
+    back_button.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
-        acommondations_cancel_buttonMouseClicked(evt);
+        back_buttonMouseClicked(evt);
       }
     });
 
-    acommondations_book_button.setText("Book a staying");
-    acommondations_book_button.addMouseListener(new java.awt.event.MouseAdapter() {
+    bookmark_button.setText("Bookmark");
+    bookmark_button.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
-        acommondations_book_buttonMouseClicked(evt);
+        bookmark_buttonMouseClicked(evt);
       }
     });
+
+    choose_country_label.setText("Choose your destination country:");
+
+    choose_city_label.setText("Choose a city:");
+
+    destinations_list_label.setText("List of accommodations:");
+
+    country_combo_box.addItemListener(new java.awt.event.ItemListener() {
+      public void itemStateChanged(java.awt.event.ItemEvent evt) {
+        country_combo_boxItemStateChanged(evt);
+      }
+    });
+
+    city_combo_box.addItemListener(new java.awt.event.ItemListener() {
+      public void itemStateChanged(java.awt.event.ItemEvent evt) {
+        city_combo_boxItemStateChanged(evt);
+      }
+    });
+
+    accommodations_list_combo_box.addItemListener(new java.awt.event.ItemListener() {
+      public void itemStateChanged(java.awt.event.ItemEvent evt) {
+        accommodations_list_combo_boxItemStateChanged(evt);
+      }
+    });
+
+    desc_field.setEditable(false);
+    jScrollPane1.setViewportView(desc_field);
 
     acommondations_menu_bar_logout.setText("Logout");
     acommondations_menu_bar_logout.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -100,48 +126,48 @@ public class AccommondationsForm extends javax.swing.JFrame {
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addGap(30, 30, 30)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGap(17, 17, 17)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
           .addGroup(layout.createSequentialGroup()
-            .addComponent(acommondations_cancel_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGap(181, 181, 181)
-            .addComponent(acommondations_book_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(bookmark_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
           .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
               .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(accommondations_choose_country_label)
-                .addComponent(accommondations_choose_city_label)
-                .addComponent(accommondations_hotels_label))
+                .addComponent(choose_country_label)
+                .addComponent(choose_city_label)
+                .addComponent(destinations_list_label))
               .addGap(18, 18, 18)
               .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(accommondations_hotels_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(accommondations_city_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(accommondations_country_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-        .addContainerGap(21, Short.MAX_VALUE))
+                .addComponent(accommodations_list_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(city_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(country_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+        .addContainerGap(17, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addGap(23, 23, 23)
+        .addGap(20, 20, 20)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(accommondations_choose_country_label)
-          .addComponent(accommondations_country_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addComponent(choose_country_label)
+          .addComponent(country_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addGap(18, 18, 18)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(accommondations_choose_city_label)
-          .addComponent(accommondations_city_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addComponent(choose_city_label)
+          .addComponent(city_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addGap(18, 18, 18)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(accommondations_hotels_label)
-          .addComponent(accommondations_hotels_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addComponent(destinations_list_label)
+          .addComponent(accommodations_list_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addGap(18, 18, 18)
         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+        .addGap(18, 18, 18)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(acommondations_cancel_button)
-          .addComponent(acommondations_book_button))
-        .addGap(24, 24, 24))
+          .addComponent(back_button)
+          .addComponent(bookmark_button))
+        .addContainerGap(14, Short.MAX_VALUE))
     );
 
     pack();
@@ -157,20 +183,6 @@ public class AccommondationsForm extends javax.swing.JFrame {
     this.dispose();
   }//GEN-LAST:event_acommondations_menu_bar_logoutMouseClicked
 
-  private void acommondations_cancel_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acommondations_cancel_buttonMouseClicked
-    // TODO add your handling code here:
-    AppHomeForm app_home_form = new AppHomeForm();
-    app_home_form.setVisible(true);
-    app_home_form.pack();
-    app_home_form.setLocationRelativeTo(null);
-    app_home_form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    this.dispose();
-  }//GEN-LAST:event_acommondations_cancel_buttonMouseClicked
-
-  private void acommondations_book_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acommondations_book_buttonMouseClicked
-    // TODO add your handling code here:
-  }//GEN-LAST:event_acommondations_book_buttonMouseClicked
-
   private void acommondations_menu_bar_adminhubMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acommondations_menu_bar_adminhubMouseClicked
     // TODO add your handling code here:
     AdminHub admin_hub = new AdminHub();
@@ -180,6 +192,78 @@ public class AccommondationsForm extends javax.swing.JFrame {
     admin_hub.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.dispose();
   }//GEN-LAST:event_acommondations_menu_bar_adminhubMouseClicked
+
+  private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
+    // TODO add your handling code here:
+    AppHomeForm app_home_form = new AppHomeForm();
+    app_home_form.setVisible(true);
+    app_home_form.pack();
+    app_home_form.setLocationRelativeTo(null);
+    app_home_form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.dispose();
+  }//GEN-LAST:event_back_buttonMouseClicked
+
+  private void bookmark_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bookmark_buttonMouseClicked
+    // TODO add your handling code here:
+    Accommodation accommodation = new Accommodation();
+    accommodation.setName(accommodations_list_combo_box.getSelectedItem().toString());
+    accommodation.setDescription(desc_field.getText());
+    
+    if(UserController.getInstance().addAccommodationBookmark(accommodation, 
+            UserController.getInstance().getCurrentUser())) {
+      JOptionPane.showMessageDialog(null, "Bookmark added!", "Success!", JOptionPane.INFORMATION_MESSAGE);
+    } else {
+      JOptionPane.showMessageDialog(null, "Bookmark already exists!", "Bookmark error", JOptionPane.ERROR_MESSAGE);
+    }
+  }//GEN-LAST:event_bookmark_buttonMouseClicked
+
+  private void country_combo_boxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_country_combo_boxItemStateChanged
+    // TODO add your handling code here:
+    String current_country_name = country_combo_box.getSelectedItem().toString();
+    current_country_ = UserController.getInstance().getCountryByName(current_country_name); 
+    ArrayList<City> city_list = current_country_.getCities();
+    city_combo_box.removeAllItems();
+    city_list.forEach((city) -> {
+      city_combo_box.addItem(city.getName());
+    });
+    accommodations_list_combo_box.removeAllItems();
+    ArrayList<Accommodation> accommodation_list = city_list.get(0).getAccommodations();
+    accommodation_list.forEach((accommodation) -> {
+      accommodations_list_combo_box.addItem(accommodation.getName());
+    });
+    
+    desc_field.setText(accommodation_list.get(0).getDescription());
+  }//GEN-LAST:event_country_combo_boxItemStateChanged
+
+  private void city_combo_boxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_city_combo_boxItemStateChanged
+    // TODO add your handling code here:
+    ArrayList<City> city_list = current_country_.getCities();
+    int index = city_combo_box.getSelectedIndex();
+    City current_city;
+    if(index >= 0)
+      current_city = city_list.get(index);
+    else
+      current_city = city_list.get(0);
+    accommodations_list_combo_box.removeAllItems();
+    ArrayList<Accommodation> accommodation_list = current_city.getAccommodations();
+    accommodation_list.forEach((accommodation) -> {
+      accommodations_list_combo_box.addItem(accommodation.getName());
+    });
+    
+    desc_field.setText(accommodation_list.get(0).getDescription());
+  }//GEN-LAST:event_city_combo_boxItemStateChanged
+
+  private void accommodations_list_combo_boxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_accommodations_list_combo_boxItemStateChanged
+    // TODO add your handling code here:
+    ArrayList<City> city_list = current_country_.getCities();
+    City current_city = city_list.get(city_combo_box.getSelectedIndex());
+    ArrayList<Accommodation> accommodation_list = current_city.getAccommodations();
+    int index = accommodations_list_combo_box.getSelectedIndex();
+    if(index >= 0)
+      desc_field.setText(accommodation_list.get(index).getDescription());
+    else
+      desc_field.setText(accommodation_list.get(0).getDescription());
+  }//GEN-LAST:event_accommodations_list_combo_boxItemStateChanged
 
   /**
    * @param args the command line arguments
@@ -218,18 +302,18 @@ public class AccommondationsForm extends javax.swing.JFrame {
   }
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
-  private javax.swing.JLabel accommondations_choose_city_label;
-  private javax.swing.JLabel accommondations_choose_country_label;
-  private javax.swing.JComboBox<String> accommondations_city_combo_box;
-  private javax.swing.JComboBox<String> accommondations_country_combo_box;
-  private javax.swing.JComboBox<String> accommondations_hotels_combo_box;
-  private javax.swing.JLabel accommondations_hotels_label;
+  private javax.swing.JComboBox<String> accommodations_list_combo_box;
   private javax.swing.JMenuBar accommondations_menu_bar;
-  private javax.swing.JButton acommondations_book_button;
-  private javax.swing.JButton acommondations_cancel_button;
-  private javax.swing.JTextPane acommondations_hotel_desc_field;
   private javax.swing.JMenu acommondations_menu_bar_adminhub;
   private javax.swing.JMenu acommondations_menu_bar_logout;
+  private javax.swing.JButton back_button;
+  private javax.swing.JButton bookmark_button;
+  private javax.swing.JLabel choose_city_label;
+  private javax.swing.JLabel choose_country_label;
+  private javax.swing.JComboBox<String> city_combo_box;
+  private javax.swing.JComboBox<String> country_combo_box;
+  private javax.swing.JTextPane desc_field;
+  private javax.swing.JLabel destinations_list_label;
   private javax.swing.JScrollPane jScrollPane1;
   // End of variables declaration//GEN-END:variables
 }

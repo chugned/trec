@@ -44,6 +44,7 @@ public class AppHomeForm extends javax.swing.JFrame {
     home_evaluate_hotels_button = new javax.swing.JButton();
     home_acommondations_button = new javax.swing.JButton();
     home_greet_label = new javax.swing.JLabel();
+    home_bookmarks_button = new javax.swing.JButton();
     home_menu_bar = new javax.swing.JMenuBar();
     home_menu_bar_logout = new javax.swing.JMenu();
     home_menu_bar_adminhub = new javax.swing.JMenu();
@@ -120,6 +121,13 @@ public class AppHomeForm extends javax.swing.JFrame {
     home_greet_label.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
     home_greet_label.setText("Hi <first_name>, welcome to T-REC!");
 
+    home_bookmarks_button.setText("My bookmarks");
+    home_bookmarks_button.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        home_bookmarks_buttonMouseClicked(evt);
+      }
+    });
+
     home_menu_bar_logout.setText("Logout");
     home_menu_bar_logout.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -161,7 +169,8 @@ public class AppHomeForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                   .addComponent(home_evaluate_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                   .addComponent(home_search_destinations_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addComponent(home_acommondations_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                  .addComponent(home_acommondations_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addComponent(home_bookmarks_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))))))
         .addContainerGap(16, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
@@ -180,11 +189,13 @@ public class AppHomeForm extends javax.swing.JFrame {
           .addComponent(home_get_recommendations_button)
           .addComponent(home_search_destinations_button))
         .addGap(18, 18, 18)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(home_statistics_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-          .addComponent(home_evaluate_button))
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(home_evaluate_button)
+          .addComponent(home_statistics_button))
         .addGap(18, 18, 18)
-        .addComponent(home_evaluate_hotels_button)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(home_evaluate_hotels_button)
+          .addComponent(home_bookmarks_button))
         .addContainerGap(26, Short.MAX_VALUE))
     );
 
@@ -288,6 +299,16 @@ public class AppHomeForm extends javax.swing.JFrame {
     }
   }//GEN-LAST:event_home_search_destinations_buttonKeyPressed
 
+  private void home_bookmarks_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_home_bookmarks_buttonMouseClicked
+    // TODO add your handling code here:
+    BookmarksForm bookmark = new BookmarksForm();
+    bookmark.setVisible(true);
+    bookmark.pack();
+    bookmark.setLocationRelativeTo(null);
+    bookmark.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.dispose();
+  }//GEN-LAST:event_home_bookmarks_buttonMouseClicked
+
   /**
    * @param args the command line arguments
    */
@@ -325,6 +346,7 @@ public class AppHomeForm extends javax.swing.JFrame {
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton home_acommondations_button;
+  private javax.swing.JButton home_bookmarks_button;
   private javax.swing.JButton home_edit_profile_button;
   private javax.swing.JButton home_evaluate_button;
   private javax.swing.JButton home_evaluate_hotels_button;
