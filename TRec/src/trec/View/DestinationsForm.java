@@ -11,7 +11,6 @@ import javax.swing.JOptionPane;
 import trec.Controller.UserController;
 import trec.Model.City;
 import trec.Model.Country;
-import trec.Model.Database;
 import trec.Model.Destination;
 
 /**
@@ -26,7 +25,7 @@ public class DestinationsForm extends javax.swing.JFrame {
   public DestinationsForm() {
     initComponents();
     destinations_menu_bar_adminhub.setVisible(UserController.getInstance().getCurrentUser().isAdmin());
-    ArrayList<Country> country_list = Database.getInstance().getCountrys();
+    ArrayList<Country> country_list = UserController.getInstance().getCountrys();
     country_list.forEach((country) -> {
       destinations_country_combo_box.addItem(country.getName());
     });
@@ -224,12 +223,15 @@ public class DestinationsForm extends javax.swing.JFrame {
     });
     
     destinations_list_combo_box.removeAllItems();
-    ArrayList<Destination> destination_list = city_list.get(0).getDestinations();
-    destination_list.forEach((destination) -> {
-      destinations_list_combo_box.addItem(destination.getName());
-    });
-    
-    destinations_dest_desc_field.setText(destination_list.get(0).getDescription());
+    ArrayList<Destination> destination_list = city_list.get(0).getDestinations(); 
+    if(destination_list.isEmpty()) {
+      destinations_dest_desc_field.setText("No item selected.");
+    } else {
+      destination_list.forEach((destination) -> {
+        destinations_list_combo_box.addItem(destination.getName());
+      });
+      destinations_dest_desc_field.setText(destination_list.get(0).getDescription());
+    }
   }//GEN-LAST:event_destinations_country_combo_boxItemStateChanged
 
   private void destinations_city_combo_boxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_destinations_city_combo_boxItemStateChanged
@@ -243,11 +245,14 @@ public class DestinationsForm extends javax.swing.JFrame {
       current_city = city_list.get(0);
     destinations_list_combo_box.removeAllItems();
     ArrayList<Destination> destination_list = current_city.getDestinations();
-    destination_list.forEach((destination) -> {
-      destinations_list_combo_box.addItem(destination.getName());
-    });
-    
-    destinations_dest_desc_field.setText(destination_list.get(0).getDescription());
+    if(!destination_list.isEmpty()) {
+      destination_list.forEach((destination) -> {
+        destinations_list_combo_box.addItem(destination.getName());
+      });
+      destinations_dest_desc_field.setText(destination_list.get(0).getDescription());
+    } else {
+      destinations_dest_desc_field.setText("No item selected");
+    }
   }//GEN-LAST:event_destinations_city_combo_boxItemStateChanged
 
   private void destinations_list_combo_boxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_destinations_list_combo_boxItemStateChanged
@@ -255,11 +260,15 @@ public class DestinationsForm extends javax.swing.JFrame {
     ArrayList<City> city_list = current_country_.getCities();
     City current_city = city_list.get(destinations_city_combo_box.getSelectedIndex());
     ArrayList<Destination> destination_list = current_city.getDestinations();
-    int index = destinations_list_combo_box.getSelectedIndex();
-    if(index >= 0)
-      destinations_dest_desc_field.setText(destination_list.get(index).getDescription());
-    else
-      destinations_dest_desc_field.setText(destination_list.get(0).getDescription());
+    if(destination_list.isEmpty()) {
+      destinations_dest_desc_field.setText("No item selected.");
+    } else {
+      int index = destinations_list_combo_box.getSelectedIndex();
+      if(index >= 0)
+        destinations_dest_desc_field.setText(destination_list.get(index).getDescription());
+      else
+        destinations_dest_desc_field.setText("No item selected.");
+    }
   }//GEN-LAST:event_destinations_list_combo_boxItemStateChanged
 
   /**

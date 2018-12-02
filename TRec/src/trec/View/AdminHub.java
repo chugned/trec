@@ -31,7 +31,7 @@ public class AdminHub extends javax.swing.JFrame {
 
     adminhub_back_button = new javax.swing.JButton();
     adminhub_manage_users_button = new javax.swing.JButton();
-    adminhub_manage_hotels_button = new javax.swing.JButton();
+    adminhub_manage_accommodations_button = new javax.swing.JButton();
     adminhub_manage_destinations_button = new javax.swing.JButton();
     adminhub_manage_evaluations_button = new javax.swing.JButton();
     adminhub_statistics_button = new javax.swing.JButton();
@@ -55,10 +55,10 @@ public class AdminHub extends javax.swing.JFrame {
       }
     });
 
-    adminhub_manage_hotels_button.setText("Manage hotels");
-    adminhub_manage_hotels_button.addMouseListener(new java.awt.event.MouseAdapter() {
+    adminhub_manage_accommodations_button.setText("Manage accommodations");
+    adminhub_manage_accommodations_button.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
-        adminhub_manage_hotels_buttonMouseClicked(evt);
+        adminhub_manage_accommodations_buttonMouseClicked(evt);
       }
     });
 
@@ -107,7 +107,7 @@ public class AdminHub extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
               .addComponent(adminhub_manage_evaluations_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
               .addComponent(adminhub_statistics_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-              .addComponent(adminhub_manage_hotels_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+              .addComponent(adminhub_manage_accommodations_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
               .addComponent(adminhub_manage_users_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
               .addComponent(adminhub_manage_destinations_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
               .addComponent(adminhub_back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -124,7 +124,7 @@ public class AdminHub extends javax.swing.JFrame {
         .addGap(18, 18, 18)
         .addComponent(adminhub_manage_users_button)
         .addGap(18, 18, 18)
-        .addComponent(adminhub_manage_hotels_button)
+        .addComponent(adminhub_manage_accommodations_button)
         .addGap(18, 18, 18)
         .addComponent(adminhub_statistics_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         .addGap(18, 18, 18)
@@ -169,12 +169,24 @@ public class AdminHub extends javax.swing.JFrame {
     this.dispose();
   }//GEN-LAST:event_adminhub_manage_users_buttonMouseClicked
 
-  private void adminhub_manage_hotels_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminhub_manage_hotels_buttonMouseClicked
+  private void adminhub_manage_accommodations_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminhub_manage_accommodations_buttonMouseClicked
     // TODO add your handling code here:
-  }//GEN-LAST:event_adminhub_manage_hotels_buttonMouseClicked
+    ManageAccommodations manage_accommodations = new ManageAccommodations();
+    manage_accommodations.setVisible(true);
+    manage_accommodations.pack();
+    manage_accommodations.setLocationRelativeTo(null);
+    manage_accommodations.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.dispose();
+  }//GEN-LAST:event_adminhub_manage_accommodations_buttonMouseClicked
 
   private void adminhub_manage_destinations_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminhub_manage_destinations_buttonMouseClicked
     // TODO add your handling code here:
+    ManageDestinations manage_destinations = new ManageDestinations();
+    manage_destinations.setVisible(true);
+    manage_destinations.pack();
+    manage_destinations.setLocationRelativeTo(null);
+    manage_destinations.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.dispose();
   }//GEN-LAST:event_adminhub_manage_destinations_buttonMouseClicked
 
   private void adminhub_manage_evaluations_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminhub_manage_evaluations_buttonMouseClicked
@@ -223,9 +235,9 @@ public class AdminHub extends javax.swing.JFrame {
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JLabel adminhub_adminhub_label;
   private javax.swing.JButton adminhub_back_button;
+  private javax.swing.JButton adminhub_manage_accommodations_button;
   private javax.swing.JButton adminhub_manage_destinations_button;
   private javax.swing.JButton adminhub_manage_evaluations_button;
-  private javax.swing.JButton adminhub_manage_hotels_button;
   private javax.swing.JButton adminhub_manage_users_button;
   private javax.swing.JMenuBar adminhub_menu_bar;
   private javax.swing.JMenu adminhub_menu_bar_logout;

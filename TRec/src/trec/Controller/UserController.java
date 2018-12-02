@@ -7,6 +7,7 @@ package trec.Controller;
 
 import java.util.ArrayList;
 import trec.Model.Accommodation;
+import trec.Model.City;
 import trec.Model.Country;
 import trec.Model.Database;
 import trec.Model.Destination;
@@ -62,6 +63,10 @@ public class UserController {
     Database.getInstance().updateUser(user, old_username);
   }
   
+  public ArrayList<Country> getCountrys() {
+    return Database.getInstance().getCountrys();
+  }
+  
   public Country getCountryByName(String country_name) {
     return Database.getInstance().getCountryByName(country_name);
   }
@@ -80,5 +85,21 @@ public class UserController {
   
   public ArrayList<Accommodation> getAccommodationBookmarks(User user) {
     return Database.getInstance().getAccommodationBookmarks(user);
+  }
+  
+  public void updateAccommodation(Country country, City city, Accommodation accommodation) {
+    Database.getInstance().updateAccommodation(country, city, accommodation);
+  }
+  
+  public void deleteAccommodation(Country country, City city, Accommodation accommodation) {
+    Database.getInstance().deleteAccommodation(country, city, accommodation);
+  }
+  
+  public void updateDestination(Country country, City city, Destination destination) {
+    Database.getInstance().updateDestination(country, city, destination);
+  }
+  
+  public void deleteDestination(Country country, City city, Destination destination) {
+    Database.getInstance().deleteDestination(country, city, destination);
   }
 }
