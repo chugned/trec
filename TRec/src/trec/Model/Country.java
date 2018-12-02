@@ -29,6 +29,9 @@ public class Country {
   }
   
   public ArrayList<City> getCities() {
+    if(cities_ == null) {
+      cities_ = new ArrayList<>();
+    }
     return cities_;
   }
   

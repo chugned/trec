@@ -25,10 +25,12 @@ public class ManageDestinations extends javax.swing.JFrame {
   public ManageDestinations() {
     initComponents();
     ArrayList<Country> country_list = UserController.getInstance().getCountrys();
-    country_list.forEach((country) -> {
-      country_combo_box.addItem(country.getName());
-    });
-    current_country_ = country_list.get(0);
+    if(!country_list.isEmpty()) {
+      country_list.forEach((country) -> {
+        country_combo_box.addItem(country.getName());
+      });
+      current_country_ = country_list.get(0);
+    }
   }
 
   /**
@@ -51,6 +53,8 @@ public class ManageDestinations extends javax.swing.JFrame {
     back_button = new javax.swing.JButton();
     delete_button = new javax.swing.JButton();
     update_button = new javax.swing.JButton();
+    add_new_destination_label = new javax.swing.JLabel();
+    add_new_destination_button = new javax.swing.JButton();
     adminhub_menu_bar = new javax.swing.JMenuBar();
     adminhub_menu_bar_logout = new javax.swing.JMenu();
 
@@ -103,6 +107,15 @@ public class ManageDestinations extends javax.swing.JFrame {
       }
     });
 
+    add_new_destination_label.setText("Or add a new destination:");
+
+    add_new_destination_button.setText("Add");
+    add_new_destination_button.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        add_new_destination_buttonMouseClicked(evt);
+      }
+    });
+
     adminhub_menu_bar_logout.setText("Logout");
     adminhub_menu_bar_logout.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -124,24 +137,28 @@ public class ManageDestinations extends javax.swing.JFrame {
             .addComponent(destinations_list_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
           .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
             .addGap(17, 17, 17)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+              .addComponent(choose_city_label)
+              .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                  .addComponent(choose_country_label)
+                  .addComponent(destinations_list_label))
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                  .addComponent(city_combo_box, 0, 284, Short.MAX_VALUE)
+                  .addComponent(country_combo_box, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+              .addGroup(layout.createSequentialGroup()
+                .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(delete_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(update_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
               .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                .addGroup(layout.createSequentialGroup()
-                  .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addGap(27, 27, 27)
-                  .addComponent(delete_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addGap(33, 33, 33)
-                  .addComponent(update_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addComponent(choose_city_label, javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(choose_country_label)
-                    .addComponent(destinations_list_label))
-                  .addGap(28, 28, 28)
-                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(city_combo_box, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(country_combo_box, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
+              .addGroup(layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addComponent(add_new_destination_label)
+                .addGap(45, 45, 45)
+                .addComponent(add_new_destination_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         .addContainerGap(15, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
@@ -163,9 +180,13 @@ public class ManageDestinations extends javax.swing.JFrame {
         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addGap(18, 18, 18)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(add_new_destination_label)
+          .addComponent(add_new_destination_button))
+        .addGap(23, 23, 23)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(back_button)
-          .addComponent(update_button)
-          .addComponent(delete_button))
+          .addComponent(delete_button)
+          .addComponent(update_button))
         .addContainerGap(15, Short.MAX_VALUE))
     );
 
@@ -292,6 +313,16 @@ public class ManageDestinations extends javax.swing.JFrame {
     }
   }//GEN-LAST:event_update_buttonMouseClicked
 
+  private void add_new_destination_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_add_new_destination_buttonMouseClicked
+    // TODO add your handling code here:
+    AddNewDestination add_new_destination = new AddNewDestination();
+    add_new_destination.setVisible(true);
+    add_new_destination.pack();
+    add_new_destination.setLocationRelativeTo(null);
+    add_new_destination.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.dispose();
+  }//GEN-LAST:event_add_new_destination_buttonMouseClicked
+
   /**
    * @param args the command line arguments
    */
@@ -328,6 +359,8 @@ public class ManageDestinations extends javax.swing.JFrame {
   }
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
+  private javax.swing.JButton add_new_destination_button;
+  private javax.swing.JLabel add_new_destination_label;
   private javax.swing.JMenuBar adminhub_menu_bar;
   private javax.swing.JMenu adminhub_menu_bar_logout;
   private javax.swing.JButton back_button;

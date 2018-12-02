@@ -45,10 +45,12 @@
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="adminhub_manage_evaluations_button" alignment="0" max="32767" attributes="0"/>
                           <Component id="adminhub_statistics_button" alignment="0" max="32767" attributes="0"/>
-                          <Component id="adminhub_manage_accommodations_button" alignment="0" max="32767" attributes="0"/>
+                          <Component id="adminhub_manage_hotels_button" alignment="0" max="32767" attributes="0"/>
                           <Component id="adminhub_manage_users_button" alignment="0" max="32767" attributes="0"/>
                           <Component id="adminhub_manage_destinations_button" alignment="0" max="32767" attributes="0"/>
                           <Component id="adminhub_back_button" alignment="0" min="-2" pref="230" max="-2" attributes="0"/>
+                          <Component id="adminhub_manage_countries_button" alignment="0" max="32767" attributes="0"/>
+                          <Component id="adminhub_manage_cities_button" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -68,16 +70,20 @@
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
               <Component id="adminhub_manage_users_button" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="adminhub_manage_accommodations_button" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="adminhub_statistics_button" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="adminhub_manage_hotels_button" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="adminhub_manage_evaluations_button" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="adminhub_manage_destinations_button" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="adminhub_back_button" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="26" max="32767" attributes="0"/>
+              <Component id="adminhub_manage_countries_button" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="adminhub_manage_cities_button" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="adminhub_back_button" min="-2" pref="32" max="-2" attributes="0"/>
+              <EmptySpace pref="19" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -99,12 +105,12 @@
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="adminhub_manage_users_buttonMouseClicked"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="adminhub_manage_accommodations_button">
+    <Component class="javax.swing.JButton" name="adminhub_manage_hotels_button">
       <Properties>
         <Property name="text" type="java.lang.String" value="Manage accommodations"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="adminhub_manage_accommodations_buttonMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="adminhub_manage_hotels_buttonMouseClicked"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="adminhub_manage_destinations_button">
@@ -138,6 +144,22 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Admin Hub"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="adminhub_manage_countries_button">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Manage countries"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="adminhub_manage_countries_buttonMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="adminhub_manage_cities_button">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Manage cities"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="adminhub_manage_cities_buttonMouseClicked"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

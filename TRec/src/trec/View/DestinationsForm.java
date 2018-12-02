@@ -26,10 +26,12 @@ public class DestinationsForm extends javax.swing.JFrame {
     initComponents();
     destinations_menu_bar_adminhub.setVisible(UserController.getInstance().getCurrentUser().isAdmin());
     ArrayList<Country> country_list = UserController.getInstance().getCountrys();
-    country_list.forEach((country) -> {
-      destinations_country_combo_box.addItem(country.getName());
-    });
-    current_country_ = country_list.get(0);
+    if(!country_list.isEmpty()) {
+      country_list.forEach((country) -> {
+        destinations_country_combo_box.addItem(country.getName());
+      });
+      current_country_ = country_list.get(0);
+    }
   }
 
   /**

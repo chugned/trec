@@ -183,8 +183,22 @@ public class Database {
     users_list_.add(new_user);
   }
   
-  public void addCountry(Country country) {
+  public boolean addCountry(Country country) {
+    for(Country it : country_list_) {
+      if(it.getName().equals(country.getName())) {
+        return false;
+      }
+    }
     this.country_list_.add(country);
+    return true;
+  }
+  
+  public void removeCountry(Country country) {
+    for(Country it : country_list_) {
+      if(it.getName().equals(country.getName())) {
+        country_list_.remove(it);
+      }
+    }
   }
   
   public ArrayList<Country> getCountrys() {
@@ -345,5 +359,95 @@ public class Database {
     old_country.addCity(old_city);
     country_list_.add(old_country);
   }
-
+  
+  public boolean addCity(Country country, City city) {
+    Country old_country = null;
+    for(Country it : country_list_) {
+      if(it.getName().equals(country.getName())) {
+        old_country = it;
+        country_list_.remove(it);
+        break;
+      }
+    }
+    ArrayList<City> city_list = old_country.getCities();
+    for(City it : city_list) {
+      if(it.getName().equals(city.getName())) {
+        return false;
+      }
+    }
+    old_country.addCity(city);
+    country_list_.add(old_country);
+    return true;
+  }
+  
+  public void removeCity(Country country, City city) {
+    Country old_country = null;
+    for(Country it : country_list_) {
+      if(it.getName().equals(country.getName())) {
+        old_country = it;
+        country_list_.remove(it);
+        break;
+      }
+    }
+    old_country.removeCity(city);
+    country_list_.add(old_country);
+  }
+  
+  public boolean addDestination(Country country, City city, Destination destination) {
+    Country old_country = null;
+    for(Country it : country_list_) {
+      if(it.getName().equals(country.getName())) {
+        old_country = it;
+        country_list_.remove(it);
+        break;
+      }
+    }
+    ArrayList<City> city_list = old_country.getCities();
+    City old_city = null;
+    for(City it : city_list) {
+      if(it.getName().equals(city.getName())) {
+        old_city = it;
+        city_list.remove(it);
+        break;
+      }
+    }
+    for(Destination it : old_city.getDestinations()) {
+      if(it.getName().equals(destination.getName())) {
+        return false;
+      }
+    }
+    old_city.addDestination(destination);
+    old_country.addCity(old_city);
+    country_list_.add(old_country);
+    return true;
+  }
+  
+  public boolean addAccommodation(Country country, City city, Accommodation accommodation) {
+    Country old_country = null;
+    for(Country it : country_list_) {
+      if(it.getName().equals(country.getName())) {
+        old_country = it;
+        country_list_.remove(it);
+        break;
+      }
+    }
+    ArrayList<City> city_list = old_country.getCities();
+    City old_city = null;
+    for(City it : city_list) {
+      if(it.getName().equals(city.getName())) {
+        old_city = it;
+        city_list.remove(it);
+        break;
+      }
+    }
+    for(Accommodation it : old_city.getAccommodations()) {
+      if(it.getName().equals(accommodation.getName())) {
+        return false;
+      }
+    }
+    old_city.addAccommodation(accommodation);
+    old_country.addCity(old_city);
+    country_list_.add(old_country);
+    return true;
+  }
 }

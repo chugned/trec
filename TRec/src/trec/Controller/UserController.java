@@ -91,6 +91,10 @@ public class UserController {
     Database.getInstance().updateAccommodation(country, city, accommodation);
   }
   
+  public boolean addAccommodation(Country country, City city, Accommodation accommodation) {
+    return Database.getInstance().addAccommodation(country, city, accommodation);
+  }
+  
   public void deleteAccommodation(Country country, City city, Accommodation accommodation) {
     Database.getInstance().deleteAccommodation(country, city, accommodation);
   }
@@ -99,7 +103,27 @@ public class UserController {
     Database.getInstance().updateDestination(country, city, destination);
   }
   
+  public boolean addDestination(Country country, City city, Destination destination) {
+    return Database.getInstance().addDestination(country, city, destination);
+  }
+  
   public void deleteDestination(Country country, City city, Destination destination) {
     Database.getInstance().deleteDestination(country, city, destination);
+  }
+  
+  public void deleteCountry(Country country) {
+    Database.getInstance().removeCountry(country);
+  }
+  
+  public boolean addCountry(Country country) {
+    return Database.getInstance().addCountry(country);
+  }
+  
+  public void deleteCity(Country country, City city) {
+    Database.getInstance().removeCity(country, city);
+  }
+  
+  public boolean addCity(Country country, City city) {
+    return Database.getInstance().addCity(country, city);
   }
 }

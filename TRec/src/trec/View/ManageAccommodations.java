@@ -26,10 +26,12 @@ public class ManageAccommodations extends javax.swing.JFrame {
   public ManageAccommodations() {
     initComponents();
     ArrayList<Country> country_list = UserController.getInstance().getCountrys();
-    country_list.forEach((country) -> {
-      country_combo_box.addItem(country.getName());
-    });
-    current_country_ = country_list.get(0);
+    if(!country_list.isEmpty()) {
+      country_list.forEach((country) -> {
+        country_combo_box.addItem(country.getName());
+      });
+      current_country_ = country_list.get(0);
+    }
   }
 
   /**
@@ -52,6 +54,8 @@ public class ManageAccommodations extends javax.swing.JFrame {
     back_button = new javax.swing.JButton();
     update_button = new javax.swing.JButton();
     delete_button = new javax.swing.JButton();
+    add_new_destination_label = new javax.swing.JLabel();
+    add_new_destination_button = new javax.swing.JButton();
     adminhub_menu_bar = new javax.swing.JMenuBar();
     adminhub_menu_bar_logout = new javax.swing.JMenu();
 
@@ -104,6 +108,20 @@ public class ManageAccommodations extends javax.swing.JFrame {
       }
     });
 
+    add_new_destination_label.setText("Or add a new accommodation:");
+
+    add_new_destination_button.setText("Add");
+    add_new_destination_button.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        add_new_destination_buttonMouseClicked(evt);
+      }
+    });
+    add_new_destination_button.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        add_new_destination_buttonActionPerformed(evt);
+      }
+    });
+
     adminhub_menu_bar_logout.setText("Logout");
     adminhub_menu_bar_logout.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -119,26 +137,33 @@ public class ManageAccommodations extends javax.swing.JFrame {
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addGap(17, 17, 17)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-            .addGroup(layout.createSequentialGroup()
-              .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addGap(27, 27, 27)
-              .addComponent(delete_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addGap(33, 33, 33)
-              .addComponent(update_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(choose_city_label, javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-              .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(choose_country_label)
-                .addComponent(destinations_list_label))
-              .addGap(28, 28, 28)
-              .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                .addComponent(accommodations_list_combo_box, 0, 255, Short.MAX_VALUE)
-                .addComponent(city_combo_box, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(country_combo_box, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+          .addGroup(layout.createSequentialGroup()
+            .addGap(17, 17, 17)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(choose_city_label)
+              .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                  .addComponent(choose_country_label)
+                  .addComponent(destinations_list_label))
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                  .addComponent(accommodations_list_combo_box, 0, 255, Short.MAX_VALUE)
+                  .addComponent(city_combo_box, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                  .addComponent(country_combo_box, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+              .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(layout.createSequentialGroup()
+                  .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addGap(33, 33, 33)
+                  .addComponent(delete_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                  .addComponent(update_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE))))
+          .addGroup(layout.createSequentialGroup()
+            .addGap(50, 50, 50)
+            .addComponent(add_new_destination_label)
+            .addGap(45, 45, 45)
+            .addComponent(add_new_destination_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
         .addContainerGap(17, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
@@ -160,9 +185,14 @@ public class ManageAccommodations extends javax.swing.JFrame {
         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addGap(18, 18, 18)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(back_button)
-          .addComponent(update_button)
-          .addComponent(delete_button))
+          .addComponent(add_new_destination_label)
+          .addComponent(add_new_destination_button))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+            .addComponent(back_button)
+            .addComponent(delete_button))
+          .addComponent(update_button))
         .addContainerGap(16, Short.MAX_VALUE))
     );
 
@@ -226,13 +256,17 @@ public class ManageAccommodations extends javax.swing.JFrame {
   private void accommodations_list_combo_boxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_accommodations_list_combo_boxItemStateChanged
     // TODO add your handling code here:
     ArrayList<City> city_list = current_country_.getCities();
-    City current_city = city_list.get(city_combo_box.getSelectedIndex());
-    ArrayList<Accommodation> accommodation_list = current_city.getAccommodations();
-    int index = accommodations_list_combo_box.getSelectedIndex();
-    if(index >= 0)
-      desc_field.setText(accommodation_list.get(index).getDescription());
-    else
+    if(!city_list.isEmpty()) {
+      City current_city = city_list.get(city_combo_box.getSelectedIndex());
+      ArrayList<Accommodation> accommodation_list = current_city.getAccommodations();
+      int index = accommodations_list_combo_box.getSelectedIndex();
+      if(index >= 0)
+        desc_field.setText(accommodation_list.get(index).getDescription());
+      else
+        desc_field.setText("No item selected.");
+    } else {
       desc_field.setText("No item selected.");
+    }
   }//GEN-LAST:event_accommodations_list_combo_boxItemStateChanged
 
   private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
@@ -289,6 +323,20 @@ public class ManageAccommodations extends javax.swing.JFrame {
     }
   }//GEN-LAST:event_delete_buttonMouseClicked
 
+  private void add_new_destination_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_add_new_destination_buttonMouseClicked
+    // TODO add your handling code here:
+    AddNewAccommodation add_new_accomodation = new AddNewAccommodation();
+    add_new_accomodation.setVisible(true);
+    add_new_accomodation.pack();
+    add_new_accomodation.setLocationRelativeTo(null);
+    add_new_accomodation.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.dispose();
+  }//GEN-LAST:event_add_new_destination_buttonMouseClicked
+
+  private void add_new_destination_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_new_destination_buttonActionPerformed
+    // TODO add your handling code here:
+  }//GEN-LAST:event_add_new_destination_buttonActionPerformed
+
   /**
    * @param args the command line arguments
    */
@@ -327,6 +375,8 @@ public class ManageAccommodations extends javax.swing.JFrame {
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JComboBox<String> accommodations_list_combo_box;
+  private javax.swing.JButton add_new_destination_button;
+  private javax.swing.JLabel add_new_destination_label;
   private javax.swing.JMenuBar adminhub_menu_bar;
   private javax.swing.JMenu adminhub_menu_bar_logout;
   private javax.swing.JButton back_button;
