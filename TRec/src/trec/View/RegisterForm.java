@@ -90,7 +90,7 @@ public class RegisterForm extends javax.swing.JFrame {
       }
     });
 
-    register_gender_combo_box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
+    register_gender_combo_box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "male", "female" }));
 
     register_occupation_field.addKeyListener(new java.awt.event.KeyAdapter() {
       public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -229,45 +229,48 @@ public class RegisterForm extends javax.swing.JFrame {
   private void register_register_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_register_register_buttonMouseClicked
     // TODO add your handling code here:
     Helper helper = new Helper();
-    
-    if(register_first_name_field.getText().equals("") || 
-            register_last_name_field.getText().equals("") ||
-            register_email_field.getText().equals("") ||
-            register_username_field.getText().equals("") ||
-            register_age_field.getText().equals("") ||
-            register_occupation_field.getText().equals(""))
-    {
-      JOptionPane.showMessageDialog(null, "Please enter all user data.", "Registration error", JOptionPane.ERROR_MESSAGE);
-    } else if(String.copyValueOf(register_password_field.getPassword()).equals("") ||
-            String.copyValueOf(register_reenter_password_field.getPassword()).equals("")) {
-      JOptionPane.showMessageDialog(null, "Please enter password.", "Invalid password", JOptionPane.ERROR_MESSAGE);
-    } else if(!String.copyValueOf(register_password_field.getPassword())
-            .equals(String.copyValueOf(register_reenter_password_field.getPassword()))) {
-      JOptionPane.showMessageDialog(null, "Passwords do not match.", "Invalid password", JOptionPane.ERROR_MESSAGE);
-    } else if(!helper.isNumeric(register_age_field.getText())) {
-      JOptionPane.showMessageDialog(null, "Please enter valid age.", "Invalid age", JOptionPane.ERROR_MESSAGE);
-    } else if(UserController.getInstance().checkForUsername(register_username_field.getText())) {
-      JOptionPane.showMessageDialog(null, "Username already exists!", "Registration error", JOptionPane.ERROR_MESSAGE);
-    } else {
-      User new_user = new User();
-      new_user.setFirstName(register_first_name_field.getText());
-      new_user.setLastName(register_last_name_field.getText());
-      new_user.setEmail(register_email_field.getText());
-      new_user.setUsername(register_username_field.getText());
-      new_user.setPassword(String.copyValueOf(register_password_field.getPassword()));
-      new_user.setGender(register_gender_combo_box.getName());
-      new_user.setAge(Integer.parseInt(register_age_field.getText()));
-      new_user.setOccupation(register_occupation_field.getText());
-      UserController.getInstance().addUser(new_user);      
-      JOptionPane.showMessageDialog(null, "Registration successful!", "Success!", JOptionPane.INFORMATION_MESSAGE);
-      register_first_name_field.setText("");
-      register_last_name_field.setText("");
-      register_email_field.setText("");
-      register_username_field.setText("");
-      register_password_field.setText("");
-      register_reenter_password_field.setText("");
-      register_age_field.setText("");
-      register_occupation_field.setText("");
+    try {
+      if(register_first_name_field.getText().equals("") || 
+              register_last_name_field.getText().equals("") ||
+              register_email_field.getText().equals("") ||
+              register_username_field.getText().equals("") ||
+              register_age_field.getText().equals("") ||
+              register_occupation_field.getText().equals(""))
+      {
+        JOptionPane.showMessageDialog(null, "Please enter all user data.", "Registration error", JOptionPane.ERROR_MESSAGE);
+      } else if(String.copyValueOf(register_password_field.getPassword()).equals("") ||
+              String.copyValueOf(register_reenter_password_field.getPassword()).equals("")) {
+        JOptionPane.showMessageDialog(null, "Please enter password.", "Invalid password", JOptionPane.ERROR_MESSAGE);
+      } else if(!String.copyValueOf(register_password_field.getPassword())
+              .equals(String.copyValueOf(register_reenter_password_field.getPassword()))) {
+        JOptionPane.showMessageDialog(null, "Passwords do not match.", "Invalid password", JOptionPane.ERROR_MESSAGE);
+      } else if(!helper.isNumeric(register_age_field.getText())) {
+        JOptionPane.showMessageDialog(null, "Please enter valid age.", "Invalid age", JOptionPane.ERROR_MESSAGE);
+      } else if(UserController.getInstance().checkForUsername(register_username_field.getText())) {
+        JOptionPane.showMessageDialog(null, "Username already exists!", "Registration error", JOptionPane.ERROR_MESSAGE);
+      } else {
+        User new_user = new User();
+        new_user.setFirstName(register_first_name_field.getText());
+        new_user.setLastName(register_last_name_field.getText());
+        new_user.setEmail(register_email_field.getText());
+        new_user.setUsername(register_username_field.getText());
+        new_user.setPassword(String.copyValueOf(register_password_field.getPassword()));
+        new_user.setGender(register_gender_combo_box.getItemAt(register_gender_combo_box.getSelectedIndex()));
+        new_user.setAge(Integer.parseInt(register_age_field.getText()));
+        new_user.setOccupation(register_occupation_field.getText());
+        UserController.getInstance().addUser(new_user);      
+        JOptionPane.showMessageDialog(null, "Registration successful!", "Success!", JOptionPane.INFORMATION_MESSAGE);
+        register_first_name_field.setText("");
+        register_last_name_field.setText("");
+        register_email_field.setText("");
+        register_username_field.setText("");
+        register_password_field.setText("");
+        register_reenter_password_field.setText("");
+        register_age_field.setText("");
+        register_occupation_field.setText("");
+      }
+    } catch (Exception exception) {
+      System.out.println("Add new user sql exception" + exception.getMessage());
     }
   }//GEN-LAST:event_register_register_buttonMouseClicked
 

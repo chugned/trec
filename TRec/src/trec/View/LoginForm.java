@@ -6,6 +6,7 @@
 package trec.View;
 
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import trec.Controller.UserController;
@@ -23,6 +24,11 @@ public class LoginForm extends javax.swing.JFrame {
    */
   public LoginForm() {
     initComponents();
+    try {
+      UserController.getInstance().databaseConnect();    
+    } catch (Exception e) {
+        System.out.println("Databse connection failed: " + e.getMessage());
+    }
   }
 
   /**
@@ -160,18 +166,22 @@ public class LoginForm extends javax.swing.JFrame {
 
   private void login_login_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_login_login_buttonMouseClicked
     // TODO add your handling code here:
-    User current_user = Database.getInstance().isUserValid(login_username_field.getText(), String.copyValueOf(login_password_field.getPassword()));
-    if(current_user == null) {
-      JOptionPane.showMessageDialog(null, "You entered wrong username or password.\nNo account? You can always register.", "Login error", JOptionPane.ERROR_MESSAGE);
-    } else {
-      UserController.getInstance().setCurrentUser(current_user);
-      // activity switch
-      AppHomeForm app_home_form = new AppHomeForm();
-      app_home_form.setVisible(true);
-      app_home_form.pack();
-      app_home_form.setLocationRelativeTo(null);
-      app_home_form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      this.dispose();
+    try {
+      User current_user = UserController.getInstance().isUserValid(login_username_field.getText(), String.copyValueOf(login_password_field.getPassword()));
+      if(current_user == null) {
+        JOptionPane.showMessageDialog(null, "You entered wrong username or password.\nNo account? You can always register.", "Login error", JOptionPane.ERROR_MESSAGE);
+      } else {
+        UserController.getInstance().setCurrentUser(current_user);
+        // activity switch
+        AppHomeForm app_home_form = new AppHomeForm();
+        app_home_form.setVisible(true);
+        app_home_form.pack();
+        app_home_form.setLocationRelativeTo(null);
+        app_home_form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.dispose();
+      } 
+    } catch (Exception exception) {
+      System.out.println("Exception at login button pressed: " + exception.getMessage());
     }
   }//GEN-LAST:event_login_login_buttonMouseClicked
 

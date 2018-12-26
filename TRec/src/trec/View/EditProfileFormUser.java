@@ -17,12 +17,14 @@ import trec.Model.User;
  */
 public class EditProfileFormUser extends javax.swing.JFrame {
   private Helper helper = new Helper();
+  private String old_username;
   /**
    * Creates new form EditProfileFormUser
    */
   public EditProfileFormUser() {
     initComponents();
     User selected_user = UserController.getInstance().getCurrentUser();
+    old_username = selected_user.getUsername();
     destinations_menu_bar_adminhub.setVisible(selected_user.isAdmin());
     first_name_field.setText(selected_user.getFirstName());
     last_name_field.setText(selected_user.getLastName());
@@ -244,19 +246,23 @@ public class EditProfileFormUser extends javax.swing.JFrame {
         changed_user.setUsername(username_field.getText());
         changed_user.setPassword(password_field.getText());
         String gender = gender_field.getText();
-        if(gender.equals("Male") || gender.equals("Female")) {
+        if(gender.equals("male") || gender.equals("female")) {
           changed_user.setGender(gender_field.getText());
           String age = age_field.getText();
           if(helper.isNumeric(age)) {
             changed_user.setAge(Integer.parseInt(age));
             changed_user.setOccupation(occupation_field.getText());
-            UserController.getInstance().updateUser(changed_user, username_field.getText());
+            try {
+              UserController.getInstance().updateUser(changed_user, old_username);
+            } catch (Exception exception) {
+              System.out.println(exception.getMessage());
+            }
             JOptionPane.showMessageDialog(null, "User data successfully changed!", "Success", JOptionPane.INFORMATION_MESSAGE);
           } else {
             JOptionPane.showMessageDialog(null, "Please enter valid age format.", "Age format error", JOptionPane.ERROR_MESSAGE);
           }
         } else {
-          JOptionPane.showMessageDialog(null, "Gender can either be \"Male\" or \"Female\"", "Gender error", JOptionPane.ERROR_MESSAGE);
+          JOptionPane.showMessageDialog(null, "Gender can either be \"male\" or \"female\"", "Gender error", JOptionPane.ERROR_MESSAGE);
         }
       } else {
         JOptionPane.showMessageDialog(null, "Please enter a valid password.", "Passwrod error", JOptionPane.ERROR_MESSAGE);

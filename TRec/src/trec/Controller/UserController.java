@@ -31,6 +31,18 @@ public class UserController {
     return user_controller_;
   }
   
+  public void databaseConnect() throws Exception {
+    Database.getInstance().connect();
+  }
+  
+  public void databaseDisconnect() throws Exception {
+    Database.getInstance().disconnect();
+  }
+ 
+  public User isUserValid(String username, String password) throws Exception {
+    return Database.getInstance().isUserValid(username, password);
+  }
+  
   public void setCurrentUser(User current_user) {
     this.current_user_ = current_user;
   }
@@ -39,35 +51,39 @@ public class UserController {
     return current_user_;
   }
   
-  public void addUser(User user){
+  public void addUser(User user) throws Exception {
     Database.getInstance().addUser(user);
   }
   
-  public boolean checkForUsername(String username) {
+  public boolean checkForUsername(String username) throws Exception {
     return Database.getInstance().checkForUsername(username);
   }
   
-  public int getNumberOfUsers() {
+  public int getNumberOfUsers() throws Exception {
     return Database.getInstance().getNumberOfUsers();
   }
   
-  public ArrayList<User> getUsers() {
+  public ArrayList<User> getUsers() throws Exception {
     return Database.getInstance().getUsers();
   }
   
-  public User getUserByUsername(String username) {
+  public User getUserByUsername(String username) throws Exception {
     return Database.getInstance().getUserByUsername(username);
   }
   
-  public void updateUser(User user, String old_username) {
+  public void updateUser(User user, String old_username) throws Exception {
     Database.getInstance().updateUser(user, old_username);
   }
   
-  public ArrayList<Country> getCountrys() {
+  public void deleteUser(String username) throws Exception {
+    Database.getInstance().deleteUser(username);
+  }
+  
+  public ArrayList<Country> getCountrys() throws Exception {
     return Database.getInstance().getCountrys();
   }
   
-  public Country getCountryByName(String country_name) {
+  public Country getCountryByName(String country_name) throws Exception {
     return Database.getInstance().getCountryByName(country_name);
   }
   
@@ -111,11 +127,11 @@ public class UserController {
     Database.getInstance().deleteDestination(country, city, destination);
   }
   
-  public void deleteCountry(Country country) {
+  public void deleteCountry(Country country) throws Exception {
     Database.getInstance().removeCountry(country);
   }
   
-  public boolean addCountry(Country country) {
+  public boolean addCountry(Country country) throws Exception {
     return Database.getInstance().addCountry(country);
   }
   

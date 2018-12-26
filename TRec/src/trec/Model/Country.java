@@ -13,11 +13,13 @@ import java.util.ArrayList;
  */
 public class Country {
   private String name_;
+  private int id_;
   private ArrayList<City> cities_;
   
   public Country(String name) {
     this.name_ = name;
     this.cities_ = new ArrayList<>();
+    this.id_= -1;
   }
   
   public void setName(String name) {
@@ -47,5 +49,13 @@ public class Country {
       }
     }
     return false;
+  }
+  
+  public void setID(int id) {
+    this.id_ = id;
+  }
+  
+  public int getID() {
+    return id_;
   }
 }

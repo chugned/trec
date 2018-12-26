@@ -28,6 +28,7 @@ public class User {
     this.age_ = age;
     this.occupation_ = occpuation;
     this.role_ = "User";
+    this.id_ = -1;
   }
   
   public String getFirstName() {
@@ -95,11 +96,23 @@ public class User {
   }
   
   public boolean isAdmin() {
-    return role_.equals("Admin");
+    return role_.equals("admin");
   }
   
   public void setRole(String role) {
     this.role_ = role;
+  }
+  
+  public String getRole() {
+    return role_;
+  }
+  
+  public void setID(int id) {
+    this.id_ = id;
+  }
+  
+  public int getID() {
+    return id_;
   }
   
   private String first_name_;
@@ -111,4 +124,5 @@ public class User {
   private int age_;
   private String occupation_;
   private String role_;
+  private int id_;
 }

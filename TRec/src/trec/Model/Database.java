@@ -5,6 +5,12 @@
  */
 package trec.Model;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +25,7 @@ public class Database {
   private ArrayList<Country> country_list_;
   private Map<User, ArrayList<Destination>> destination_bookmarks_ = new HashMap<>(); 
   private Map<User, ArrayList<Accommodation>> accommodation_bookmarks_ = new HashMap<>(); 
+  private Connection con;
   
   private Database() {
     this.destination_bookmarks_ = new HashMap<>();
@@ -26,16 +33,7 @@ public class Database {
     // Hint: this hard coding is and should be just temoporary, as we will add 
     // a real database in the next development iteration
     users_list_ = new ArrayList<>();
-    // hard code admin
-    User admin = new User("Eman", "Basic", "eman.basic@hotmail.com", "admin", 
-            "admin", "Male", 21, "Student");
-    admin.setRole("Admin");
-    users_list_.add(admin);
-    // TODO hard code other users
-    User josip = new User("Josip", "Letica", "joisp.letica@hotmail.com", "josip123", 
-            "letica123", "Male", 21, "Student");
-    users_list_.add(josip);
-    
+
     // hard code a country
     country_list_ = new ArrayList<>();
     // Austria
@@ -137,19 +135,91 @@ public class Database {
     return database_;
   }
   
-  public void addUser(User new_user) {
-    users_list_.add(new_user);
-  }
   
-  public User isUserValid(String username, String password) {
-    for(User user : users_list_) {
-      if(user.getUsername().equals(username) && user.getPassword().equals(password))
-        return user;
+  public void connect() throws Exception {
+        if(con != null) return;
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new Exception("Driver not found, install it BRETE");
+        }
+
+        String connectionUrl = "jdbc:mysql://localhost:3306/oad_trec";
+        con = DriverManager.getConnection(connectionUrl, "root", "root");
     }
-    return null;
+
+    public void disconnect() {
+        if(con != null) {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.out.println("Cant close it its stuck");
+            }
+        }
   }
   
-  public boolean checkForUsername(String username) {
+  public void addUser(User new_user) throws SQLException {
+//    OLD CODE
+//    users_list_.add(new_user);
+    String query = "insert into oad_trec.users (first_name, last_name, email, username, password, gender, age, occupation, `role`) values(?,?,?,?,?,?,?,?,?)";
+    PreparedStatement insertStmt = con.prepareStatement(query);
+    insertStmt.setString(1, new_user.getFirstName());
+    insertStmt.setString(2, new_user.getLastName());
+    insertStmt.setString(3, new_user.getEmail());
+    insertStmt.setString(4, new_user.getUsername());
+    insertStmt.setString(5, new_user.getPassword());
+    insertStmt.setString(6, new_user.getGender());
+    insertStmt.setInt(7, new_user.getAge());
+    insertStmt.setString(8, new_user.getOccupation());
+    insertStmt.setString(9, "user");
+    insertStmt.executeUpdate();
+    insertStmt.close();
+  }
+  
+  public User isUserValid(String username, String password) throws SQLException {
+//      OLD CODE
+//    for(User user : users_list_) {
+//      if(user.getUsername().equals(username) && user.getPassword().equals(password))
+//        return user;
+//    }
+//    return null;
+    String query = "select id, first_name, last_name, email, username, password, gender, age, occupation, role from users where password=? and username=?";
+    PreparedStatement selectStmt = con.prepareStatement(query);
+    selectStmt.setString(1, password);
+    selectStmt.setString(2, username);
+    ResultSet results = selectStmt.executeQuery();
+    if(results.first()) {
+      User newUser = new User();
+      newUser.setID(results.getInt("id"));
+      newUser.setFirstName(results.getString("first_name"));
+      newUser.setLastName(results.getString("last_name"));
+      newUser.setEmail(results.getString("email"));
+      newUser.setUsername(results.getString("username"));
+      newUser.setPassword(results.getString("password"));
+      newUser.setGender(results.getString("gender"));
+      newUser.setAge(results.getInt("age"));
+      newUser.setOccupation(results.getString("occupation"));
+      newUser.setRole(results.getString("role"));
+      selectStmt.close();
+      return newUser;   
+    } else {
+      selectStmt.close();
+      return null;
+    }
+  }
+  
+  public void deleteUser(String username) throws SQLException {
+    String query = "delete from users where username=?";
+    PreparedStatement stmt = con.prepareStatement(query);
+    stmt.setString(1, username);
+    stmt.executeUpdate();
+    stmt.close();
+  }
+  
+  public boolean checkForUsername(String username) throws SQLException {
+    users_list_.clear();
+    users_list_ = getUsers();
     for(User user : users_list_) {
       if(user.getUsername().equals(username))
         return true;
@@ -157,61 +227,142 @@ public class Database {
     return false;
   }
   
-  public int getNumberOfUsers() {
+  public int getNumberOfUsers() throws Exception {
+    try {
+      users_list_.clear();
+      users_list_ = getUsers();
+    } catch (SQLException exception) {
+      System.out.println(exception.getMessage());
+    }
     return users_list_.size();
+    
   }
   
-  public ArrayList<User> getUsers() {
+  public ArrayList<User> getUsers() throws SQLException {
+    users_list_.clear();
+    String select_query = "SELECT id, first_name, last_name, email, username, password, gender, age, occupation, `role` FROM oad_trec.users where role='user'";
+    Statement selectStmt = con.createStatement();
+    ResultSet results = selectStmt.executeQuery(select_query);
+    while(results.next()) {
+      User user = new User();
+      user.setID(results.getInt("id"));
+      user.setFirstName(results.getString("first_name"));
+      user.setLastName(results.getString("last_name"));
+      user.setEmail(results.getString("email"));
+      user.setUsername(results.getString("username"));
+      user.setPassword(results.getString("password"));
+      user.setGender(results.getString("gender"));
+      user.setAge(results.getInt("age"));
+      user.setOccupation(results.getString("occupation"));
+      user.setRole(results.getString("role"));
+      users_list_.add(user);
+    }
+    selectStmt.close();
     return users_list_;
   }
   
-  public User getUserByUsername(String username) {
-    for(User user : users_list_) {
-      if(user.getUsername().equals(username))
-        return user;
-    }
+  public User getUserByUsername(String username) throws SQLException {
+      users_list_.clear();
+      users_list_ = getUsers();
+      for(User user : users_list_) {
+        if(user.getUsername().equals(username)) {
+          return user;
+        }
+      }
     return null;
   }
   
-  public void updateUser(User new_user, String username) {
-    for(User old_user : users_list_) {
-      if(old_user.getUsername().equals(username)) {
-        users_list_.remove(old_user);
-        break;
-      }
-    }
-    users_list_.add(new_user);
+  public void updateUser(User user, String username) throws SQLException {
+      String update_query = "UPDATE oad_trec.users SET first_name=?, last_name=?, email=?, username=?, password=?, gender=?, age=?, occupation=?, role=? WHERE username=?";
+      PreparedStatement updateStmt = con.prepareStatement(update_query);
+      updateStmt.setString(1, user.getFirstName());
+      updateStmt.setString(2, user.getLastName());
+      updateStmt.setString(3, user.getEmail());
+      updateStmt.setString(4, user.getUsername());
+      updateStmt.setString(5, user.getPassword());
+      updateStmt.setString(6, user.getGender());
+      updateStmt.setInt(7, user.getAge());
+      updateStmt.setString(8, user.getOccupation());
+      updateStmt.setString(9, user.getRole());
+      updateStmt.setString(10, username);
+      updateStmt.executeUpdate();
+      updateStmt.close();
+      
+      users_list_.clear();
+      users_list_ = getUsers();
   }
   
-  public boolean addCountry(Country country) {
-    for(Country it : country_list_) {
-      if(it.getName().equals(country.getName())) {
-        return false;
-      }
+  public boolean addCountry(Country country) throws SQLException {
+//    for(Country it : country_list_) {
+//      if(it.getName().equals(country.getName())) {
+//        return false;
+//      }
+//    }
+//    this.country_list_.add(country);
+//    return true;
+    String query1 = "select * from oad_trec.countries where name=?";
+    PreparedStatement stmt1 = con.prepareStatement(query1);
+    stmt1.setString(1, country.getName());
+    ResultSet result = stmt1.executeQuery();
+    if(result.isBeforeFirst()) {
+      stmt1.close();
+      return false;
+    } else {
+      String insert_stmt = "insert into oad_trec.countries(name) values('?')";
+      PreparedStatement stmt2 = con.prepareStatement(insert_stmt);
+      stmt2.setString(1, country.getName());
+      stmt2.executeUpdate();
+      stmt2.close();
+      stmt1.close();
+      return true;
     }
-    this.country_list_.add(country);
-    return true;
   }
   
-  public void removeCountry(Country country) {
-    for(Country it : country_list_) {
-      if(it.getName().equals(country.getName())) {
-        country_list_.remove(it);
-      }
-    }
+  public void removeCountry(Country country) throws SQLException {
+//    for(Country it : country_list_) {
+//      if(it.getName().equals(country.getName())) {
+//        country_list_.remove(it);
+//      }
+//    }
+    String query = "delete from oad_trec.countries where country_id=?";
+    PreparedStatement stmt = con.prepareStatement(query);
+    stmt.setInt(1, country.getID());
+    stmt.executeUpdate();
+    stmt.close();
   }
   
-  public ArrayList<Country> getCountrys() {
-    return country_list_;
+  public ArrayList<Country> getCountrys() throws SQLException {
+    ArrayList<Country> counties = new ArrayList<>();
+    String query = "select country_id, name from oad_trec.countries";
+    Statement selectStmt = con.createStatement();
+    ResultSet results = selectStmt.executeQuery(query);
+    while(results.next()) {
+      int country_id = results.getInt("country_id");
+      String name = results.getString("name");
+      Country country = new Country(name);
+      country.setID(country_id);
+      counties.add(country);
+    }
+    selectStmt.close();
+    return counties;
   }
   
-  public Country getCountryByName(String country_name) {
-    for(Country country : country_list_) {
-      if(country.getName().equals(country_name)) {
-        return country;
-      }
-    }
-    return null;
+  public Country getCountryByName(String country_name) throws SQLException {
+//    for(Country country : country_list_) {
+//      if(country.getName().equals(country_name)) {
+//        return country;
+//      }
+//    }
+//    return null;
+    String query = "select country_id, name from oad_trec.countries where name=?";
+    PreparedStatement stmt = con.prepareStatement(query);
+    stmt.setString(1, country_name);
+    ResultSet result = stmt.executeQuery();
+    result.next();
+    Country country = new Country(result.getString("name"));
+    country.setID(result.getInt("country_id"));
+    stmt.close();
+    return country;
   }
 
   public boolean addDestinationBookmark(Destination destination, User user) {

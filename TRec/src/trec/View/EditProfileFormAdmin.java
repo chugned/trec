@@ -5,6 +5,7 @@
  */
 package trec.View;
 
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import trec.Controller.UserController;
@@ -17,25 +18,32 @@ import trec.Model.User;
  */
 public class EditProfileFormAdmin extends javax.swing.JFrame {
   private String old_username;
+  private ArrayList<User> user_list = new ArrayList<>();
   private Helper helper = new Helper();
   /**
    * Creates new form EditProfileForm
    */
   public EditProfileFormAdmin() {
     initComponents();
-    for(User user : UserController.getInstance().getUsers()) {
-      users_combo_box.addItem(user.getUsername());      
+    try {
+      user_list = UserController.getInstance().getUsers();
+      users_combo_box.removeAllItems();
+      for(User user : user_list) {
+        users_combo_box.addItem(user.getUsername());      
+      }
+      User selected_user = user_list.get(0);
+      first_name_field.setText(selected_user.getFirstName());
+      last_name_field.setText(selected_user.getLastName());
+      email_field.setText(selected_user.getEmail());
+      username_field.setText(selected_user.getUsername());
+      old_username = selected_user.getUsername();
+      password_field.setText(selected_user.getPassword());
+      gender_field.setText(selected_user.getGender());
+      age_field.setText(String.valueOf(selected_user.getAge()));
+      occupation_field.setText(selected_user.getOccupation());
+    } catch (Exception exception) {
+      System.out.println("EditProfileFormAdmin get users sql error" + exception.getMessage());
     }
-    User selected_user = UserController.getInstance().getUserByUsername(users_combo_box.getSelectedItem().toString());
-    first_name_field.setText(selected_user.getFirstName());
-    last_name_field.setText(selected_user.getLastName());
-    email_field.setText(selected_user.getEmail());
-    username_field.setText(selected_user.getUsername());
-    old_username = selected_user.getUsername();
-    password_field.setText(selected_user.getPassword());
-    gender_field.setText(selected_user.getGender());
-    age_field.setText(String.valueOf(selected_user.getAge()));
-    occupation_field.setText(selected_user.getOccupation());
   }
 
   /**
@@ -75,6 +83,7 @@ public class EditProfileFormAdmin extends javax.swing.JFrame {
     occupation_label = new javax.swing.JLabel();
     jScrollPane4 = new javax.swing.JScrollPane();
     username_field = new javax.swing.JTextPane();
+    delete_button = new javax.swing.JButton();
     home_menu_bar = new javax.swing.JMenuBar();
     destinations_menu_bar_logout = new javax.swing.JMenu();
 
@@ -134,6 +143,13 @@ public class EditProfileFormAdmin extends javax.swing.JFrame {
 
     jScrollPane4.setViewportView(username_field);
 
+    delete_button.setText("Delete");
+    delete_button.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        delete_buttonMouseClicked(evt);
+      }
+    });
+
     destinations_menu_bar_logout.setText("Logout");
     destinations_menu_bar_logout.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -152,22 +168,6 @@ public class EditProfileFormAdmin extends javax.swing.JFrame {
         .addGap(29, 29, 29)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
           .addGroup(layout.createSequentialGroup()
-            .addComponent(cancel_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
-            .addComponent(save_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-          .addGroup(layout.createSequentialGroup()
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-              .addComponent(occupation_label, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
-              .addComponent(password_label, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-              .addComponent(gender_label, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-              .addComponent(age_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGap(32, 32, 32)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-              .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
-              .addComponent(jScrollPane8)
-              .addComponent(jScrollPane6)
-              .addComponent(jScrollPane5)))
-          .addGroup(layout.createSequentialGroup()
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
               .addComponent(choose_user_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
               .addComponent(first_name_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -180,7 +180,25 @@ public class EditProfileFormAdmin extends javax.swing.JFrame {
               .addComponent(users_combo_box, 0, 217, Short.MAX_VALUE)
               .addComponent(jScrollPane2)
               .addComponent(jScrollPane1)
-              .addComponent(jScrollPane4))))
+              .addComponent(jScrollPane4)))
+          .addGroup(layout.createSequentialGroup()
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addComponent(occupation_label, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+                .addComponent(password_label, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(gender_label, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(age_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+              .addComponent(cancel_button, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(18, 18, 18)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+              .addGroup(layout.createSequentialGroup()
+                .addComponent(delete_button, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(save_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+              .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+              .addComponent(jScrollPane8)
+              .addComponent(jScrollPane6)
+              .addComponent(jScrollPane5))))
         .addContainerGap(34, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
@@ -226,11 +244,12 @@ public class EditProfileFormAdmin extends javax.swing.JFrame {
             .addComponent(age_label, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGap(18, 18, 18)
             .addComponent(occupation_label, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        .addGap(50, 50, 50)
+        .addGap(56, 56, 56)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(cancel_button)
-          .addComponent(save_button))
-        .addContainerGap(19, Short.MAX_VALUE))
+          .addComponent(save_button)
+          .addComponent(delete_button))
+        .addContainerGap(13, Short.MAX_VALUE))
     );
 
     pack();
@@ -247,20 +266,24 @@ public class EditProfileFormAdmin extends javax.swing.JFrame {
         changed_user.setUsername(username_field.getText());
         changed_user.setPassword(password_field.getText());
         String gender = gender_field.getText();
-        if(gender.equals("Male") || gender.equals("Female")) {
+        if(gender.equals("male") || gender.equals("female")) {
           changed_user.setGender(gender_field.getText());
           String age = age_field.getText();
           if(helper.isNumeric(age)) {
             changed_user.setAge(Integer.parseInt(age));
             changed_user.setOccupation(occupation_field.getText());
-            UserController.getInstance().updateUser(changed_user, old_username);
-            old_username = username_field.getText();
+            try {
+              UserController.getInstance().updateUser(changed_user, old_username);       
+            } catch (Exception exception) {
+              System.out.println("update user error: " + exception.getMessage());
+            }
+            old_username = username_field.getText(); 
             JOptionPane.showMessageDialog(null, "User data successfully changed!", "Success", JOptionPane.INFORMATION_MESSAGE);
           } else {
             JOptionPane.showMessageDialog(null, "Please enter valid age format.", "Age format error", JOptionPane.ERROR_MESSAGE);
           }
         } else {
-          JOptionPane.showMessageDialog(null, "Gender can either be \"Male\" or \"Female\"", "Gender error", JOptionPane.ERROR_MESSAGE);
+          JOptionPane.showMessageDialog(null, "Gender can either be \"male\" or \"female\"", "Gender error", JOptionPane.ERROR_MESSAGE);
         }
       } else {
         JOptionPane.showMessageDialog(null, "Please enter a valid password.", "Passwrod error", JOptionPane.ERROR_MESSAGE);
@@ -292,17 +315,33 @@ public class EditProfileFormAdmin extends javax.swing.JFrame {
 
   private void users_combo_boxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_users_combo_boxItemStateChanged
     // TODO add your handling code here:
-    User selected_user = UserController.getInstance().getUserByUsername(users_combo_box.getSelectedItem().toString());
-    first_name_field.setText(selected_user.getFirstName());
-    last_name_field.setText(selected_user.getLastName());
-    email_field.setText(selected_user.getEmail());
-    username_field.setText(selected_user.getUsername());
-    old_username = selected_user.getUsername();
-    password_field.setText(selected_user.getPassword());
-    gender_field.setText(selected_user.getGender());
-    age_field.setText(String.valueOf(selected_user.getAge()));
-    occupation_field.setText(selected_user.getOccupation());
+      User selected_user = user_list.get(users_combo_box.getSelectedIndex());
+      first_name_field.setText(selected_user.getFirstName());
+      last_name_field.setText(selected_user.getLastName());
+      email_field.setText(selected_user.getEmail());
+      username_field.setText(selected_user.getUsername());
+      old_username = selected_user.getUsername();
+      password_field.setText(selected_user.getPassword());
+      gender_field.setText(selected_user.getGender());
+      age_field.setText(String.valueOf(selected_user.getAge()));
+      occupation_field.setText(selected_user.getOccupation()); 
   }//GEN-LAST:event_users_combo_boxItemStateChanged
+
+  private void delete_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete_buttonMouseClicked
+    // TODO add your handling code here:
+    try {
+      UserController.getInstance().deleteUser(username_field.getText());
+      JOptionPane.showMessageDialog(null, "User deletion success.", "User deleted", JOptionPane.INFORMATION_MESSAGE);
+      EditProfileFormAdmin editProfileFormAdmin = new EditProfileFormAdmin();
+      editProfileFormAdmin.setVisible(true);
+      editProfileFormAdmin.pack();
+      editProfileFormAdmin.setLocationRelativeTo(null);
+      editProfileFormAdmin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.dispose();
+    } catch (Exception e) {
+      System.out.println("delete user sql error: " + e.getMessage());
+    }
+  }//GEN-LAST:event_delete_buttonMouseClicked
 
   /**
    * @param args the command line arguments
@@ -345,6 +384,7 @@ public class EditProfileFormAdmin extends javax.swing.JFrame {
   private javax.swing.JLabel age_label;
   private javax.swing.JButton cancel_button;
   private javax.swing.JLabel choose_user_label;
+  private javax.swing.JButton delete_button;
   private javax.swing.JMenu destinations_menu_bar_logout;
   private javax.swing.JTextPane email_field;
   private javax.swing.JLabel email_label;

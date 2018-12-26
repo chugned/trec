@@ -56,6 +56,11 @@ public class AdminHub extends javax.swing.JFrame {
         adminhub_manage_users_buttonMouseClicked(evt);
       }
     });
+    adminhub_manage_users_button.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        adminhub_manage_users_buttonActionPerformed(evt);
+      }
+    });
 
     adminhub_manage_hotels_button.setText("Manage accommodations");
     adminhub_manage_hotels_button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -238,6 +243,10 @@ public class AdminHub extends javax.swing.JFrame {
     manage_cities.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.dispose();
   }//GEN-LAST:event_adminhub_manage_cities_buttonMouseClicked
+
+  private void adminhub_manage_users_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminhub_manage_users_buttonActionPerformed
+    // TODO add your handling code here:
+  }//GEN-LAST:event_adminhub_manage_users_buttonActionPerformed
 
   /**
    * @param args the command line arguments

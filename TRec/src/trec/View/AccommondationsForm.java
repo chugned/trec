@@ -24,12 +24,16 @@ public class AccommondationsForm extends javax.swing.JFrame {
   public AccommondationsForm() {
     initComponents();
     acommondations_menu_bar_adminhub.setVisible(UserController.getInstance().getCurrentUser().isAdmin());
-    ArrayList<Country> country_list = UserController.getInstance().getCountrys();
-    if(!country_list.isEmpty()) {
-      country_list.forEach((country) -> {
-        country_combo_box.addItem(country.getName());
-      });
-      current_country_ = country_list.get(0);
+    try {
+      ArrayList<Country> country_list = UserController.getInstance().getCountrys();
+      if(!country_list.isEmpty()) {
+        country_list.forEach((country) -> {
+          country_combo_box.addItem(country.getName());
+        });
+        current_country_ = country_list.get(0);
+      }
+    } catch (Exception exception) {
+      System.out.println(exception.getMessage());
     }
   }
 
@@ -216,21 +220,25 @@ public class AccommondationsForm extends javax.swing.JFrame {
   private void country_combo_boxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_country_combo_boxItemStateChanged
     // TODO add your handling code here:
     String current_country_name = country_combo_box.getSelectedItem().toString();
-    current_country_ = UserController.getInstance().getCountryByName(current_country_name); 
-    ArrayList<City> city_list = current_country_.getCities();
-    city_combo_box.removeAllItems();
-    city_list.forEach((city) -> {
-      city_combo_box.addItem(city.getName());
-    });
-    accommodations_list_combo_box.removeAllItems();
-    ArrayList<Accommodation> accommodation_list = city_list.get(0).getAccommodations();
-    if(accommodation_list.isEmpty()) {
-      desc_field.setText("No item selected.");
-    } else {
-      accommodation_list.forEach((accommodation) -> {
-        accommodations_list_combo_box.addItem(accommodation.getName());
+    try {
+      current_country_ = UserController.getInstance().getCountryByName(current_country_name); 
+      ArrayList<City> city_list = current_country_.getCities();
+      city_combo_box.removeAllItems();
+      city_list.forEach((city) -> {
+        city_combo_box.addItem(city.getName());
       });
-      desc_field.setText(accommodation_list.get(0).getDescription());
+      accommodations_list_combo_box.removeAllItems();
+      ArrayList<Accommodation> accommodation_list = city_list.get(0).getAccommodations();
+      if(accommodation_list.isEmpty()) {
+        desc_field.setText("No item selected.");
+      } else {
+        accommodation_list.forEach((accommodation) -> {
+          accommodations_list_combo_box.addItem(accommodation.getName());
+        });
+        desc_field.setText(accommodation_list.get(0).getDescription());
+      }
+    } catch (Exception exception) {
+      System.out.println(exception.getMessage());
     }
   }//GEN-LAST:event_country_combo_boxItemStateChanged
 

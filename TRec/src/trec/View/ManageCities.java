@@ -23,11 +23,15 @@ public class ManageCities extends javax.swing.JFrame {
    */
   public ManageCities() {
     initComponents();
-    ArrayList<Country> country_list = UserController.getInstance().getCountrys();
-    if(!country_list.isEmpty()) {
-      country_list.forEach((country) -> {
-        country_combo_box.addItem(country.getName());
-      });
+    try {
+      ArrayList<Country> country_list = UserController.getInstance().getCountrys();
+      if(!country_list.isEmpty()) {
+        country_list.forEach((country) -> {
+          country_combo_box.addItem(country.getName());
+        });
+      }
+    } catch (Exception exception) {
+      System.out.println(exception.getMessage());
     }
   }
 
@@ -265,17 +269,21 @@ public class ManageCities extends javax.swing.JFrame {
   private void country_combo_boxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_country_combo_boxItemStateChanged
     // TODO add your handling code here:
     city_combo_box.removeAllItems();
-    current_country = UserController
-            .getInstance()
-            .getCountryByName(country_combo_box.getSelectedItem().toString());
-    ArrayList<City> city_list = current_country.getCities();
-    if(!city_list.isEmpty()) {
-      city_list.forEach((city) -> {
-        city_combo_box.addItem(city.getName());
-      });
-    }
-    if(city_list == null) {
-      System.out.println("null");
+    try {
+      current_country = UserController
+              .getInstance()
+              .getCountryByName(country_combo_box.getSelectedItem().toString());
+      ArrayList<City> city_list = current_country.getCities();
+      if(!city_list.isEmpty()) {
+        city_list.forEach((city) -> {
+          city_combo_box.addItem(city.getName());
+        });
+      }
+      if(city_list == null) {
+        System.out.println("null");
+      }
+    } catch (Exception exception) {
+      System.out.println(exception.getMessage());
     }
   }//GEN-LAST:event_country_combo_boxItemStateChanged
 

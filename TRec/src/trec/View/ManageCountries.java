@@ -22,11 +22,15 @@ public class ManageCountries extends javax.swing.JFrame {
    */
   public ManageCountries() {
     initComponents();
-    ArrayList<Country> country_list = UserController.getInstance().getCountrys();
-    if(!country_list.isEmpty()) {
-      country_list.forEach((country) -> {
-        country_combo_box.addItem(country.getName());
-      });
+    try {
+      ArrayList<Country> country_list = UserController.getInstance().getCountrys();
+      if(!country_list.isEmpty()) {
+        country_list.forEach((country) -> {
+          country_combo_box.addItem(country.getName());
+        });
+      } 
+    } catch (Exception exception) {
+      System.out.println(exception.getMessage());
     }
   }
 
@@ -204,12 +208,16 @@ public class ManageCountries extends javax.swing.JFrame {
 
   private void delete_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete_buttonMouseClicked
     // TODO add your handling code here:
-    Country country = UserController
-            .getInstance()
-            .getCountryByName(country_combo_box.getSelectedItem().toString());
-    UserController.getInstance().deleteCountry(country);
-    JOptionPane.showMessageDialog(null, "Country deleted!", "Success!", JOptionPane.INFORMATION_MESSAGE);
-    refresh();
+    try {
+      Country country = UserController
+              .getInstance()
+              .getCountryByName(country_combo_box.getSelectedItem().toString());
+      UserController.getInstance().deleteCountry(country);
+      JOptionPane.showMessageDialog(null, "Country deleted!", "Success!", JOptionPane.INFORMATION_MESSAGE);
+      refresh();
+    } catch (Exception exception) {
+      System.out.println(exception.getMessage());
+    }
   }//GEN-LAST:event_delete_buttonMouseClicked
 
   private void refresh() {
@@ -228,10 +236,14 @@ public class ManageCountries extends javax.swing.JFrame {
       JOptionPane.showMessageDialog(null, "Cannot add a country with no name.", "Error!", JOptionPane.ERROR_MESSAGE);
     } else {
       Country country = new Country(name);
-      if(UserController.getInstance().addCountry(country))
-        JOptionPane.showMessageDialog(null, "Country added!", "Success!", JOptionPane.INFORMATION_MESSAGE);
-      else
-        JOptionPane.showMessageDialog(null, "Country already exists!", "Error!", JOptionPane.ERROR_MESSAGE);
+      try {
+        if(UserController.getInstance().addCountry(country))
+          JOptionPane.showMessageDialog(null, "Country added!", "Success!", JOptionPane.INFORMATION_MESSAGE);
+        else
+          JOptionPane.showMessageDialog(null, "Country already exists!", "Error!", JOptionPane.ERROR_MESSAGE);
+      } catch (Exception exception) {
+        System.out.println(exception.getMessage());
+      }
     }
   }//GEN-LAST:event_add_country_buttonMouseClicked
 
