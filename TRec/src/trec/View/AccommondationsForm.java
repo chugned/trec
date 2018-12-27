@@ -205,15 +205,15 @@ public class AccommondationsForm extends javax.swing.JFrame {
 
   private void bookmark_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bookmark_buttonMouseClicked
     // TODO add your handling code here:
-    Accommodation accommodation = new Accommodation();
-    accommodation.setName(accommodations_list_combo_box.getSelectedItem().toString());
-    accommodation.setDescription(desc_field.getText());
-    
-    if(UserController.getInstance().addAccommodationBookmark(accommodation, 
-            UserController.getInstance().getCurrentUser())) {
-      JOptionPane.showMessageDialog(null, "Bookmark added!", "Success!", JOptionPane.INFORMATION_MESSAGE);
-    } else {
-      JOptionPane.showMessageDialog(null, "Bookmark already exists!", "Bookmark error", JOptionPane.ERROR_MESSAGE);
+    try {
+      Accommodation accommodation = UserController.getInstance().getAccommodationByName(accommodations_list_combo_box.getSelectedItem().toString());
+      if(UserController.getInstance().addAccommodationBookmark(accommodation, UserController.getInstance().getCurrentUser())) {
+        JOptionPane.showMessageDialog(null, "Bookmark added!", "Success!", JOptionPane.INFORMATION_MESSAGE);
+      } else {
+        JOptionPane.showMessageDialog(null, "Bookmark already exists!", "Bookmark error", JOptionPane.ERROR_MESSAGE);
+      }
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
     }
   }//GEN-LAST:event_bookmark_buttonMouseClicked
 
@@ -222,13 +222,13 @@ public class AccommondationsForm extends javax.swing.JFrame {
     String current_country_name = country_combo_box.getSelectedItem().toString();
     try {
       current_country_ = UserController.getInstance().getCountryByName(current_country_name); 
-      ArrayList<City> city_list = current_country_.getCities();
+      ArrayList<City> city_list = UserController.getInstance().getCitiesByCountryID(current_country_.getID());
       city_combo_box.removeAllItems();
       city_list.forEach((city) -> {
         city_combo_box.addItem(city.getName());
       });
       accommodations_list_combo_box.removeAllItems();
-      ArrayList<Accommodation> accommodation_list = city_list.get(0).getAccommodations();
+      ArrayList<Accommodation> accommodation_list = UserController.getInstance().getAccommodationByCityID(city_list.get(0).getID());
       if(accommodation_list.isEmpty()) {
         desc_field.setText("No item selected.");
       } else {
@@ -244,38 +244,46 @@ public class AccommondationsForm extends javax.swing.JFrame {
 
   private void city_combo_boxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_city_combo_boxItemStateChanged
     // TODO add your handling code here:
-    ArrayList<City> city_list = current_country_.getCities();
-    int index = city_combo_box.getSelectedIndex();
-    City current_city;
-    if(index >= 0)
-      current_city = city_list.get(index);
-    else
-      current_city = city_list.get(0);
-    accommodations_list_combo_box.removeAllItems();
-    ArrayList<Accommodation> accommodation_list = current_city.getAccommodations();
-    if(!accommodation_list.isEmpty()) {
-      accommodation_list.forEach((acommodation) -> {
-        accommodations_list_combo_box.addItem(acommodation.getName());
-      });
-      desc_field.setText(accommodation_list.get(0).getDescription());
-    } else {
-      desc_field.setText("No item selected");
+    try {
+      ArrayList<City> city_list = UserController.getInstance().getCitiesByCountryID(current_country_.getID());
+      int index = city_combo_box.getSelectedIndex();
+      City current_city;
+      if(index >= 0)
+        current_city = city_list.get(index);
+      else
+        current_city = city_list.get(0);
+      accommodations_list_combo_box.removeAllItems();
+      ArrayList<Accommodation> accommodation_list = UserController.getInstance().getAccommodationByCityID(current_city.getID());
+      if(!accommodation_list.isEmpty()) {
+        accommodation_list.forEach((acommodation) -> {
+          accommodations_list_combo_box.addItem(acommodation.getName());
+        });
+        desc_field.setText(accommodation_list.get(0).getDescription());
+      } else {
+        desc_field.setText("No item selected");
+      }
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
     }
   }//GEN-LAST:event_city_combo_boxItemStateChanged
 
   private void accommodations_list_combo_boxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_accommodations_list_combo_boxItemStateChanged
     // TODO add your handling code here:
-    ArrayList<City> city_list = current_country_.getCities();
-    City current_city = city_list.get(city_combo_box.getSelectedIndex());
-    ArrayList<Accommodation> accommodation_list = current_city.getAccommodations();
-    if(accommodation_list.isEmpty()) {
-      desc_field.setText("No item selected.");
-    } else {
-      int index = accommodations_list_combo_box.getSelectedIndex();
-      if(index >= 0)
-        desc_field.setText(accommodation_list.get(index).getDescription());
-      else
+    try {
+      ArrayList<City> city_list = UserController.getInstance().getCitiesByCountryID(current_country_.getID());
+      City current_city = city_list.get(city_combo_box.getSelectedIndex());
+      ArrayList<Accommodation> accommodation_list = UserController.getInstance().getAccommodationByCityID(current_city.getID());
+      if(accommodation_list.isEmpty()) {
         desc_field.setText("No item selected.");
+      } else {
+        int index = accommodations_list_combo_box.getSelectedIndex();
+        if(index >= 0)
+          desc_field.setText(accommodation_list.get(index).getDescription());
+        else
+          desc_field.setText("No item selected.");
+      }
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
     }
   }//GEN-LAST:event_accommodations_list_combo_boxItemStateChanged
 

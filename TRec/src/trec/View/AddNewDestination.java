@@ -24,12 +24,16 @@ public class AddNewDestination extends javax.swing.JFrame {
    */
   public AddNewDestination() {
     initComponents();
-    ArrayList<Country> country_list = UserController.getInstance().getCountrys();
-    if(!country_list.isEmpty()) {
-      country_list.forEach((country) -> {
-        country_combo_box.addItem(country.getName());
-      });
-      current_country_ = country_list.get(0);
+    try {
+      ArrayList<Country> country_list = UserController.getInstance().getCountrys();
+      if(!country_list.isEmpty()) {
+        country_list.forEach((country) -> {
+          country_combo_box.addItem(country.getName());
+        });
+        current_country_ = country_list.get(0);
+      }
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
     }
   }
 
@@ -176,49 +180,57 @@ public class AddNewDestination extends javax.swing.JFrame {
 
   private void country_combo_boxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_country_combo_boxItemStateChanged
     // TODO add your handling code here:
-    String current_country_name = country_combo_box.getSelectedItem().toString();
-    current_country_ = UserController.getInstance().getCountryByName(current_country_name);
-    city_combo_box.removeAllItems();
-    ArrayList<City> city_list = current_country_.getCities();
-    if(!city_list.isEmpty()) {
-      city_list.forEach((city) -> {
-        city_combo_box.addItem(city.getName());
-      });
+    try {
+      String current_country_name = country_combo_box.getSelectedItem().toString();
+      current_country_ = UserController.getInstance().getCountryByName(current_country_name);
+      city_combo_box.removeAllItems();
+      ArrayList<City> city_list = UserController.getInstance().getCitiesByCountryID(current_country_.getID());
+      if(!city_list.isEmpty()) {
+        city_list.forEach((city) -> {
+          city_combo_box.addItem(city.getName());
+        });
+      }
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
     }
   }//GEN-LAST:event_country_combo_boxItemStateChanged
 
   private void add_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_add_buttonMouseClicked
     // TODO add your handling code here:
-    Destination destination = new Destination();
-    if(city_combo_box.getItemCount() >= 0) {
-      String name = desc_field1.getText();
-      String description = desc_field.getText();
-      if(name.equals("")) {
-        JOptionPane.showMessageDialog(null, "Cannot add a destination without a name.", "Error!", JOptionPane.ERROR_MESSAGE);
-      } else if(description.equals("")) {
-        JOptionPane.showMessageDialog(null, "Cannot add a destination without description.", "Error!", JOptionPane.ERROR_MESSAGE);
-      } else {
-        destination.setName(name);
-        destination.setDescription(description);
-        ArrayList<City> city_list = current_country_.getCities();
-        City city = null;
-        for(City it : city_list) {
-          if(it.getName().equals(city_combo_box.getSelectedItem().toString())) {
-            city = it;
-            break;
+    try {
+      Destination destination = new Destination();
+      if(city_combo_box.getItemCount() >= 0) {
+        String name = desc_field1.getText();
+        String description = desc_field.getText();
+        if(name.equals("")) {
+          JOptionPane.showMessageDialog(null, "Cannot add a destination without a name.", "Error!", JOptionPane.ERROR_MESSAGE);
+        } else if(description.equals("")) {
+          JOptionPane.showMessageDialog(null, "Cannot add a destination without description.", "Error!", JOptionPane.ERROR_MESSAGE);
+        } else {
+          destination.setName(name);
+          destination.setDescription(description);
+          ArrayList<City> city_list = UserController.getInstance().getCitiesByCountryID(current_country_.getID());
+          City city = null;
+          for(City it : city_list) {
+            if(it.getName().equals(city_combo_box.getSelectedItem().toString())) {
+              city = it;
+              break;
+            }
+          }
+          if(UserController.getInstance().addDestination(city, destination)) {
+            JOptionPane.showMessageDialog(null, "Destination added!", "Success!", JOptionPane.INFORMATION_MESSAGE);
+            desc_field.setText("");
+            desc_field1.setText("");
+            country_combo_boxItemStateChanged(null);
+          } else {
+            JOptionPane.showMessageDialog(null, "Destination already exists!", "Error!", JOptionPane.ERROR_MESSAGE);
           }
         }
-        if(UserController.getInstance().addDestination(current_country_, city, destination)) {
-          JOptionPane.showMessageDialog(null, "Destination added!", "Success!", JOptionPane.INFORMATION_MESSAGE);
-          desc_field.setText("");
-          desc_field1.setText("");
-          country_combo_boxItemStateChanged(null);
-        } else {
-          JOptionPane.showMessageDialog(null, "Destination already exists!", "Error!", JOptionPane.ERROR_MESSAGE);
-        }
+      } else {
+        JOptionPane.showMessageDialog(null, "Cannot add, there is no destination selected.", "Error!", JOptionPane.ERROR_MESSAGE);
       }
-    } else {
-      JOptionPane.showMessageDialog(null, "Cannot add, there is no destination selected.", "Error!", JOptionPane.ERROR_MESSAGE);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
     }
   }//GEN-LAST:event_add_buttonMouseClicked
 

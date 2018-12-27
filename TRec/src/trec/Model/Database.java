@@ -5,6 +5,7 @@
  */
 package trec.Model;
 
+import com.sun.javafx.collections.ListListenerHelper;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -30,111 +31,16 @@ public class Database {
   private Database() {
     this.destination_bookmarks_ = new HashMap<>();
     this.accommodation_bookmarks_ = new HashMap<>();
-    // Hint: this hard coding is and should be just temoporary, as we will add 
-    // a real database in the next development iteration
     users_list_ = new ArrayList<>();
-
-    // hard code a country
     country_list_ = new ArrayList<>();
-    // Austria
-    // Graz
-    // schlossberg
-    String description = "The \"Schlossberg\" is one of the most attractive places"
-            + " one can visit in Graz. A great location in the very center of"
-            + " Graz that gives you a beautiful view to the whole town. There are"
-            + " several ways one can get to the Schlossberg: by walking, by a lift or"
-            + " by a railee.";
-    Destination schlossberg = new Destination("Schlossberg", description);
-    // murinsel
-    description = "Island or boat? It isn’t easy to tell with this extravagant "
-            + "steel construction by US-American artist Vito Acconci. The Island"
-            + " in the Mur, Graz was commissioned as part of the city’s role as"
-            + " Capital of Culture in 2003. What is clear is its function as a"
-            + " link between river and city, a wonderful place to drink coffee"
-            + " or enjoy a cocktail. With the river Mur swirling cheerfully by"
-            + " on both left and right sides, from the Murinsel you can"
-            + " appreciate a completely new perspective of the city of Graz";
-    Destination murinsel = new Destination("Mur Insel", description);
-    // IBIS Hotel
-    description = "The ibis budget Hotel Graz Zentrum is so central that just a"
-            + " five-minute walk will take you to the main square (old town),"
-            + " Schlossberg castle and the Graz Art Museum. This bed and breakfast"
-            + " hotel is not just an alternative to youth hostels, hostels and"
-            + " low-cost guest houses in and around Graz for inexpensive holidays,"
-            + "weekend or cultural breaks; with free WIFI for example, this 2-star"
-            + " hotel is great for low-cost business trips too. Book or reserve "
-            + "your room at the ibis Budget Hotel Graz online today!";
-    Accommodation ibis = new Accommodation("IBIS Hotel", description);
-    // Hotel Weitzer
-    description = "You’ll really love staying in one of our bright economy rooms"
-            + " with 20 sqm viewing \"Gries\" alley or the courtyard. The rooms"
-            + " offer an extra comfortable bed with leather headboard, flat-screen "
-            + "TV, air condition, free WiFi, work desk, minibar, safe and hair dryer. "
-            + "All economy rooms are non-smoking ones.";
-    Accommodation weitzer = new Accommodation("Hotel Weitzer", description);
-    City graz = new City("Graz");
-    graz.addDestination(murinsel);
-    graz.addDestination(schlossberg);
-    graz.addAccommodation(weitzer);
-    graz.addAccommodation(ibis);
-    Country austria = new Country("Austria");
-    austria.addCity(graz);
-    
-    // Wien
-    // Schoenbrunn
-    description = "At the end of the seventeenth century Emperor Leopold I "
-            + "commissioned the Baroque architect Johann Bernhard Fischer von "
-            + "Erlach, who had received his training in Rome, to design an "
-            + "imperial hunting lodge for his son, Crown Prince Joseph, later "
-            + "to become Emperor Joseph I. Replacing the château de plaisance "
-            + "built on this site for the dowager empress Eleonora of Gonzaga "
-            + "in 1642, it was to grow into a palatial imperial residence over "
-            + "the course of the eighteenth century.";
-    Destination schoenbrunn = new Destination("Schoenbrunn", description);
-    // Stephansdom
-    description = "St. Stephen's Cathedral (more commonly known by its German "
-            + "title: Stephansdom) is the mother church of the Roman Catholic "
-            + "Archdiocese of Vienna and the seat of the Archbishop of Vienna, "
-            + "Christoph Cardinal Schönborn, OP. The current Romanesque and "
-            + "Gothic form of the cathedral, seen today in the Stephansplatz, "
-            + "was largely initiated by Duke Rudolf IV (1339–1365) and stands "
-            + "on the ruins of two earlier churches, the first a parish church "
-            + "consecrated in 1147. The most important religious building in "
-            + "Vienna, St. Stephen's Cathedral has borne witness to many "
-            + "important events in Habsburg and Austrian history and has, "
-            + "with its multi-coloured tile roof, become one of the city's "
-            + "most recognizable symbols.";
-    Destination stephansdom = new Destination("Stephansdom", description);
-    // The Guesthouse
-    description = "Sharing the same square as the Albertina, Opera House and "
-            + "Sacher Hotel, this property is a favourite among the hotel "
-            + "offerings in the city centre. It is remarkable what happens to "
-            + "a youth hostel in the hands of Sir Terence Conran. The "
-            + "transformation has succeeded on every level.";
-    Accommodation guesthouse = new Accommodation("The Guesthouse", description);
-    // Hotel Sacher
-    description = "The Sacher offers resplendent elegance, prominently "
-            + "positioned in the heart of the city, behind the Vienna State "
-            + "Opera House and next door to the Albertina Museum. It's like "
-            + "staying in a royal residence and is undeniably one of the best, "
-            + "most appealing, places to stay if it's luxurious old-world "
-            + "charm you want.";
-    Accommodation sacher = new Accommodation("Hotel Sacher", description);
-    City vienna = new City("Vienna");
-    vienna.addDestination(schoenbrunn);
-    vienna.addDestination(stephansdom);
-    vienna.addAccommodation(guesthouse);
-    vienna.addAccommodation(sacher);
-    austria.addCity(vienna);
-    country_list_.add(austria);
   }
   
+  // database related stuff
   public static Database getInstance() {
     if(database_ == null)
       database_ = new Database();
     return database_;
   }
-  
   
   public void connect() throws Exception {
         if(con != null) return;
@@ -149,7 +55,7 @@ public class Database {
         con = DriverManager.getConnection(connectionUrl, "root", "root");
     }
 
-    public void disconnect() {
+  public void disconnect() {
         if(con != null) {
             try {
                 con.close();
@@ -159,9 +65,8 @@ public class Database {
         }
   }
   
+  // user related stuff
   public void addUser(User new_user) throws SQLException {
-//    OLD CODE
-//    users_list_.add(new_user);
     String query = "insert into oad_trec.users (first_name, last_name, email, username, password, gender, age, occupation, `role`) values(?,?,?,?,?,?,?,?,?)";
     PreparedStatement insertStmt = con.prepareStatement(query);
     insertStmt.setString(1, new_user.getFirstName());
@@ -178,12 +83,6 @@ public class Database {
   }
   
   public User isUserValid(String username, String password) throws SQLException {
-//      OLD CODE
-//    for(User user : users_list_) {
-//      if(user.getUsername().equals(username) && user.getPassword().equals(password))
-//        return user;
-//    }
-//    return null;
     String query = "select id, first_name, last_name, email, username, password, gender, age, occupation, role from users where password=? and username=?";
     PreparedStatement selectStmt = con.prepareStatement(query);
     selectStmt.setString(1, password);
@@ -292,14 +191,8 @@ public class Database {
       users_list_ = getUsers();
   }
   
+  // country related stuff
   public boolean addCountry(Country country) throws SQLException {
-//    for(Country it : country_list_) {
-//      if(it.getName().equals(country.getName())) {
-//        return false;
-//      }
-//    }
-//    this.country_list_.add(country);
-//    return true;
     String query1 = "select * from oad_trec.countries where name=?";
     PreparedStatement stmt1 = con.prepareStatement(query1);
     stmt1.setString(1, country.getName());
@@ -308,7 +201,7 @@ public class Database {
       stmt1.close();
       return false;
     } else {
-      String insert_stmt = "insert into oad_trec.countries(name) values('?')";
+      String insert_stmt = "insert into oad_trec.countries(name) values(?)";
       PreparedStatement stmt2 = con.prepareStatement(insert_stmt);
       stmt2.setString(1, country.getName());
       stmt2.executeUpdate();
@@ -319,11 +212,6 @@ public class Database {
   }
   
   public void removeCountry(Country country) throws SQLException {
-//    for(Country it : country_list_) {
-//      if(it.getName().equals(country.getName())) {
-//        country_list_.remove(it);
-//      }
-//    }
     String query = "delete from oad_trec.countries where country_id=?";
     PreparedStatement stmt = con.prepareStatement(query);
     stmt.setInt(1, country.getID());
@@ -348,12 +236,6 @@ public class Database {
   }
   
   public Country getCountryByName(String country_name) throws SQLException {
-//    for(Country country : country_list_) {
-//      if(country.getName().equals(country_name)) {
-//        return country;
-//      }
-//    }
-//    return null;
     String query = "select country_id, name from oad_trec.countries where name=?";
     PreparedStatement stmt = con.prepareStatement(query);
     stmt.setString(1, country_name);
@@ -364,241 +246,313 @@ public class Database {
     stmt.close();
     return country;
   }
+  
+  // city related stuff
+  public boolean addCity(Country country, City city) throws SQLException {
+    Country the_country = getCountryByName(country.getName());
+    String query1 = "select * from oad_trec.cities where name=?";
+    PreparedStatement stmt1 = con.prepareStatement(query1);
+    stmt1.setString(1, city.getName());
+    ResultSet result = stmt1.executeQuery();
+    if(result.isBeforeFirst()) {
+      stmt1.close();
+      return false;
+    } else {
+      String insert_stmt = "insert into oad_trec.cities(name, country_id) values(?, ?)";
+      PreparedStatement stmt2 = con.prepareStatement(insert_stmt);
+      stmt2.setString(1, country.getName());
+      stmt2.setInt(2, the_country.getID());
+      stmt2.executeUpdate();
+      stmt2.close();
+      stmt1.close();
+      return true;
+    }
+  }
+  
+  public void removeCity(City city) throws SQLException {
+    String query = "delete from oad_trec.cities where name=?";
+    PreparedStatement stmt = con.prepareStatement(query);
+    stmt.setString(1, city.getName());
+    stmt.executeUpdate();
+    stmt.close();
+  }
+  
+  public ArrayList<City> getCitiesByCountryID(int country_id) throws SQLException {
+    ArrayList<City> list = new ArrayList<>();
+    String query = "SELECT city_id, name, country_id FROM oad_trec.cities WHERE country_id=" + country_id;
+    Statement selectStmt = con.createStatement();
+    ResultSet results = selectStmt.executeQuery(query);
+    while(results.next()) {
+      int city_id = results.getInt("city_id");
+      String name = results.getString("name");
+      City city = new City(name);
+      city.setID(city_id);
+      city.setCountryID(country_id);
+      list.add(city);
+    }
+    selectStmt.close();
+    return list;
+  }
+  
+  public City getCityByName(String name, int country_id) throws SQLException {
+    ArrayList<City> list = getCitiesByCountryID(country_id);
+    for(City city : list) {
+      if (city.getName().equals(name))
+        return city;
+    }
+    return null;
+  }
+  
+  // destination related stuff
+  public boolean addDestinationBookmark(Destination destination, User user) throws SQLException {
+    String query1 = "select * from oad_trec.destination_bookmarks where user_id=? and destination_id=?";
+    PreparedStatement stmt1 = con.prepareStatement(query1);
+    stmt1.setInt(1, user.getID());
+    stmt1.setInt(2, destination.getID());
+    ResultSet result = stmt1.executeQuery();
+    if(result.isBeforeFirst()) {
+      stmt1.close();
+      return false;
+    } else {
+      String query = "INSERT INTO oad_trec.destination_bookmarks (user_id, destination_id) VALUES(?, ?)";
+      PreparedStatement insertStmt = con.prepareStatement(query);
+      insertStmt.setInt(1, user.getID());
+      insertStmt.setInt(2, destination.getID());
+      insertStmt.executeUpdate();
+      stmt1.close();
+      insertStmt.close();
+      return true;
+    }    
+  }
+  
+  public ArrayList<Destination> getDestinationBookmarks(User user) throws SQLException {
+    ArrayList<Destination> list = new ArrayList<>();
+    ArrayList<Integer> ids = new ArrayList<>();
+    String query1 = "SELECT user_id, destination_id FROM oad_trec.destination_bookmarks WHERE user_id=" + user.getID();
+    Statement selectStmt = con.createStatement();
+    ResultSet results = selectStmt.executeQuery(query1);
+    while(results.next()) {
+      ids.add(results.getInt("destination_id"));
+    }
+    // now fetch destinations for each destination_id
+    ArrayList<Destination> temp_destinations = getAllDestinations();
+    for(int i : ids) {
+      for(Destination d : temp_destinations) {
+        if(d.getID() == i) {
+          list.add(d);
+        }
+      }
+    }
+    return list;
+  }
+  
+  public boolean addDestination(City city, Destination destination) throws SQLException {
+    String query1 = "select * from oad_trec.acc_and_dest where name=?";
+    PreparedStatement stmt1 = con.prepareStatement(query1);
+    stmt1.setString(1, destination.getName());
+    ResultSet result = stmt1.executeQuery();
+    if(result.isBeforeFirst()) {
+      stmt1.close();
+      return false;
+    } else {
+      String query = "INSERT INTO oad_trec.acc_and_dest(name, description, type_of, city_id) VALUES(?, ?, ?, ?)";
+      PreparedStatement insertStmt = con.prepareStatement(query);
+      insertStmt.setString(1, destination.getName());
+      insertStmt.setString(2, destination.getDescription());
+      insertStmt.setString(3, "Destination");
+      insertStmt.setInt(4, city.getID());
+      insertStmt.executeUpdate();
+      stmt1.close();
+      insertStmt.close();
+      return true;
+    }
+  }
+  
+  public void updateDestination(Destination destination) throws SQLException {
+    String query = "UPDATE oad_trec.acc_and_dest SET description=? WHERE name=?";
+    PreparedStatement updateStmt = con.prepareStatement(query);
+    updateStmt.setString(1, destination.getDescription());
+    updateStmt.setString(2, destination.getName());
+    updateStmt.executeUpdate();
+    updateStmt.close();
+  }
+  
+  public void deleteDestination(Destination destination) throws SQLException {
+    String query = "DELETE FROM oad_trec.acc_and_dest WHERE id=?";
+    PreparedStatement updateStmt = con.prepareStatement(query);
+    updateStmt.setInt(1, destination.getID());
+    updateStmt.executeUpdate();
+    updateStmt.close();
+  }
+  
+  public ArrayList<Destination> getAllDestinations() throws SQLException {
+    ArrayList<Destination> list = new ArrayList<>();
+    String query = "SELECT id, name, description, type_of, city_id FROM oad_trec.acc_and_dest";
+    Statement selectStmt = con.createStatement();
+    ResultSet results = selectStmt.executeQuery(query);
+    while(results.next()) {
+      int id = results.getInt("id");
+      String name = results.getString("name");
+      String description = results.getString("description");
+      String type = results.getString("type_of");
+      int city_id = results.getInt("city_id");
+      if (type.equals("Destination")) {
+        Destination dest = new Destination();
+        dest.setName(name);
+        dest.setDescription(description);
+        dest.setID(id);
+        dest.setCityID(city_id);
+        list.add(dest);
+      }
+    }
+    selectStmt.close();
+    return list;
+  }
+  
+  public Destination getDestinationByName(String name) throws SQLException {
+    ArrayList<Destination> list = getAllDestinations();
+    for(Destination destination : list) {
+      if(destination.getName().equals(name))
+        return destination;
+    }
+    return null;
+  }
+  
+  public ArrayList<Destination> getDestinationByCityID(int city_id) throws SQLException { 
+    ArrayList<Destination> temp_list = getAllDestinations();
+    ArrayList<Destination> list = new ArrayList<>();
+    for(Destination dest : temp_list) {
+      if(dest.getCityID() == city_id) 
+        list.add(dest);
+    }
+    return list;
+  }
+  
+  // accommodation related stuff
+  public boolean addAccommodationBookmark(Accommodation accommodation, User user) throws SQLException {
+    String query1 = "select * from oad_trec.accommodation_bookmarks where user_id=? and accommodation_id=?";
+    PreparedStatement stmt1 = con.prepareStatement(query1);
+    stmt1.setInt(1, user.getID());
+    stmt1.setInt(2, accommodation.getID());
+    ResultSet result = stmt1.executeQuery();
+    if(result.isBeforeFirst()) {
+      stmt1.close();
+      return false;
+    } else {
+      String query = "INSERT INTO oad_trec.accommodation_bookmarks (user_id, accommodation_id) VALUES(?, ?)";
+      PreparedStatement insertStmt = con.prepareStatement(query);
+      insertStmt.setInt(1, user.getID());
+      insertStmt.setInt(2, accommodation.getID());
+      insertStmt.executeUpdate();
+      stmt1.close();
+      insertStmt.close();
+      return true;
+    }
+  }
+  
+  public ArrayList<Accommodation> getAccommodationBookmarks(User user) throws SQLException {
+    ArrayList<Accommodation> list = new ArrayList<>();
+    ArrayList<Integer> ids = new ArrayList<>();
+    String query1 = "SELECT user_id, accommodation_id FROM oad_trec.accommodation_bookmarks WHERE user_id=" + user.getID();
+    Statement selectStmt = con.createStatement();
+    ResultSet results = selectStmt.executeQuery(query1);
+    while(results.next()) {
+      ids.add(results.getInt("accommodation_id"));
+    }
+    // now fetch accommodations for each accommodation_id
+    ArrayList<Accommodation> temp_accomodations = getAllAccomodations();
+    for(int i : ids) {
+      for(Accommodation acc : temp_accomodations) {
+        if(acc.getID() == i) {
+          list.add(acc);
+        }
+      }
+    }
+    return list;
+  }
+  
+  public boolean addAccommodation(City city, Accommodation accommodation) throws SQLException {
+    String query1 = "select * from oad_trec.acc_and_dest where name=?";
+    PreparedStatement stmt1 = con.prepareStatement(query1);
+    stmt1.setString(1, accommodation.getName());
+    ResultSet result = stmt1.executeQuery();
+    if(result.isBeforeFirst()) {
+      stmt1.close();
+      return false;
+    } else {
+      String query = "INSERT INTO oad_trec.acc_and_dest(name, description, type_of, city_id) VALUES(?, ?, ?, ?)";
+      PreparedStatement insertStmt = con.prepareStatement(query);
+      insertStmt.setString(1, accommodation.getName());
+      insertStmt.setString(2, accommodation.getDescription());
+      insertStmt.setString(3, "Accommodation");
+      insertStmt.setInt(4, city.getID());
+      insertStmt.executeUpdate();
+      stmt1.close();
+      insertStmt.close();
+      return true; 
+    }
+  }
+  
+  public void updateAccommodation(Accommodation accommodation) throws SQLException {
+    String query = "UPDATE oad_trec.acc_and_dest SET description=? WHERE name=?";
+    PreparedStatement updateStmt = con.prepareStatement(query);
+    updateStmt.setString(1, accommodation.getDescription());
+    updateStmt.setString(2, accommodation.getName());
+    updateStmt.executeUpdate();
+    updateStmt.close();
+  }
+  
+  public void deleteAccommodation(Accommodation accommodation) throws SQLException {
+    String query = "DELETE FROM oad_trec.acc_and_dest WHERE id=?";
+    PreparedStatement updateStmt = con.prepareStatement(query);
+    updateStmt.setInt(1, accommodation.getID());
+    updateStmt.executeUpdate();
+    updateStmt.close();
+  }
+  
+  public ArrayList<Accommodation> getAllAccomodations() throws SQLException {
+    ArrayList<Accommodation> list = new ArrayList<>();
+    String query = "SELECT id, name, description, type_of, city_id FROM oad_trec.acc_and_dest";
+    Statement selectStmt = con.createStatement();
+    ResultSet results = selectStmt.executeQuery(query);
+    while(results.next()) {
+      int id = results.getInt("id");
+      String name = results.getString("name");
+      String description = results.getString("description");
+      String type = results.getString("type_of");
+      int city_id = results.getInt("city_id");
+      if (type.equals("Accommodation")) {
+        Accommodation acc = new Accommodation();
+        acc.setName(name);
+        acc.setDescription(description);
+        acc.setID(id);
+        acc.setCityID(city_id);
+        list.add(acc);
+      }
+    }
+    selectStmt.close();
+    return list;
+  }
+  
+  public Accommodation getAccommodationByName(String name) throws SQLException {
+    ArrayList<Accommodation> list = getAllAccomodations();
+    for(Accommodation accommodation : list) {
+      if(accommodation.getName().equals(name))
+        return accommodation;
+    }
+    return null;
+  }
+  
+  public ArrayList<Accommodation> getAccommodationByCityID(int city_id) throws SQLException { 
+    ArrayList<Accommodation> temp_list = getAllAccomodations();
+    ArrayList<Accommodation> list = new ArrayList<>();
+    for(Accommodation acc : temp_list) {
+      if(acc.getCityID() == city_id) 
+        list.add(acc);
+    }
+    return list;
+  }
 
-  public boolean addDestinationBookmark(Destination destination, User user) {
-    ArrayList<Destination> bookmarks = this.destination_bookmarks_.get(user);
-    if(bookmarks != null) {
-      for(Destination iterator : bookmarks) {
-        if(iterator.getName().equals(destination.getName())) {
-          System.out.println("[INFO] Bookmark already exists. Do nothing.");
-          return false;
-        }
-      }      
-    } else {
-      bookmarks = new ArrayList<>();
-    }
-    bookmarks.add(destination);
-    this.destination_bookmarks_.put(user, bookmarks);
-    return true;
-  }
-  
-  public ArrayList<Destination> getDestinationBookmarks(User user) {
-    return destination_bookmarks_.get(user);
-  }
-  
-  public boolean addAccommodationBookmark(Accommodation accommodation, User user) {
-    ArrayList<Accommodation> bookmarks = this.accommodation_bookmarks_.get(user);
-    if(bookmarks != null) {
-      for(Accommodation iterator : bookmarks) {
-        if(iterator.getName().equals(accommodation.getName())) {
-          System.out.println("[INFO] Bookmark already exists. Do nothing.");
-          return false;
-        }
-      }      
-    } else {
-      bookmarks = new ArrayList<>();
-    }
-    bookmarks.add(accommodation);
-    this.accommodation_bookmarks_.put(user, bookmarks);
-    return true;
-  }
-  
-  public ArrayList<Accommodation> getAccommodationBookmarks(User user) {
-    return accommodation_bookmarks_.get(user);
-  }
-  
-  public void updateAccommodation(Country country, City city, Accommodation accommodation) {
-    Country old_country = null;
-    for(Country it : country_list_) {
-      if(it.getName().equals(country.getName())) {
-        old_country = it;
-        country_list_.remove(it);
-        break;
-      }
-    }
-    ArrayList<City> city_list = old_country.getCities();
-    City old_city = null;
-    for(City it : city_list) {
-      if(it.getName().equals(city.getName())) {
-        old_city = it;
-        city_list.remove(it);
-        break;
-      }
-    }
-    // update, find by name and remove
-    old_city.removeAccommodation(accommodation);
-    // add with new description
-    old_city.addAccommodation(accommodation);
-    // go back 
-    old_country.addCity(old_city);
-    country_list_.add(old_country);
-  }
-  
-   public void deleteAccommodation(Country country, City city, Accommodation accommodation) {
-    Country old_country = null;
-    for(Country it : country_list_) {
-      if(it.getName().equals(country.getName())) {
-        old_country = it;
-        country_list_.remove(it);
-        break;
-      }
-    }
-    ArrayList<City> city_list = old_country.getCities();
-    City old_city = null;
-    for(City it : city_list) {
-      if(it.getName().equals(city.getName())) {
-        old_city = it;
-        city_list.remove(it);
-        break;
-      }
-    }
-    // find by name and remove
-    old_city.removeAccommodation(accommodation);
-    // go back 
-    old_country.addCity(old_city);
-    country_list_.add(old_country);
-  }
-   
-  public void updateDestination(Country country, City city, Destination destination) {
-    Country old_country = null;
-    for(Country it : country_list_) {
-      if(it.getName().equals(country.getName())) {
-        old_country = it;
-        country_list_.remove(it);
-        break;
-      }
-    }
-    ArrayList<City> city_list = old_country.getCities();
-    City old_city = null;
-    for(City it : city_list) {
-      if(it.getName().equals(city.getName())) {
-        old_city = it;
-        city_list.remove(it);
-        break;
-      }
-    }
-    // update, find by name and remove
-    old_city.removeDestination(destination);
-    // add with new description
-    old_city.addDestination(destination);
-    // go back 
-    old_country.addCity(old_city);
-    country_list_.add(old_country);
-  }
-  
-  public void deleteDestination(Country country, City city, Destination destination) {
-    Country old_country = null;
-    for(Country it : country_list_) {
-      if(it.getName().equals(country.getName())) {
-        old_country = it;
-        country_list_.remove(it);
-        break;
-      }
-    }
-    ArrayList<City> city_list = old_country.getCities();
-    City old_city = null;
-    for(City it : city_list) {
-      if(it.getName().equals(city.getName())) {
-        old_city = it;
-        city_list.remove(it);
-        break;
-      }
-    }
-    // find by name and remove
-    old_city.removeDestination(destination);
-    // go back 
-    old_country.addCity(old_city);
-    country_list_.add(old_country);
-  }
-  
-  public boolean addCity(Country country, City city) {
-    Country old_country = null;
-    for(Country it : country_list_) {
-      if(it.getName().equals(country.getName())) {
-        old_country = it;
-        country_list_.remove(it);
-        break;
-      }
-    }
-    ArrayList<City> city_list = old_country.getCities();
-    for(City it : city_list) {
-      if(it.getName().equals(city.getName())) {
-        return false;
-      }
-    }
-    old_country.addCity(city);
-    country_list_.add(old_country);
-    return true;
-  }
-  
-  public void removeCity(Country country, City city) {
-    Country old_country = null;
-    for(Country it : country_list_) {
-      if(it.getName().equals(country.getName())) {
-        old_country = it;
-        country_list_.remove(it);
-        break;
-      }
-    }
-    old_country.removeCity(city);
-    country_list_.add(old_country);
-  }
-  
-  public boolean addDestination(Country country, City city, Destination destination) {
-    Country old_country = null;
-    for(Country it : country_list_) {
-      if(it.getName().equals(country.getName())) {
-        old_country = it;
-        country_list_.remove(it);
-        break;
-      }
-    }
-    ArrayList<City> city_list = old_country.getCities();
-    City old_city = null;
-    for(City it : city_list) {
-      if(it.getName().equals(city.getName())) {
-        old_city = it;
-        city_list.remove(it);
-        break;
-      }
-    }
-    for(Destination it : old_city.getDestinations()) {
-      if(it.getName().equals(destination.getName())) {
-        return false;
-      }
-    }
-    old_city.addDestination(destination);
-    old_country.addCity(old_city);
-    country_list_.add(old_country);
-    return true;
-  }
-  
-  public boolean addAccommodation(Country country, City city, Accommodation accommodation) {
-    Country old_country = null;
-    for(Country it : country_list_) {
-      if(it.getName().equals(country.getName())) {
-        old_country = it;
-        country_list_.remove(it);
-        break;
-      }
-    }
-    ArrayList<City> city_list = old_country.getCities();
-    City old_city = null;
-    for(City it : city_list) {
-      if(it.getName().equals(city.getName())) {
-        old_city = it;
-        city_list.remove(it);
-        break;
-      }
-    }
-    for(Accommodation it : old_city.getAccommodations()) {
-      if(it.getName().equals(accommodation.getName())) {
-        return false;
-      }
-    }
-    old_city.addAccommodation(accommodation);
-    old_country.addCity(old_city);
-    country_list_.add(old_country);
-    return true;
-  }
+  // TODO when I delete a country, delete all cities???????
+
 }

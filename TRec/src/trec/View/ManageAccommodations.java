@@ -218,13 +218,13 @@ public class ManageAccommodations extends javax.swing.JFrame {
     String current_country_name = country_combo_box.getSelectedItem().toString();
     try {
       current_country_ = UserController.getInstance().getCountryByName(current_country_name);
-      ArrayList<City> city_list = current_country_.getCities();
+      ArrayList<City> city_list = UserController.getInstance().getCitiesByCountryID(current_country_.getID());
       city_combo_box.removeAllItems();
       city_list.forEach((city) -> {
         city_combo_box.addItem(city.getName());
       });
       accommodations_list_combo_box.removeAllItems();
-      ArrayList<Accommodation> accommodation_list = city_list.get(0).getAccommodations();
+      ArrayList<Accommodation> accommodation_list = UserController.getInstance().getAccommodationByCityID(city_list.get(0).getID());
       if(accommodation_list.isEmpty()) {
         desc_field.setText("No item selected.");
       } else {
@@ -240,40 +240,47 @@ public class ManageAccommodations extends javax.swing.JFrame {
 
   private void city_combo_boxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_city_combo_boxItemStateChanged
     // TODO add your handling code here:
-    ArrayList<City> city_list = current_country_.getCities();
-    int index = city_combo_box.getSelectedIndex();
-    City current_city;
-    if(index >= 0) {
-      current_city = city_list.get(index);
-      accommodations_list_combo_box.removeAllItems();
-      ArrayList<Accommodation> accommodation_list = current_city.getAccommodations();
-      if(!accommodation_list.isEmpty()) {
-        accommodation_list.forEach((accommodation) -> {
-         accommodations_list_combo_box.addItem(accommodation.getName());
-        });
-        desc_field.setText(accommodation_list.get(0).getDescription());
+    try {
+      ArrayList<City> city_list = UserController.getInstance().getCitiesByCountryID(current_country_.getID());
+      int index = city_combo_box.getSelectedIndex();
+      City current_city;
+      if(index >= 0) {
+        current_city = city_list.get(index);
+        accommodations_list_combo_box.removeAllItems();
+        ArrayList<Accommodation> accommodation_list = UserController.getInstance().getAccommodationByCityID(current_city.getID());
+        if(!accommodation_list.isEmpty()) {
+          accommodation_list.forEach((accommodation) -> {
+           accommodations_list_combo_box.addItem(accommodation.getName());
+          });
+          desc_field.setText(accommodation_list.get(0).getDescription());
+        } else {
+          desc_field.setText("No item selected");
+        }
       } else {
         desc_field.setText("No item selected");
       }
-    } else {
-      desc_field.setText("No item selected");
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
     }
-      
   }//GEN-LAST:event_city_combo_boxItemStateChanged
 
   private void accommodations_list_combo_boxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_accommodations_list_combo_boxItemStateChanged
     // TODO add your handling code here:
-    ArrayList<City> city_list = current_country_.getCities();
-    if(!city_list.isEmpty()) {
-      City current_city = city_list.get(city_combo_box.getSelectedIndex());
-      ArrayList<Accommodation> accommodation_list = current_city.getAccommodations();
-      int index = accommodations_list_combo_box.getSelectedIndex();
-      if(index >= 0)
-        desc_field.setText(accommodation_list.get(index).getDescription());
-      else
+    try {
+      ArrayList<City> city_list = UserController.getInstance().getCitiesByCountryID(current_country_.getID());
+      if(!city_list.isEmpty()) {
+        City current_city = city_list.get(city_combo_box.getSelectedIndex());
+        ArrayList<Accommodation> accommodation_list = UserController.getInstance().getAccommodationByCityID(current_city.getID());
+        int index = accommodations_list_combo_box.getSelectedIndex();
+        if(index >= 0)
+          desc_field.setText(accommodation_list.get(index).getDescription());
+        else
+          desc_field.setText("No item selected.");
+      } else {
         desc_field.setText("No item selected.");
-    } else {
-      desc_field.setText("No item selected.");
+      }
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
     }
   }//GEN-LAST:event_accommodations_list_combo_boxItemStateChanged
 
@@ -289,45 +296,33 @@ public class ManageAccommodations extends javax.swing.JFrame {
 
   private void update_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_update_buttonMouseClicked
     // TODO add your handling code here:
-    Accommodation accommodation = new Accommodation();
-    if(accommodations_list_combo_box.getItemCount() >= 0) {
-      accommodation.setName(accommodations_list_combo_box.getSelectedItem().toString());
-      accommodation.setDescription(desc_field.getText());
-      ArrayList<City> city_list = current_country_.getCities();
-      City city = null;
-      for(City it : city_list) {
-        if(it.getName().equals(city_combo_box.getSelectedItem().toString())) {
-          city = it;
-          break;
-        }
-      }
-      UserController.getInstance().updateAccommodation(current_country_, city, accommodation);
-      JOptionPane.showMessageDialog(null, "Accommodation updated!", "Success!", JOptionPane.INFORMATION_MESSAGE);
-      country_combo_boxItemStateChanged(null);
-    } else {
-      JOptionPane.showMessageDialog(null, "Cannot update, there is no accommodation selected.", "Error!", JOptionPane.ERROR_MESSAGE);
+    try {
+      if(accommodations_list_combo_box.getItemCount() >= 0) {
+        Accommodation acc = UserController.getInstance().getAccommodationByName(accommodations_list_combo_box.getSelectedItem().toString());
+        UserController.getInstance().updateAccommodation(acc);
+        JOptionPane.showMessageDialog(null, "Accommodation updated!", "Success!", JOptionPane.INFORMATION_MESSAGE);
+        country_combo_boxItemStateChanged(null);
+      } else {
+        JOptionPane.showMessageDialog(null, "Cannot update, there is no accommodation selected.", "Error!", JOptionPane.ERROR_MESSAGE);
+      }  
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
     }
   }//GEN-LAST:event_update_buttonMouseClicked
 
   private void delete_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete_buttonMouseClicked
     // TODO add your handling code here:
-    Accommodation accommodation = new Accommodation();
-    if(accommodations_list_combo_box.getItemCount() >= 0) {
-      accommodation.setName(accommodations_list_combo_box.getSelectedItem().toString());
-      accommodation.setDescription(desc_field.getText());
-      ArrayList<City> city_list = current_country_.getCities();
-      City city = null;
-      for(City it : city_list) {
-        if(it.getName().equals(city_combo_box.getSelectedItem().toString())) {
-          city = it;
-          break;
-        }
+    try {
+      if(accommodations_list_combo_box.getItemCount() >= 0) {
+        Accommodation accommodation = UserController.getInstance().getAccommodationByName(accommodations_list_combo_box.getSelectedItem().toString());
+        UserController.getInstance().deleteAccommodation(accommodation);
+        JOptionPane.showMessageDialog(null, "Accommodation deleted!", "Success!", JOptionPane.INFORMATION_MESSAGE);
+        country_combo_boxItemStateChanged(null);
+      } else {
+        JOptionPane.showMessageDialog(null, "Cannot delete, there is no accommodation selected.", "Error!", JOptionPane.ERROR_MESSAGE);
       }
-      UserController.getInstance().deleteAccommodation(current_country_, city, accommodation);
-      JOptionPane.showMessageDialog(null, "Accommodation deleted!", "Success!", JOptionPane.INFORMATION_MESSAGE);
-      country_combo_boxItemStateChanged(null);
-    } else {
-      JOptionPane.showMessageDialog(null, "Cannot delete, there is no accommodation selected.", "Error!", JOptionPane.ERROR_MESSAGE);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
     }
   }//GEN-LAST:event_delete_buttonMouseClicked
 

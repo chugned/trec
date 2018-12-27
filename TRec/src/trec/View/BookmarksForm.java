@@ -137,27 +137,31 @@ public class BookmarksForm extends javax.swing.JFrame {
 
   private void bookmark_type_combo_boxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_bookmark_type_combo_boxItemStateChanged
     // TODO add your handling code here:
-    String type = bookmark_type_combo_box.getSelectedItem().toString();
-    bookmark_name_combo_box.removeAllItems();
-    desc_field.setText("No bookmars yet.");
-    if(type.equals("Accommodation")) {
-      acc_list = UserController.getInstance().getAccommodationBookmarks(
-        UserController.getInstance().getCurrentUser());
-      if(acc_list != null) {
-        acc_list.forEach((acc) -> {
-          bookmark_name_combo_box.addItem(acc.getName());
-        });
-        desc_field.setText(acc_list.get(0).getDescription());
+    try {
+      String type = bookmark_type_combo_box.getSelectedItem().toString();
+      bookmark_name_combo_box.removeAllItems();
+      desc_field.setText("No bookmars yet.");
+      if(type.equals("Accommodation")) {
+        acc_list = UserController.getInstance().getAccommodationBookmarks(
+          UserController.getInstance().getCurrentUser());
+        if(acc_list != null) {
+          acc_list.forEach((acc) -> {
+            bookmark_name_combo_box.addItem(acc.getName());
+          });
+          desc_field.setText(acc_list.get(0).getDescription());
+        }
+      } else if(type.equals("Destination")) {
+        dest_list = UserController.getInstance().getDestinationBookmarks(
+          UserController.getInstance().getCurrentUser());
+        if(dest_list != null) {
+          dest_list.forEach((dest) -> {
+            bookmark_name_combo_box.addItem(dest.getName());
+          });
+          desc_field.setText(dest_list.get(0).getDescription());
+        }
       }
-    } else if(type.equals("Destination")) {
-      dest_list = UserController.getInstance().getDestinationBookmarks(
-        UserController.getInstance().getCurrentUser());
-      if(dest_list != null) {
-        dest_list.forEach((dest) -> {
-          bookmark_name_combo_box.addItem(dest.getName());
-        });
-        desc_field.setText(dest_list.get(0).getDescription());
-      }
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
     }
   }//GEN-LAST:event_bookmark_type_combo_boxItemStateChanged
 

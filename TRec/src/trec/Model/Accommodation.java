@@ -12,6 +12,8 @@ package trec.Model;
 public class Accommodation {
   private String name_;
   private String description_;
+  private int id_;
+  private int city_id_;
   
   public Accommodation() {}
   
@@ -34,5 +36,21 @@ public class Accommodation {
   
   public void setDescription(String description) {
     this.description_ = description;
+  }
+  
+  public void setID(int id) {
+    this.id_ = id;
+  }
+  
+  public int getID() {
+    return id_;
+  }
+  
+  public void setCityID(int city_id) {
+    this.city_id_ = city_id;
+  }
+  
+  public int getCityID() {
+    return city_id_;
   }
 }

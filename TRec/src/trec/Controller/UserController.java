@@ -5,6 +5,7 @@
  */
 package trec.Controller;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import trec.Model.Accommodation;
 import trec.Model.City;
@@ -31,6 +32,7 @@ public class UserController {
     return user_controller_;
   }
   
+  // database specific stuff
   public void databaseConnect() throws Exception {
     Database.getInstance().connect();
   }
@@ -39,6 +41,7 @@ public class UserController {
     Database.getInstance().disconnect();
   }
  
+  // user specific stuff
   public User isUserValid(String username, String password) throws Exception {
     return Database.getInstance().isUserValid(username, password);
   }
@@ -79,52 +82,13 @@ public class UserController {
     Database.getInstance().deleteUser(username);
   }
   
+  // country specific stuff
   public ArrayList<Country> getCountrys() throws Exception {
     return Database.getInstance().getCountrys();
   }
   
   public Country getCountryByName(String country_name) throws Exception {
     return Database.getInstance().getCountryByName(country_name);
-  }
-  
-  public boolean addDestinationBookmark(Destination destination, User user) {
-    return Database.getInstance().addDestinationBookmark(destination, user);
-  }
-  
-  public ArrayList<Destination> getDestinationBookmarks(User user) {
-    return Database.getInstance().getDestinationBookmarks(user);
-  }
-  
-  public boolean addAccommodationBookmark(Accommodation accommodation, User user) {
-    return Database.getInstance().addAccommodationBookmark(accommodation, user);
-  }
-  
-  public ArrayList<Accommodation> getAccommodationBookmarks(User user) {
-    return Database.getInstance().getAccommodationBookmarks(user);
-  }
-  
-  public void updateAccommodation(Country country, City city, Accommodation accommodation) {
-    Database.getInstance().updateAccommodation(country, city, accommodation);
-  }
-  
-  public boolean addAccommodation(Country country, City city, Accommodation accommodation) {
-    return Database.getInstance().addAccommodation(country, city, accommodation);
-  }
-  
-  public void deleteAccommodation(Country country, City city, Accommodation accommodation) {
-    Database.getInstance().deleteAccommodation(country, city, accommodation);
-  }
-  
-  public void updateDestination(Country country, City city, Destination destination) {
-    Database.getInstance().updateDestination(country, city, destination);
-  }
-  
-  public boolean addDestination(Country country, City city, Destination destination) {
-    return Database.getInstance().addDestination(country, city, destination);
-  }
-  
-  public void deleteDestination(Country country, City city, Destination destination) {
-    Database.getInstance().deleteDestination(country, city, destination);
   }
   
   public void deleteCountry(Country country) throws Exception {
@@ -135,11 +99,78 @@ public class UserController {
     return Database.getInstance().addCountry(country);
   }
   
-  public void deleteCity(Country country, City city) {
-    Database.getInstance().removeCity(country, city);
+  // city specific stuff
+  public void deleteCity(City city) throws Exception {
+    Database.getInstance().removeCity(city);
   }
   
-  public boolean addCity(Country country, City city) {
+  public boolean addCity(Country country, City city) throws Exception {
     return Database.getInstance().addCity(country, city);
+  }
+  
+  public ArrayList<City> getCitiesByCountryID(int country_id) throws Exception {
+    return Database.getInstance().getCitiesByCountryID(country_id);
+  }
+  
+  public City getCityByName(String name, int country_id) throws Exception {
+    return Database.getInstance().getCityByName(name, country_id);
+  }
+  
+  // destination specific stuff
+  public boolean addDestinationBookmark(Destination destination, User user) throws Exception {
+    return Database.getInstance().addDestinationBookmark(destination, user);
+  }
+  
+  public ArrayList<Destination> getDestinationBookmarks(User user) throws Exception {
+    return Database.getInstance().getDestinationBookmarks(user);
+  }
+  
+  public Destination getDestinationByName(String name) throws Exception {
+    return Database.getInstance().getDestinationByName(name);
+  }
+  
+   public void updateDestination(Destination destination) throws Exception {
+    Database.getInstance().updateDestination(destination);
+  }
+  
+  public boolean addDestination(City city, Destination destination) throws Exception {
+    return Database.getInstance().addDestination(city, destination);
+  }
+  
+  public void deleteDestination(Destination destination) throws Exception {
+    Database.getInstance().deleteDestination(destination);
+  }
+  
+  public ArrayList<Destination> getDestinationByCityID(int city_id) throws Exception {
+    return Database.getInstance().getDestinationByCityID(city_id);
+  }
+  
+  // accommodation specific stuff
+  public boolean addAccommodationBookmark(Accommodation accommodation, User user) throws Exception {
+    return Database.getInstance().addAccommodationBookmark(accommodation, user);
+  }
+  
+  public ArrayList<Accommodation> getAccommodationBookmarks(User user) throws SQLException {
+    return Database.getInstance().getAccommodationBookmarks(user);
+  }
+  
+  public void updateAccommodation(Accommodation accommodation) throws Exception {
+    Database.getInstance().updateAccommodation(accommodation);
+  }
+  
+  public boolean addAccommodation(City city, Accommodation accommodation) throws Exception {
+    return Database.getInstance().addAccommodation(city, accommodation);
+  }
+  
+  public void deleteAccommodation(Accommodation accommodation) throws Exception {
+    Database.getInstance().deleteAccommodation(accommodation);
+  }
+  
+  public Accommodation getAccommodationByName(String name) throws Exception {
+    return Database.getInstance().getAccommodationByName(name);
+  }
+  
+  public ArrayList<Accommodation> getAccommodationByCityID(int city_id) throws Exception {
+    return Database.getInstance().getAccommodationByCityID(city_id);
   }
 }

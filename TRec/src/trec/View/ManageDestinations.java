@@ -202,13 +202,13 @@ public class ManageDestinations extends javax.swing.JFrame {
     String current_country_name = country_combo_box.getSelectedItem().toString();
     try {
       current_country_ = UserController.getInstance().getCountryByName(current_country_name);
-      ArrayList<City> city_list = current_country_.getCities();
+      ArrayList<City> city_list = UserController.getInstance().getCitiesByCountryID(current_country_.getID());
       city_combo_box.removeAllItems();
       city_list.forEach((city) -> {
         city_combo_box.addItem(city.getName());
       });
       destinations_list_combo_box.removeAllItems();
-      ArrayList<Destination> destination_list = city_list.get(0).getDestinations();
+      ArrayList<Destination> destination_list = UserController.getInstance().getDestinationByCityID(city_list.get(0).getID());
       if(destination_list.isEmpty()) {
         desc_field.setText("No item selected.");
       } else {
@@ -224,37 +224,46 @@ public class ManageDestinations extends javax.swing.JFrame {
 
   private void city_combo_boxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_city_combo_boxItemStateChanged
     // TODO add your handling code here:
-    ArrayList<City> city_list = current_country_.getCities();
-    int index = city_combo_box.getSelectedIndex();
-    City current_city;
-    if(index >= 0) {
-      current_city = city_list.get(index);
-      destinations_list_combo_box.removeAllItems();
-      ArrayList<Destination> destination_list = current_city.getDestinations();
-      if(!destination_list.isEmpty()) {
-        destination_list.forEach((destination) -> {
-          destinations_list_combo_box.addItem(destination.getName());
-        });
-        desc_field.setText(destination_list.get(0).getDescription());
+    try {
+      ArrayList<City> city_list = UserController.getInstance().getCitiesByCountryID(current_country_.getID());
+      int index = city_combo_box.getSelectedIndex();
+      City current_city;
+      if(index >= 0) {
+        current_city = city_list.get(index);
+        destinations_list_combo_box.removeAllItems();
+        ArrayList<Destination> destination_list = UserController.getInstance().getDestinationByCityID(current_city.getID());
+        if(!destination_list.isEmpty()) {
+          destination_list.forEach((destination) -> {
+            destinations_list_combo_box.addItem(destination.getName());
+          });
+          desc_field.setText(destination_list.get(0).getDescription());
+        } else {
+          desc_field.setText("No item selected");
+        }
       } else {
         desc_field.setText("No item selected");
       }
-    } else {
-      desc_field.setText("No item selected");
+     
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
     }
 
   }//GEN-LAST:event_city_combo_boxItemStateChanged
 
   private void destinations_list_combo_boxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_destinations_list_combo_boxItemStateChanged
     // TODO add your handling code here:
-    ArrayList<City> city_list = current_country_.getCities();
-    City current_city = city_list.get(city_combo_box.getSelectedIndex());
-    ArrayList<Destination> destination_list = current_city.getDestinations();
-    int index = destinations_list_combo_box.getSelectedIndex();
-    if(index >= 0)
-      desc_field.setText(destination_list.get(index).getDescription());
-    else
-      desc_field.setText("No item selected.");
+    try {
+      ArrayList<City> city_list = UserController.getInstance().getCitiesByCountryID(current_country_.getID());
+      City current_city = city_list.get(city_combo_box.getSelectedIndex());
+      ArrayList<Destination> destination_list = UserController.getInstance().getDestinationByCityID(current_city.getID());
+      int index = destinations_list_combo_box.getSelectedIndex();
+      if(index >= 0)
+        desc_field.setText(destination_list.get(index).getDescription());
+      else
+        desc_field.setText("No item selected.");
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
   }//GEN-LAST:event_destinations_list_combo_boxItemStateChanged
 
   private void adminhub_menu_bar_logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminhub_menu_bar_logoutMouseClicked
@@ -279,45 +288,33 @@ public class ManageDestinations extends javax.swing.JFrame {
 
   private void delete_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete_buttonMouseClicked
     // TODO add your handling code here:
-    Destination destination = new Destination();
-    if(destinations_list_combo_box.getItemCount() >= 0) {
-      destination.setName(destinations_list_combo_box.getSelectedItem().toString());
-      destination.setDescription(desc_field.getText());
-      ArrayList<City> city_list = current_country_.getCities();
-      City city = null;
-      for(City it : city_list) {
-        if(it.getName().equals(city_combo_box.getSelectedItem().toString())) {
-          city = it;
-          break;
-        }
-      }
-      UserController.getInstance().deleteDestination(current_country_, city, destination);
-      JOptionPane.showMessageDialog(null, "Destination deleted!", "Success!", JOptionPane.INFORMATION_MESSAGE);
-      country_combo_boxItemStateChanged(null);
-    } else {
-      JOptionPane.showMessageDialog(null, "Cannot delete, there is no destination selected.", "Error!", JOptionPane.ERROR_MESSAGE);
+    try {
+      if(destinations_list_combo_box.getItemCount() >= 0) {
+        Destination destination = UserController.getInstance().getDestinationByName(destinations_list_combo_box.getSelectedItem().toString());
+        UserController.getInstance().deleteDestination(destination);
+        JOptionPane.showMessageDialog(null, "Destination deleted!", "Success!", JOptionPane.INFORMATION_MESSAGE);
+        country_combo_boxItemStateChanged(null);
+      } else {
+        JOptionPane.showMessageDialog(null, "Cannot delete, there is no destination selected.", "Error!", JOptionPane.ERROR_MESSAGE);
+      } 
+    } catch (Exception e) {
+      System.out.print(e.getMessage());
     }
   }//GEN-LAST:event_delete_buttonMouseClicked
 
   private void update_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_update_buttonMouseClicked
     // TODO add your handling code here:
-    Destination destination = new Destination();
-    if(destinations_list_combo_box.getItemCount() >= 0) {
-      destination.setName(destinations_list_combo_box.getSelectedItem().toString());
-      destination.setDescription(desc_field.getText());
-      ArrayList<City> city_list = current_country_.getCities();
-      City city = null;
-      for(City it : city_list) {
-        if(it.getName().equals(city_combo_box.getSelectedItem().toString())) {
-          city = it;
-          break;
-        }
-      }
-      UserController.getInstance().updateDestination(current_country_, city, destination);
-      JOptionPane.showMessageDialog(null, "Destination updated!", "Success!", JOptionPane.INFORMATION_MESSAGE);
-      country_combo_boxItemStateChanged(null);
-    } else {
-      JOptionPane.showMessageDialog(null, "Cannot update, there is no destination selected.", "Error!", JOptionPane.ERROR_MESSAGE);
+    try {
+      if(destinations_list_combo_box.getItemCount() >= 0) {
+        Destination dest = UserController.getInstance().getDestinationByName(destinations_list_combo_box.getSelectedItem().toString());
+        UserController.getInstance().updateDestination(dest);
+        JOptionPane.showMessageDialog(null, "Destination updated!", "Success!", JOptionPane.INFORMATION_MESSAGE);
+        country_combo_boxItemStateChanged(null);
+      } else {
+        JOptionPane.showMessageDialog(null, "Cannot update, there is no destination selected.", "Error!", JOptionPane.ERROR_MESSAGE);
+      }  
+    } catch (Exception e) {
+      System.out.print(e.getMessage());
     }
   }//GEN-LAST:event_update_buttonMouseClicked
 

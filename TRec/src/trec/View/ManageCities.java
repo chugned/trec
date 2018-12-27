@@ -29,6 +29,7 @@ public class ManageCities extends javax.swing.JFrame {
         country_list.forEach((country) -> {
           country_combo_box.addItem(country.getName());
         });
+        current_country = country_list.get(0);
       }
     } catch (Exception exception) {
       System.out.println(exception.getMessage());
@@ -229,9 +230,13 @@ public class ManageCities extends javax.swing.JFrame {
     // TODO add your handling code here:
     if(city_combo_box.getItemCount() >= 0) {
       String city_name = city_combo_box.getSelectedItem().toString();
-      City city = new City(city_name);
-      UserController.getInstance().deleteCity(current_country, city);
-      JOptionPane.showMessageDialog(null, "City deleted!", "Success!", JOptionPane.INFORMATION_MESSAGE);
+      City city = new City(city_name);  
+      try {
+        UserController.getInstance().deleteCity(city);
+        JOptionPane.showMessageDialog(null, "City deleted!", "Success!", JOptionPane.INFORMATION_MESSAGE);        
+      } catch (Exception e) {
+        System.out.println(e.getMessage());
+      }
     } else {
       JOptionPane.showMessageDialog(null, "Cannot delete - no item chosen.", "Error!", JOptionPane.ERROR_MESSAGE);
     }
@@ -239,15 +244,24 @@ public class ManageCities extends javax.swing.JFrame {
 
   private void add_city_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_add_city_buttonMouseClicked
     // TODO add your handling code here:
-    String name = new_city_field.getText();
-    if(name.equals("")) {
-      JOptionPane.showMessageDialog(null, "Cannot add a city with no name.", "Error!", JOptionPane.ERROR_MESSAGE);
-    } else {
-      City city = new City(name);
-      if(UserController.getInstance().addCity(current_country, city))
-        JOptionPane.showMessageDialog(null, "City added!", "Success!", JOptionPane.INFORMATION_MESSAGE);
-      else
-        JOptionPane.showMessageDialog(null, "City already exists!", "Error!", JOptionPane.ERROR_MESSAGE);
+    try {
+      String name = new_city_field.getText();
+      if(name.equals("")) {
+        JOptionPane.showMessageDialog(null, "Cannot add a city with no name.", "Error!", JOptionPane.ERROR_MESSAGE);
+      } else {
+        City city = new City(name);
+        city.setCountryID(current_country.getID());
+        try {
+          if(UserController.getInstance().addCity(current_country, city))
+            JOptionPane.showMessageDialog(null, "City added!", "Success!", JOptionPane.INFORMATION_MESSAGE);
+          else
+            JOptionPane.showMessageDialog(null, "City already exists!", "Error!", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+          System.out.println(e.getMessage());
+        }
+      }
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
     }
   }//GEN-LAST:event_add_city_buttonMouseClicked
 
@@ -273,7 +287,7 @@ public class ManageCities extends javax.swing.JFrame {
       current_country = UserController
               .getInstance()
               .getCountryByName(country_combo_box.getSelectedItem().toString());
-      ArrayList<City> city_list = current_country.getCities();
+      ArrayList<City> city_list = UserController.getInstance().getCitiesByCountryID(current_country.getID());
       if(!city_list.isEmpty()) {
         city_list.forEach((city) -> {
           city_combo_box.addItem(city.getName());
