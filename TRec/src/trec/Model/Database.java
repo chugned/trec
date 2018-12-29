@@ -160,14 +160,48 @@ public class Database {
     return users_list_;
   }
   
+    public ArrayList<User> getUsersAndAdmins() throws SQLException {
+    users_list_.clear();
+    String select_query = "SELECT id, first_name, last_name, email, username, password, gender, age, occupation, `role` FROM oad_trec.users";
+    Statement selectStmt = con.createStatement();
+    ResultSet results = selectStmt.executeQuery(select_query);
+    while(results.next()) {
+      User user = new User();
+      user.setID(results.getInt("id"));
+      user.setFirstName(results.getString("first_name"));
+      user.setLastName(results.getString("last_name"));
+      user.setEmail(results.getString("email"));
+      user.setUsername(results.getString("username"));
+      user.setPassword(results.getString("password"));
+      user.setGender(results.getString("gender"));
+      user.setAge(results.getInt("age"));
+      user.setOccupation(results.getString("occupation"));
+      user.setRole(results.getString("role"));
+      users_list_.add(user);
+    }
+    selectStmt.close();
+    return users_list_;
+  }
+  
   public User getUserByUsername(String username) throws SQLException {
-      users_list_.clear();
-      users_list_ = getUsers();
-      for(User user : users_list_) {
-        if(user.getUsername().equals(username)) {
-          return user;
-        }
+    users_list_.clear();
+    users_list_ = getUsers();
+    for(User user : users_list_) {
+     if(user.getUsername().equals(username)) {
+        return user;
       }
+    }
+    return null;
+  }
+  
+  public User getUserByUserID(int user_id) throws SQLException {
+    users_list_.clear();
+    users_list_ = getUsersAndAdmins();
+    for(User user : users_list_) {
+      if(user.getID() == user_id) {
+        return user;
+      }
+    }
     return null;
   }
   
@@ -555,4 +589,85 @@ public class Database {
 
   // TODO when I delete a country, delete all cities???????
 
+  // ratings
+  public void addRating(int user_id, int place_id, int rating, String comment) throws SQLException {
+    String query1 = "select * from oad_trec.ratings where user_id=? and place_id=?";
+    PreparedStatement stmt1 = con.prepareStatement(query1);
+    stmt1.setInt(1, user_id);
+    stmt1.setInt(2, place_id);
+    ResultSet result = stmt1.executeQuery();
+    if(result.isBeforeFirst()) {
+      // UPDATE IF EXISTS
+      String query = "UPDATE oad_trec.ratings SET rating=?, comment=?";
+      PreparedStatement updateStmt = con.prepareStatement(query);
+      updateStmt.setInt(1, rating);
+      updateStmt.setString(2, comment);
+      updateStmt.executeUpdate();
+      updateStmt.close();
+      stmt1.close();
+    } else {
+      // INSERT IF FIRST TIME
+      String query = "INSERT INTO oad_trec.ratings (user_id, place_id, rating, comment) VALUES(?, ?, ?, ?)";
+      PreparedStatement insertStmt = con.prepareStatement(query);
+      insertStmt.setInt(1, user_id);
+      insertStmt.setInt(2, place_id);
+      insertStmt.setInt(3, rating);
+      insertStmt.setString(4, comment);
+      insertStmt.executeUpdate();
+      insertStmt.close();
+      stmt1.close();    
+    }
+  }
+  
+  public ArrayList<Integer> getAllUsersThatRatedPlaceByPlaceID(int place_id) throws SQLException {
+    ArrayList<Integer> list = new ArrayList<>();
+    String query1 = "select user_id from oad_trec.ratings where place_id=?";
+    PreparedStatement stmt1 = con.prepareStatement(query1);
+    stmt1.setInt(1, place_id);
+    ResultSet result = stmt1.executeQuery();
+    while(result.next()) {
+      list.add(result.getInt("user_id"));
+    }
+    stmt1.close();
+    return list.isEmpty() ? null : list;
+  }
+  
+  public double getRatingByPlaceID(int place_id) throws SQLException {
+    String query1 = "select rating from oad_trec.ratings where place_id=?";
+    PreparedStatement stmt1 = con.prepareStatement(query1);
+    stmt1.setInt(1, place_id);
+    ResultSet result = stmt1.executeQuery();
+    int sum = 0, counter = 0;
+    while(result.next()) {
+      sum += result.getInt("rating");
+      counter++;
+    }
+    stmt1.close();
+    if(counter == 0) return 0;
+    return (double) sum / counter;
+  }
+  
+  public int getRatingByUserIDandPlaceID(int user_id, int place_id) throws SQLException {
+    String query1 = "select rating from oad_trec.ratings where user_id=? and place_id=?";
+    PreparedStatement stmt1 = con.prepareStatement(query1);
+    stmt1.setInt(1, user_id);
+    stmt1.setInt(2, place_id);
+    ResultSet result = stmt1.executeQuery();
+    result.next();
+    int rating = result.getInt("rating");
+    stmt1.close();
+    return rating;
+  }
+  
+  public String getCommentByUserIDandPlaceID(int user_id, int place_id) throws SQLException {
+    String query1 = "select comment from oad_trec.ratings where user_id=? and place_id=?";
+    PreparedStatement stmt1 = con.prepareStatement(query1);
+    stmt1.setInt(1, user_id);
+    stmt1.setInt(2, place_id);
+    ResultSet result = stmt1.executeQuery();
+    result.next();
+    String comment = result.getString("comment");
+    stmt1.close();
+    return comment;
+  }
 }

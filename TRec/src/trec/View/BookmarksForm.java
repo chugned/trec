@@ -45,6 +45,7 @@ public class BookmarksForm extends javax.swing.JFrame {
     jScrollPane1 = new javax.swing.JScrollPane();
     desc_field = new javax.swing.JTextPane();
     back_button = new javax.swing.JButton();
+    rate_button = new javax.swing.JButton();
     bookmarks_menu_bar = new javax.swing.JMenuBar();
     menu_bar_logout = new javax.swing.JMenu();
     menu_bar_adminhub = new javax.swing.JMenu();
@@ -77,6 +78,13 @@ public class BookmarksForm extends javax.swing.JFrame {
       }
     });
 
+    rate_button.setText("Rate");
+    rate_button.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        rate_buttonMouseClicked(evt);
+      }
+    });
+
     menu_bar_logout.setText("Logout");
     menu_bar_logout.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -102,7 +110,6 @@ public class BookmarksForm extends javax.swing.JFrame {
       .addGroup(layout.createSequentialGroup()
         .addGap(22, 22, 22)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addGroup(layout.createSequentialGroup()
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
               .addComponent(choose_bookmark_type_label)
@@ -111,7 +118,12 @@ public class BookmarksForm extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
               .addComponent(bookmark_name_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
               .addComponent(bookmark_type_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))
-          .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+            .addGroup(layout.createSequentialGroup()
+              .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+              .addComponent(rate_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)))
         .addContainerGap(20, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
@@ -128,7 +140,9 @@ public class BookmarksForm extends javax.swing.JFrame {
         .addGap(18, 18, 18)
         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addGap(18, 18, 18)
-        .addComponent(back_button)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(back_button)
+          .addComponent(rate_button))
         .addContainerGap(20, Short.MAX_VALUE))
     );
 
@@ -219,6 +233,28 @@ public class BookmarksForm extends javax.swing.JFrame {
     this.dispose();
   }//GEN-LAST:event_menu_bar_adminhubMouseClicked
 
+  private void rate_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rate_buttonMouseClicked
+    // TODO add your handling code here:
+    try {
+      int place_id;
+      String type = bookmark_type_combo_box.getSelectedItem().toString();
+      String name = bookmark_name_combo_box.getSelectedItem().toString();
+      if(type.equals("Destination")) {
+        place_id = UserController.getInstance().getDestinationByName(name).getID();
+      } else {
+        place_id = UserController.getInstance().getAccommodationByName(name).getID();
+      }
+      RateForm rate_form = new RateForm(place_id);
+      rate_form.setVisible(true);
+      rate_form.pack();
+      rate_form.setLocationRelativeTo(null);
+      rate_form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      this.dispose();
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+  }//GEN-LAST:event_rate_buttonMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -265,6 +301,7 @@ public class BookmarksForm extends javax.swing.JFrame {
   private javax.swing.JScrollPane jScrollPane1;
   private javax.swing.JMenu menu_bar_adminhub;
   private javax.swing.JMenu menu_bar_logout;
+  private javax.swing.JButton rate_button;
   // End of variables declaration//GEN-END:variables
 
 }

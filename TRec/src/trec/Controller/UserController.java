@@ -74,6 +74,10 @@ public class UserController {
     return Database.getInstance().getUserByUsername(username);
   }
   
+  public User getUserByUserID(int user_id) throws Exception {
+    return Database.getInstance().getUserByUserID(user_id);
+  }
+  
   public void updateUser(User user, String old_username) throws Exception {
     Database.getInstance().updateUser(user, old_username);
   }
@@ -117,6 +121,10 @@ public class UserController {
   }
   
   // destination specific stuff
+  
+  public ArrayList<Destination> getAllDestinations() throws Exception {
+    return Database.getInstance().getAllDestinations();
+  }
   public boolean addDestinationBookmark(Destination destination, User user) throws Exception {
     return Database.getInstance().addDestinationBookmark(destination, user);
   }
@@ -146,6 +154,10 @@ public class UserController {
   }
   
   // accommodation specific stuff
+  public ArrayList<Accommodation> getAllAccommodations() throws Exception {
+    return Database.getInstance().getAllAccomodations();
+  }
+  
   public boolean addAccommodationBookmark(Accommodation accommodation, User user) throws Exception {
     return Database.getInstance().addAccommodationBookmark(accommodation, user);
   }
@@ -172,5 +184,27 @@ public class UserController {
   
   public ArrayList<Accommodation> getAccommodationByCityID(int city_id) throws Exception {
     return Database.getInstance().getAccommodationByCityID(city_id);
+  }
+  
+  // ratings
+  
+  public void addRating(int user_id, int place_id, int rating, String comment) throws Exception {
+    Database.getInstance().addRating(user_id, place_id, rating, comment);
+  }
+  
+  public ArrayList<Integer> getAllUsersThatRatedPlaceByPlaceID(int place_id) throws Exception {
+    return Database.getInstance().getAllUsersThatRatedPlaceByPlaceID(place_id);
+  } 
+  
+  public double getRatingByPlaceID(int place_id) throws Exception {
+    return Database.getInstance().getRatingByPlaceID(place_id);
+  }
+  
+  public int getRatingByUserIDandPlaceID(int user_id, int place_id) throws Exception {
+    return Database.getInstance().getRatingByUserIDandPlaceID(user_id, place_id);
+  }
+  
+  public String getCommentByUserIDandPlaceID(int user_id, int place_id) throws Exception {
+    return Database.getInstance().getCommentByUserIDandPlaceID(user_id, place_id);
   }
 }

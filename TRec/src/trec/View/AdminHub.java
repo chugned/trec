@@ -38,6 +38,7 @@ public class AdminHub extends javax.swing.JFrame {
     adminhub_adminhub_label = new javax.swing.JLabel();
     adminhub_manage_countries_button = new javax.swing.JButton();
     adminhub_manage_cities_button = new javax.swing.JButton();
+    adminhub_manage_ratings_button = new javax.swing.JButton();
     adminhub_menu_bar = new javax.swing.JMenuBar();
     adminhub_menu_bar_logout = new javax.swing.JMenu();
 
@@ -107,6 +108,13 @@ public class AdminHub extends javax.swing.JFrame {
       }
     });
 
+    adminhub_manage_ratings_button.setText("Manage ratings");
+    adminhub_manage_ratings_button.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        adminhub_manage_ratings_buttonMouseClicked(evt);
+      }
+    });
+
     adminhub_menu_bar_logout.setText("Logout");
     adminhub_menu_bar_logout.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -133,7 +141,8 @@ public class AdminHub extends javax.swing.JFrame {
               .addComponent(adminhub_manage_destinations_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
               .addComponent(adminhub_back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
               .addComponent(adminhub_manage_countries_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-              .addComponent(adminhub_manage_cities_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+              .addComponent(adminhub_manage_cities_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+              .addComponent(adminhub_manage_ratings_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
           .addGroup(layout.createSequentialGroup()
             .addGap(101, 101, 101)
             .addComponent(adminhub_adminhub_label)))
@@ -147,7 +156,7 @@ public class AdminHub extends javax.swing.JFrame {
         .addGap(18, 18, 18)
         .addComponent(adminhub_manage_users_button)
         .addGap(18, 18, 18)
-        .addComponent(adminhub_statistics_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addComponent(adminhub_statistics_button)
         .addGap(18, 18, 18)
         .addComponent(adminhub_manage_hotels_button)
         .addGap(18, 18, 18)
@@ -159,8 +168,10 @@ public class AdminHub extends javax.swing.JFrame {
         .addGap(18, 18, 18)
         .addComponent(adminhub_manage_cities_button)
         .addGap(18, 18, 18)
-        .addComponent(adminhub_back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(19, Short.MAX_VALUE))
+        .addComponent(adminhub_manage_ratings_button)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+        .addComponent(adminhub_back_button)
+        .addGap(19, 19, 19))
     );
 
     pack();
@@ -248,6 +259,16 @@ public class AdminHub extends javax.swing.JFrame {
     // TODO add your handling code here:
   }//GEN-LAST:event_adminhub_manage_users_buttonActionPerformed
 
+  private void adminhub_manage_ratings_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminhub_manage_ratings_buttonMouseClicked
+    // TODO add your handling code here:
+    ManageRatingsForm manage_ratings = new ManageRatingsForm();
+    manage_ratings.setVisible(true);
+    manage_ratings.pack();
+    manage_ratings.setLocationRelativeTo(null);
+    manage_ratings.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.dispose();
+  }//GEN-LAST:event_adminhub_manage_ratings_buttonMouseClicked
+
   /**
    * @param args the command line arguments
    */
@@ -291,6 +312,7 @@ public class AdminHub extends javax.swing.JFrame {
   private javax.swing.JButton adminhub_manage_destinations_button;
   private javax.swing.JButton adminhub_manage_evaluations_button;
   private javax.swing.JButton adminhub_manage_hotels_button;
+  private javax.swing.JButton adminhub_manage_ratings_button;
   private javax.swing.JButton adminhub_manage_users_button;
   private javax.swing.JMenuBar adminhub_menu_bar;
   private javax.swing.JMenu adminhub_menu_bar_logout;
