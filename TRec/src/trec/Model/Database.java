@@ -283,6 +283,15 @@ public class Database {
     return country;
   }
   
+  public Country getCountryByCountryID(int country_id) throws SQLException {
+    ArrayList<Country> list = getCountrys();
+    for(Country c : list) {
+      if(c.getID() == country_id)
+        return c;
+    }
+    return null;
+  }
+  
   // city related stuff
   public boolean addCity(Country country, City city) throws SQLException {
     Country the_country = getCountryByName(country.getName());
@@ -337,6 +346,22 @@ public class Database {
         return city;
     }
     return null;
+  }
+  
+  public City getCityByCityID(int city_id) throws SQLException {
+    String query = "select * from cities where city_id=" + city_id;
+    Statement selectStmt = con.createStatement();
+    selectStmt.execute(query);
+    ResultSet results = selectStmt.executeQuery(query);
+    results.next();
+    String name = results.getString("name");
+    int id = results.getInt("city_id");
+    int country_id = results.getInt("country_id");
+    City city = new City(name);
+    city.setID(id);
+    city.setCountryID(country_id);
+    selectStmt.close();
+    return city;
   }
   
   // destination related stuff

@@ -103,6 +103,10 @@ public class UserController {
     return Database.getInstance().addCountry(country);
   }
   
+  public Country getCountryByCountryID(int country_id) throws Exception {
+    return Database.getInstance().getCountryByCountryID(country_id);
+  }
+  
   // city specific stuff
   public void deleteCity(City city) throws Exception {
     Database.getInstance().removeCity(city);
@@ -118,6 +122,10 @@ public class UserController {
   
   public City getCityByName(String name, int country_id) throws Exception {
     return Database.getInstance().getCityByName(name, country_id);
+  }
+  
+  public City getCityByCityID(int city_id) throws Exception {
+    return Database.getInstance().getCityByCityID(city_id);
   }
   
   // destination specific stuff
@@ -241,9 +249,9 @@ public class UserController {
     return Database.getInstance().getAllITbyUserID(user_id);
   }
   
-   public void deleteAllUserITs(int user_id) throws Exception {
+  public void deleteAllUserITs(int user_id) throws Exception {
      Database.getInstance().deleteAllUserITs(user_id);
-   }
+  }
    
    // interest themes and places
   public void bindPlaceAndIT(int place_id, int it_id) throws Exception {

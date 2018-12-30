@@ -60,7 +60,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="home_edit_profile_button" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
                                   <Component id="home_get_recommendations_button" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
-                                  <Component id="home_statistics_button" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
+                                  <Component id="rankings_form" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -97,7 +97,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="home_evaluate_button" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="home_statistics_button" min="-2" max="-2" attributes="0"/>
+                  <Component id="rankings_form" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Component id="home_bookmarks_button" min="-2" max="-2" attributes="0"/>
@@ -141,12 +141,12 @@
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="home_evaluate_buttonMouseClicked"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="home_statistics_button">
+    <Component class="javax.swing.JButton" name="rankings_form">
       <Properties>
-        <Property name="text" type="java.lang.String" value="See statistics"/>
+        <Property name="text" type="java.lang.String" value="See rankings"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="home_statistics_buttonMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="rankings_formMouseClicked"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="home_get_recommendations_button">

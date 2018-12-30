@@ -39,7 +39,7 @@ public class AppHomeForm extends javax.swing.JFrame {
     home_search_destinations_button = new javax.swing.JButton();
     home_edit_profile_button = new javax.swing.JButton();
     home_evaluate_button = new javax.swing.JButton();
-    home_statistics_button = new javax.swing.JButton();
+    rankings_form = new javax.swing.JButton();
     home_get_recommendations_button = new javax.swing.JButton();
     home_acommondations_button = new javax.swing.JButton();
     home_greet_label = new javax.swing.JLabel();
@@ -84,10 +84,10 @@ public class AppHomeForm extends javax.swing.JFrame {
       }
     });
 
-    home_statistics_button.setText("See statistics");
-    home_statistics_button.addMouseListener(new java.awt.event.MouseAdapter() {
+    rankings_form.setText("See rankings");
+    rankings_form.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
-        home_statistics_buttonMouseClicked(evt);
+        rankings_formMouseClicked(evt);
       }
     });
 
@@ -155,7 +155,7 @@ public class AppHomeForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                   .addComponent(home_edit_profile_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                   .addComponent(home_get_recommendations_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addComponent(home_statistics_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                  .addComponent(rankings_form, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                   .addComponent(home_evaluate_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -182,7 +182,7 @@ public class AppHomeForm extends javax.swing.JFrame {
         .addGap(18, 18, 18)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addComponent(home_evaluate_button)
-          .addComponent(home_statistics_button))
+          .addComponent(rankings_form))
         .addGap(18, 18, 18)
         .addComponent(home_bookmarks_button)
         .addContainerGap(26, Short.MAX_VALUE))
@@ -231,9 +231,15 @@ public class AppHomeForm extends javax.swing.JFrame {
     this.dispose();
   }//GEN-LAST:event_home_evaluate_buttonMouseClicked
 
-  private void home_statistics_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_home_statistics_buttonMouseClicked
+  private void rankings_formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rankings_formMouseClicked
     // TODO add your handling code here:
-  }//GEN-LAST:event_home_statistics_buttonMouseClicked
+    RankingsForm form = new RankingsForm();
+    form.setVisible(true);
+    form.pack();
+    form.setLocationRelativeTo(null);
+    form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.dispose();
+  }//GEN-LAST:event_rankings_formMouseClicked
 
   private void home_get_recommendations_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_home_get_recommendations_buttonMouseClicked
     // TODO add your handling code here:
@@ -352,7 +358,7 @@ public class AppHomeForm extends javax.swing.JFrame {
   private javax.swing.JMenu home_menu_bar_adminhub;
   private javax.swing.JMenu home_menu_bar_logout;
   private javax.swing.JButton home_search_destinations_button;
-  private javax.swing.JButton home_statistics_button;
   private javax.swing.JLabel home_welcome_label;
+  private javax.swing.JButton rankings_form;
   // End of variables declaration//GEN-END:variables
 }
