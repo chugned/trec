@@ -7,6 +7,7 @@ package trec.View;
 
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import trec.Controller.UserController;
 import trec.Model.Accommodation;
 import trec.Model.Destination;
@@ -261,8 +262,22 @@ public class ManageRatingsForm extends javax.swing.JFrame {
 
   private void delete_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete_buttonMouseClicked
     // TODO add your handling code here:
+    int place_id;
+    String type = type_combo_box.getSelectedItem().toString();
     try {
-      
+      if (type.equals("Accommodation")) {
+        String current = acc_dest_combo_box.getSelectedItem().toString();
+        Accommodation acc = UserController.getInstance().getAccommodationByName(current);
+        place_id = acc.getID();
+      } else {
+        String current = acc_dest_combo_box.getSelectedItem().toString();
+        Destination dest = UserController.getInstance().getDestinationByName(current);
+        place_id = dest.getID();
+      }
+      UserController.getInstance().deleteRating(UserController.getInstance().getCurrentUser().getID(), place_id);
+      JOptionPane.showMessageDialog(null, "Rating deleted!", "Success!", JOptionPane.INFORMATION_MESSAGE);
+      acc_dest_combo_boxItemStateChanged(null);
+      this.dispose();
     } catch (Exception ex) {
       System.out.println(ex.getMessage());
     }

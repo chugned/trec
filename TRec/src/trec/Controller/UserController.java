@@ -192,6 +192,10 @@ public class UserController {
     Database.getInstance().addRating(user_id, place_id, rating, comment);
   }
   
+  public void deleteRating(int user_id, int place_id) throws Exception {
+    Database.getInstance().deleteRating(user_id, place_id);
+  }
+  
   public ArrayList<Integer> getAllUsersThatRatedPlaceByPlaceID(int place_id) throws Exception {
     return Database.getInstance().getAllUsersThatRatedPlaceByPlaceID(place_id);
   } 
@@ -206,5 +210,63 @@ public class UserController {
   
   public String getCommentByUserIDandPlaceID(int user_id, int place_id) throws Exception {
     return Database.getInstance().getCommentByUserIDandPlaceID(user_id, place_id);
+  }
+  
+  // interest themes
+  public boolean addNewIT(String name) throws Exception {
+    return Database.getInstance().addNewIT(name);
+  }
+  
+  public void deleteIT(String name) throws Exception {
+    Database.getInstance().deleteIT(name);
+  }
+  
+  public ArrayList<String> getAllITs() throws Exception {
+    return Database.getInstance().getAllITs();
+  }
+  
+  public int getITIDByName(String name) throws Exception {
+    return Database.getInstance().getITIDByName(name);
+  }
+  
+  public String getITNameByID(int id) throws Exception {
+    return Database.getInstance().getITNameByID(id);
+  }
+  
+  public void addNewITPair(int user_id, int it_id) throws Exception {
+    Database.getInstance().addNewITPair(user_id, it_id);
+  }
+  
+  public ArrayList<Integer> getAllITbyUserID(int user_id) throws Exception {
+    return Database.getInstance().getAllITbyUserID(user_id);
+  }
+  
+   public void deleteAllUserITs(int user_id) throws Exception {
+     Database.getInstance().deleteAllUserITs(user_id);
+   }
+   
+   // interest themes and places
+  public void bindPlaceAndIT(int place_id, int it_id) throws Exception {
+    Database.getInstance().bindPlaceAndIT(place_id, it_id);
+  }
+  
+  public void deletePlaceAndITConnection(int place_id, int it_id) throws Exception {
+    Database.getInstance().deletePlaceAndITConnection(place_id, it_id);
+  }
+  
+  public ArrayList<Integer> getAllITsByPlaceID(int place_id) throws Exception {
+    return Database.getInstance().getAllITsByPlaceID(place_id);
+  }
+  
+  public void deleteAllConnectionsByPlaceID(int place_id) throws Exception {
+    Database.getInstance().deleteAllConnectionsByPlaceID(place_id);
+  }
+  
+  public String getPlaceNameByPlaceID(int place_id) throws Exception {
+    return Database.getInstance().getPlaceNameByPlaceID(place_id);
+  }
+  
+  public ArrayList<String> getRecommendations(int user_id) throws Exception {
+    return Database.getInstance().getRecommendations(user_id);
   }
 }

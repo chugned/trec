@@ -14,7 +14,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  *
@@ -619,6 +621,15 @@ public class Database {
     }
   }
   
+  public void deleteRating(int user_id, int place_id) throws SQLException {
+    String query = "delete from ratings where user_id=? and place_id=?";
+    PreparedStatement stmt = con.prepareStatement(query);
+    stmt.setInt(1, user_id);
+    stmt.setInt(2, place_id);
+    stmt.executeUpdate();
+    stmt.close();
+  }
+  
   public ArrayList<Integer> getAllUsersThatRatedPlaceByPlaceID(int place_id) throws SQLException {
     ArrayList<Integer> list = new ArrayList<>();
     String query1 = "select user_id from oad_trec.ratings where place_id=?";
@@ -642,7 +653,7 @@ public class Database {
       sum += result.getInt("rating");
       counter++;
     }
-    stmt1.close();
+      stmt1.close();
     if(counter == 0) return 0;
     return (double) sum / counter;
   }
@@ -669,5 +680,190 @@ public class Database {
     String comment = result.getString("comment");
     stmt1.close();
     return comment;
+  }
+  
+  // interest themes
+  public boolean addNewIT(String name) throws SQLException {
+    String query1 = "select * from oad_trec.interest_themes where it_name=?";
+    PreparedStatement stmt1 = con.prepareStatement(query1);
+    stmt1.setString(1, name);
+    ResultSet result = stmt1.executeQuery();
+    if(result.isBeforeFirst()) {
+      // RETURN FALSE IF EXISTS
+      stmt1.close();
+      return false;
+    } else {
+      String query = "INSERT INTO oad_trec.interest_themes(it_name) VALUES(?)";
+      PreparedStatement insertStmt = con.prepareStatement(query);
+      insertStmt.setString(1, name);
+      insertStmt.executeUpdate();
+      insertStmt.close();
+      stmt1.close();
+      return true;
+    }
+  }
+  
+  public void deleteIT(String name) throws SQLException {
+    String query = "delete from interest_themes where it_name=?";
+    PreparedStatement stmt = con.prepareStatement(query);
+    stmt.setString(1, name);
+    stmt.executeUpdate();
+    stmt.close();
+  }
+  
+  public ArrayList<String> getAllITs() throws SQLException {
+    ArrayList<String> list = new ArrayList<>();
+    String query1 = "select * from oad_trec.interest_themes";
+    PreparedStatement stmt1 = con.prepareStatement(query1);
+    ResultSet result = stmt1.executeQuery();
+    while(result.next()) {
+      list.add(result.getString("it_name"));
+    }
+    stmt1.close();
+    return list;
+  }
+  
+  public int getITIDByName(String name) throws SQLException {
+    String query1 = "select * from oad_trec.interest_themes";
+    PreparedStatement stmt1 = con.prepareStatement(query1);
+    ResultSet result = stmt1.executeQuery();
+    while(result.next()) {
+      if (result.getString("it_name").equals(name)) {
+        int id = result.getInt("it_id");
+        stmt1.close();
+        return id;
+      }
+    }
+    stmt1.close();
+    return -1;
+  }
+  
+  public String getITNameByID(int id) throws SQLException {
+    String query1 = "select it_name from oad_trec.interest_themes where it_id=?";
+    PreparedStatement stmt1 = con.prepareStatement(query1);
+    stmt1.setInt(1, id);
+    ResultSet result = stmt1.executeQuery();
+    result.next();
+    String name = result.getString("it_name");
+    stmt1.close();
+    return name;
+  }
+  
+  public void addNewITPair(int user_id, int it_id) throws SQLException {
+      String query = "INSERT INTO oad_trec.it_pairs(user_id, it_id) VALUES(?, ?)";
+      PreparedStatement insertStmt = con.prepareStatement(query);
+      insertStmt.setInt(1, user_id);
+      insertStmt.setInt(2, it_id);
+      insertStmt.executeUpdate();
+      insertStmt.close();    
+  }
+  
+  public ArrayList<Integer> getAllITbyUserID(int user_id) throws SQLException {
+    ArrayList<Integer> list = new ArrayList<>();
+    String query1 = "select * from oad_trec.it_pairs where user_id=?";
+    PreparedStatement stmt1 = con.prepareStatement(query1);
+    stmt1.setInt(1, user_id);
+    ResultSet result = stmt1.executeQuery();
+    while(result.next()) {
+      list.add(result.getInt("it_id"));
+    }
+    stmt1.close();
+    return list;
+  }
+  
+  public void deleteAllUserITs(int user_id) throws SQLException {
+    String query = "DELETE FROM oad_trec.it_pairs WHERE user_id=?";
+    PreparedStatement updateStmt = con.prepareStatement(query);
+    updateStmt.setInt(1, user_id);
+    updateStmt.executeUpdate();
+    updateStmt.close();
+  }
+  
+  // interest themes and places
+  public void bindPlaceAndIT(int place_id, int it_id) throws SQLException {
+    String query = "INSERT INTO oad_trec.places_and_its(place_id, it_id) VALUES(?, ?)";
+    PreparedStatement insertStmt = con.prepareStatement(query);
+    insertStmt.setInt(1, place_id);
+    insertStmt.setInt(2, it_id);
+    insertStmt.executeUpdate();
+    insertStmt.close();    
+  }
+ 
+  public void deletePlaceAndITConnection(int place_id, int it_id) throws SQLException {
+    String query = "DELETE FROM oad_trec.places_and_its WHERE place_id=? and it_id=?";
+    PreparedStatement updateStmt = con.prepareStatement(query);
+    updateStmt.setInt(1, place_id);
+    updateStmt.setInt(2, it_id);
+    updateStmt.executeUpdate();
+    updateStmt.close();
+  }
+  
+  public ArrayList<Integer> getAllITsByPlaceID(int place_id) throws SQLException {
+    ArrayList<Integer> list = new ArrayList<>();
+    String query1 = "select * from oad_trec.places_and_its where place_id=?";
+    PreparedStatement stmt1 = con.prepareStatement(query1);
+    stmt1.setInt(1, place_id);
+    ResultSet result = stmt1.executeQuery();
+    while(result.next()) {
+      list.add(result.getInt("it_id"));
+    }
+    stmt1.close();
+    return list;
+  }
+  
+  public void deleteAllConnectionsByPlaceID(int place_id) throws SQLException {
+    String query = "DELETE FROM oad_trec.places_and_its WHERE place_id=?";
+    PreparedStatement updateStmt = con.prepareStatement(query);
+    updateStmt.setInt(1, place_id);
+    updateStmt.executeUpdate();
+    updateStmt.close();
+  }
+  
+  public ArrayList<Integer> getAllPlaceIDsByITID(int it_id) throws SQLException {
+    ArrayList<Integer> list = new ArrayList<>();
+    String query1 = "select * from oad_trec.places_and_its where it_id=?";
+    PreparedStatement stmt1 = con.prepareStatement(query1);
+    stmt1.setInt(1, it_id);
+    ResultSet result = stmt1.executeQuery();
+    while(result.next()) {
+      list.add(result.getInt("place_id"));
+    }
+    stmt1.close();
+    return list;
+  }
+  
+  public String getPlaceNameByPlaceID(int place_id) throws SQLException {
+    String query1 = "select * from oad_trec.acc_and_dest where id=?";
+    PreparedStatement stmt1 = con.prepareStatement(query1);
+    stmt1.setInt(1, place_id);
+    ResultSet result = stmt1.executeQuery();
+    result.next();
+    String name = result.getString("name");
+    stmt1.close();
+    return name;
+  }
+  
+  public ArrayList<String> getRecommendations(int user_id) throws SQLException {
+    ArrayList<String> list = new ArrayList<>();
+    ArrayList<Integer> it_id_list = getAllITbyUserID(user_id);
+    if(it_id_list.isEmpty()) { return list; }
+    ArrayList<Integer> place_ids = new ArrayList<>();
+    for(int it_id : it_id_list) {
+      place_ids = getAllPlaceIDsByITID(it_id);
+      if(place_ids.isEmpty()) continue;
+      for(int place_id : place_ids) {
+        String name = getPlaceNameByPlaceID(place_id);
+        list.add(name);
+      }
+    }
+    list = removeDuplicates(list);
+    return list;
+  }
+  
+  ArrayList<String> removeDuplicates(ArrayList<String> list) {
+    Set<String> set = new HashSet<>(list);
+    list.clear();
+    list.addAll(set);
+    return list;
   }
 }

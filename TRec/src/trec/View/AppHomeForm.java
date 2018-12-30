@@ -41,7 +41,6 @@ public class AppHomeForm extends javax.swing.JFrame {
     home_evaluate_button = new javax.swing.JButton();
     home_statistics_button = new javax.swing.JButton();
     home_get_recommendations_button = new javax.swing.JButton();
-    home_evaluate_hotels_button = new javax.swing.JButton();
     home_acommondations_button = new javax.swing.JButton();
     home_greet_label = new javax.swing.JLabel();
     home_bookmarks_button = new javax.swing.JButton();
@@ -96,13 +95,6 @@ public class AppHomeForm extends javax.swing.JFrame {
     home_get_recommendations_button.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
         home_get_recommendations_buttonMouseClicked(evt);
-      }
-    });
-
-    home_evaluate_hotels_button.setText("Evaluate hotels");
-    home_evaluate_hotels_button.addMouseListener(new java.awt.event.MouseAdapter() {
-      public void mouseClicked(java.awt.event.MouseEvent evt) {
-        home_evaluate_hotels_buttonMouseClicked(evt);
       }
     });
 
@@ -163,8 +155,7 @@ public class AppHomeForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                   .addComponent(home_edit_profile_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                   .addComponent(home_get_recommendations_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addComponent(home_statistics_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addComponent(home_evaluate_hotels_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                  .addComponent(home_statistics_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                   .addComponent(home_evaluate_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -193,9 +184,7 @@ public class AppHomeForm extends javax.swing.JFrame {
           .addComponent(home_evaluate_button)
           .addComponent(home_statistics_button))
         .addGap(18, 18, 18)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addComponent(home_evaluate_hotels_button)
-          .addComponent(home_bookmarks_button))
+        .addComponent(home_bookmarks_button)
         .addContainerGap(26, Short.MAX_VALUE))
     );
 
@@ -234,6 +223,12 @@ public class AppHomeForm extends javax.swing.JFrame {
 
   private void home_evaluate_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_home_evaluate_buttonMouseClicked
     // TODO add your handling code here:
+    InterestThemesForm it_form = new InterestThemesForm();
+    it_form.setVisible(true);
+    it_form.pack();
+    it_form.setLocationRelativeTo(null);
+    it_form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.dispose();
   }//GEN-LAST:event_home_evaluate_buttonMouseClicked
 
   private void home_statistics_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_home_statistics_buttonMouseClicked
@@ -242,6 +237,12 @@ public class AppHomeForm extends javax.swing.JFrame {
 
   private void home_get_recommendations_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_home_get_recommendations_buttonMouseClicked
     // TODO add your handling code here:
+    RecommendationsForm form = new RecommendationsForm();
+    form.setVisible(true);
+    form.pack();
+    form.setLocationRelativeTo(null);
+    form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.dispose();
   }//GEN-LAST:event_home_get_recommendations_buttonMouseClicked
 
   private void home_menu_bar_logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_home_menu_bar_logoutMouseClicked
@@ -253,10 +254,6 @@ public class AppHomeForm extends javax.swing.JFrame {
     login_form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.dispose();
   }//GEN-LAST:event_home_menu_bar_logoutMouseClicked
-
-  private void home_evaluate_hotels_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_home_evaluate_hotels_buttonMouseClicked
-    // TODO add your handling code here:
-  }//GEN-LAST:event_home_evaluate_hotels_buttonMouseClicked
 
   private void home_acommondations_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_home_acommondations_buttonMouseClicked
     // TODO add your handling code here:
@@ -349,7 +346,6 @@ public class AppHomeForm extends javax.swing.JFrame {
   private javax.swing.JButton home_bookmarks_button;
   private javax.swing.JButton home_edit_profile_button;
   private javax.swing.JButton home_evaluate_button;
-  private javax.swing.JButton home_evaluate_hotels_button;
   private javax.swing.JButton home_get_recommendations_button;
   private javax.swing.JLabel home_greet_label;
   private javax.swing.JMenuBar home_menu_bar;

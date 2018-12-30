@@ -61,7 +61,6 @@
                                   <Component id="home_edit_profile_button" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
                                   <Component id="home_get_recommendations_button" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
                                   <Component id="home_statistics_button" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
-                                  <Component id="home_evaluate_hotels_button" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -101,10 +100,7 @@
                   <Component id="home_statistics_button" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="home_evaluate_hotels_button" min="-2" max="-2" attributes="0"/>
-                  <Component id="home_bookmarks_button" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="home_bookmarks_button" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="26" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -159,14 +155,6 @@
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="home_get_recommendations_buttonMouseClicked"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="home_evaluate_hotels_button">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Evaluate hotels"/>
-      </Properties>
-      <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="home_evaluate_hotels_buttonMouseClicked"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="home_acommondations_button">
