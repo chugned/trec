@@ -46,6 +46,7 @@ public class AppHomeForm extends javax.swing.JFrame {
     home_bookmarks_button = new javax.swing.JButton();
     contact_admin_button = new javax.swing.JButton();
     friends_button = new javax.swing.JButton();
+    my_messages_button = new javax.swing.JButton();
     home_menu_bar = new javax.swing.JMenuBar();
     home_menu_bar_logout = new javax.swing.JMenu();
     home_menu_bar_adminhub = new javax.swing.JMenu();
@@ -146,6 +147,18 @@ public class AppHomeForm extends javax.swing.JFrame {
       }
     });
 
+    my_messages_button.setText("My messages");
+    my_messages_button.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        my_messages_buttonMouseClicked(evt);
+      }
+    });
+    my_messages_button.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        my_messages_buttonActionPerformed(evt);
+      }
+    });
+
     home_menu_bar_logout.setText("Logout");
     home_menu_bar_logout.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -189,7 +202,8 @@ public class AppHomeForm extends javax.swing.JFrame {
                   .addComponent(home_evaluate_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                   .addComponent(home_search_destinations_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                   .addComponent(home_acommondations_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addComponent(home_bookmarks_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                  .addComponent(home_bookmarks_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addComponent(my_messages_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))))))
         .addContainerGap(16, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
@@ -216,7 +230,9 @@ public class AppHomeForm extends javax.swing.JFrame {
           .addComponent(home_bookmarks_button)
           .addComponent(contact_admin_button))
         .addGap(18, 18, 18)
-        .addComponent(friends_button)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(friends_button)
+          .addComponent(my_messages_button))
         .addContainerGap(26, Short.MAX_VALUE))
     );
 
@@ -372,6 +388,20 @@ public class AppHomeForm extends javax.swing.JFrame {
     // TODO add your handling code here:
   }//GEN-LAST:event_friends_buttonActionPerformed
 
+  private void my_messages_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_my_messages_buttonMouseClicked
+    // TODO add your handling code here:
+    MyMessagesForm form = new MyMessagesForm();
+    form.setVisible(true);
+    form.pack();
+    form.setLocationRelativeTo(null);
+    form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.dispose();
+  }//GEN-LAST:event_my_messages_buttonMouseClicked
+
+  private void my_messages_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_my_messages_buttonActionPerformed
+    // TODO add your handling code here:
+  }//GEN-LAST:event_my_messages_buttonActionPerformed
+
   /**
    * @param args the command line arguments
    */
@@ -421,6 +451,7 @@ public class AppHomeForm extends javax.swing.JFrame {
   private javax.swing.JMenu home_menu_bar_logout;
   private javax.swing.JButton home_search_destinations_button;
   private javax.swing.JLabel home_welcome_label;
+  private javax.swing.JButton my_messages_button;
   private javax.swing.JButton rankings_form;
   // End of variables declaration//GEN-END:variables
 }

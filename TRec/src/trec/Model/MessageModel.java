@@ -11,6 +11,7 @@ package trec.Model;
  */
 public class MessageModel {
   private int user_id;
+  private int to_id_;
   private String message_;
   private String subject_;
   
@@ -25,6 +26,14 @@ public class MessageModel {
   
   public int getUserID() {
     return user_id;
+  }
+  
+  public void setToID(int to_id) {
+    this.to_id_ = to_id;
+  }
+  
+  public int getToID() {
+    return to_id_;
   }
   
   public void setMessage(String message) {

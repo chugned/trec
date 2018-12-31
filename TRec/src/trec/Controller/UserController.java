@@ -320,4 +320,22 @@ public class UserController {
   public void deleteFriendRelationship(int user_id, int friend_id) throws Exception {
     Database.getInstance().deleteFriendRelationship(user_id, friend_id);
   }
+  
+  // user - to - user communication
+  
+  public void sendMessageToUser(int user_id, int to_id, MessageModel message_model) throws Exception {
+    Database.getInstance().sendMessageToUser(user_id, to_id, message_model);
+  }
+  
+  public ArrayList<Integer> getAllUserIDsThatSentMessagesToMe(int user_id) throws Exception {
+    return Database.getInstance().getAllUserIDsThatSentMessagesToMe(user_id);
+  }
+  
+  public ArrayList<String> getAllSubjectsFromUsersByUserID(int user_id, int to_id) throws Exception {
+    return Database.getInstance().getAllSubjectsFromUsersByUserID(user_id, to_id);
+  }
+  
+  public String getMessageBySubjectFromUser(int user_id, int from_id, String subject) throws Exception {
+    return Database.getInstance().getMessageBySubjectFromUser(user_id, from_id, subject);
+  }
 }

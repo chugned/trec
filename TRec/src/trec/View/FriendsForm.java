@@ -344,6 +344,18 @@ public class FriendsForm extends javax.swing.JFrame {
 
   private void send_message_labelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_send_message_labelMouseClicked
     // TODO add your handling code here:
+    try {
+      String username = friends_combo_box.getSelectedItem().toString();
+      User user = UserController.getInstance().getUserByUsername(username);
+      SendMessageForm form = new SendMessageForm(user.getID());
+      form.setVisible(true);
+      form.pack();
+      form.setLocationRelativeTo(null);
+      form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      this.dispose();
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
   }//GEN-LAST:event_send_message_labelMouseClicked
 
   private void friends_combo_boxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_friends_combo_boxItemStateChanged

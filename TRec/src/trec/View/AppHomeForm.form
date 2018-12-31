@@ -70,6 +70,7 @@
                                   <Component id="home_search_destinations_button" min="-2" pref="210" max="-2" attributes="0"/>
                                   <Component id="home_acommondations_button" min="-2" pref="210" max="-2" attributes="0"/>
                                   <Component id="home_bookmarks_button" min="-2" pref="210" max="-2" attributes="0"/>
+                                  <Component id="my_messages_button" min="-2" pref="210" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -107,7 +108,10 @@
                   <Component id="contact_admin_button" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="friends_button" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="friends_button" min="-2" max="-2" attributes="0"/>
+                  <Component id="my_messages_button" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace pref="26" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -205,6 +209,15 @@
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="friends_buttonMouseClicked"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="friends_buttonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="my_messages_button">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="My messages"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="my_messages_buttonMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="my_messages_buttonActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

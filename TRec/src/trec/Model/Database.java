@@ -1060,5 +1060,62 @@ public class Database {
   public void deleteFriendRelationship(int user_id, int friend_id) throws SQLException {
     deleteFriend(user_id, friend_id);
     deleteFriend(friend_id, user_id);
-  } 
+  }
+  
+  // user - user communication
+  public void sendMessageToUser(int user_id, int to_id, MessageModel message_model) throws SQLException {   
+    String query = "INSERT INTO oad_trec.messages(from_id, to_id, message, subject) VALUES(?, ?, ?, ?)";
+    PreparedStatement updateStmt = con.prepareStatement(query);
+    updateStmt.setInt(1, user_id);
+    updateStmt.setInt(2, to_id);
+    updateStmt.setString(3, message_model.getMessage());
+    updateStmt.setString(4, message_model.getSubject());
+    updateStmt.executeUpdate();
+    updateStmt.close();
+  }
+  
+  public ArrayList<Integer> getAllUserIDsThatSentMessagesToMe(int user_id) throws SQLException {
+    ArrayList<Integer> list = new ArrayList<>();
+    String query1 = "select * from oad_trec.messages where to_id=?";
+    PreparedStatement stmt1 = con.prepareStatement(query1);
+    stmt1.setInt(1, user_id);
+    ResultSet result = stmt1.executeQuery();
+    while(result.next()) {
+      list.add(result.getInt("from_id"));
+    }
+    stmt1.close();
+    return list;
+  }
+  
+  public ArrayList<String> getAllSubjectsFromUsersByUserID(int user_id, int to_id) throws SQLException {
+    ArrayList<String> list = new ArrayList<>();
+    String query1 = "select * from oad_trec.messages where from_id=? and to_id=?";
+    PreparedStatement stmt1 = con.prepareStatement(query1);
+    stmt1.setInt(1, user_id);
+    stmt1.setInt(2, to_id);
+    ResultSet result = stmt1.executeQuery();
+    while(result.next()) {
+      list.add(result.getString("subject"));
+    }
+    stmt1.close();
+    return list;
+  }
+  
+  public String getMessageBySubjectFromUser(int user_id, int from_id, String subject) throws SQLException {
+    String query1 = "select * from oad_trec.messages where from_id=? and to_id=?";
+    PreparedStatement stmt1 = con.prepareStatement(query1);
+    stmt1.setInt(1, from_id);
+    stmt1.setInt(2, user_id);
+    ResultSet result = stmt1.executeQuery();
+    String message = "";
+    while(result.next()) {
+      if(result.getString("subject").equals(subject)) {
+        message = result.getString("message");
+        break;
+      }
+    }
+    stmt1.close();
+    return message;
+  }
+  
 }
