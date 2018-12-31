@@ -44,7 +44,7 @@
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="adminhub_manage_evaluations_button" alignment="0" pref="230" max="32767" attributes="0"/>
-                          <Component id="adminhub_statistics_button" alignment="0" max="32767" attributes="0"/>
+                          <Component id="user_messages_button" alignment="0" max="32767" attributes="0"/>
                           <Component id="adminhub_manage_hotels_button" alignment="0" max="32767" attributes="0"/>
                           <Component id="adminhub_manage_users_button" alignment="0" max="32767" attributes="0"/>
                           <Component id="adminhub_manage_destinations_button" alignment="0" max="32767" attributes="0"/>
@@ -82,7 +82,7 @@
                   <Group type="102" attributes="0">
                       <Component id="adminhub_manage_users_button" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="adminhub_statistics_button" min="-2" max="-2" attributes="0"/>
+                      <Component id="user_messages_button" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="adminhub_manage_hotels_button" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -151,12 +151,12 @@
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="adminhub_manage_evaluations_buttonMouseClicked"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="adminhub_statistics_button">
+    <Component class="javax.swing.JButton" name="user_messages_button">
       <Properties>
-        <Property name="text" type="java.lang.String" value="See statistics"/>
+        <Property name="text" type="java.lang.String" value="View user messages"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="adminhub_statistics_buttonMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="user_messages_buttonMouseClicked"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="adminhub_adminhub_label">

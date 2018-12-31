@@ -187,7 +187,7 @@ public class Database {
   
   public User getUserByUsername(String username) throws SQLException {
     users_list_.clear();
-    users_list_ = getUsers();
+    users_list_ = getUsersAndAdmins();
     for(User user : users_list_) {
      if(user.getUsername().equals(username)) {
         return user;
@@ -891,4 +891,174 @@ public class Database {
     list.addAll(set);
     return list;
   }
+   
+  // admin - user communication
+  public void sendMessageToAdmin(int user_id, MessageModel message_model) throws SQLException {
+    String query = "INSERT INTO oad_trec.user_messages(user_id, message, subject) VALUES(?, ?, ?)";
+    PreparedStatement updateStmt = con.prepareStatement(query);
+    updateStmt.setInt(1, user_id);
+    updateStmt.setString(2, message_model.getMessage());
+    updateStmt.setString(3, message_model.getSubject());
+    updateStmt.executeUpdate();
+    updateStmt.close();
+  }
+  
+  public ArrayList<Integer> getAllUserIDsThatSentMessages() throws SQLException {
+    ArrayList<Integer> list = new ArrayList<>();
+    String query1 = "select * from oad_trec.user_messages";
+    PreparedStatement stmt1 = con.prepareStatement(query1);
+    ResultSet result = stmt1.executeQuery();
+    while(result.next()) {
+      list.add(result.getInt("user_id"));
+    }
+    stmt1.close();
+    return list;
+  }
+  
+  public ArrayList<String> getAllSubjectsByUserID(int user_id) throws SQLException {
+    ArrayList<String> list = new ArrayList<>();
+    String query1 = "select * from oad_trec.user_messages where user_id=?";
+    PreparedStatement stmt1 = con.prepareStatement(query1);
+    stmt1.setInt(1, user_id);
+    ResultSet result = stmt1.executeQuery();
+    while(result.next()) {
+      list.add(result.getString("subject"));
+    }
+    stmt1.close();
+    return list;
+  }
+  
+  public String getMessageBySubject(String subject) throws SQLException {
+    String query1 = "select * from oad_trec.user_messages where subject=?";
+    PreparedStatement stmt1 = con.prepareStatement(query1);
+    stmt1.setString(1, subject);
+    ResultSet result = stmt1.executeQuery();
+    result.next();
+    String message = result.getString("message");
+    return message;
+  }
+  
+   // friend system
+  public boolean sendFriendRequest(int from, int to) throws SQLException {
+    // check if it exists as from -> to
+    // check if it exists as to -> from
+    if(checkIfRequestExists(from, to) || checkIfRequestExists(to, from)) {
+      return false;
+    } else {
+      String query = "INSERT INTO oad_trec.friend_requests(from_id, to_id) VALUES(?, ?)";
+      PreparedStatement updateStmt = con.prepareStatement(query);
+      updateStmt.setInt(1, from);
+      updateStmt.setInt(2, to);
+      updateStmt.executeUpdate();
+      updateStmt.close();
+      return true;
+    }
+  }
+  
+  public boolean checkIfRequestExists(int from, int to) throws SQLException {
+    String query = "select * from oad_trec.friend_requests where from_id=? and to_id=?";
+    PreparedStatement stmt1 = con.prepareStatement(query);
+    stmt1.setInt(1, from);
+    stmt1.setInt(2, to);
+    ResultSet result = stmt1.executeQuery();
+    if(result.next()) {
+      stmt1.close();
+      return true;
+    } else {
+      stmt1.close();
+      return false;
+    }
+  }
+  
+  public ArrayList<Integer> getAllFriendRequests(int user_id) throws SQLException {
+    // get all from where to = user_id
+    ArrayList<Integer> list = new ArrayList<>();
+    String query1 = "select * from oad_trec.friend_requests where to_id=?";
+    PreparedStatement stmt1 = con.prepareStatement(query1);
+    stmt1.setInt(1, user_id);
+    ResultSet result = stmt1.executeQuery();
+    while(result.next()) {
+      list.add(result.getInt("from_id"));
+    }
+    stmt1.close();
+    return list;
+  } 
+  
+  public void deleteFriendRequest(int from, int to) throws SQLException {
+    String query = "DELETE FROM oad_trec.friend_requests WHERE from_id=? and to_id=?";
+    PreparedStatement updateStmt = con.prepareStatement(query);
+    updateStmt.setInt(1, from);
+    updateStmt.setInt(2, to);
+    updateStmt.executeUpdate();
+    updateStmt.close();
+  }
+  
+  public boolean acceptFriendRequest(int from, int to) throws SQLException {
+    // add to friends table where user1 = from and user2 = to
+    if(addFriend(from, to)) return false;
+    // add to friends table where user1 = to and user2 = from
+    addFriend(to, from);
+    // delete friend request(from, to);
+    deleteFriendRequest(from, to);
+    return true;
+  }
+  
+  public boolean addFriend(int user1, int user2) throws SQLException {
+    if(checkForFriendship(user1, user2)) {
+      return false;
+    } else {
+      String query = "INSERT INTO oad_trec.friends(user_id1, user_id2) VALUES(?, ?)";
+      PreparedStatement updateStmt = con.prepareStatement(query);
+      updateStmt.setInt(1, user1);
+      updateStmt.setInt(2, user2);
+      updateStmt.executeUpdate();
+      updateStmt.close();
+      return true;
+    }
+  }
+  
+  public boolean checkForFriendship(int user1, int user2) throws SQLException {
+    String query = "select * from oad_trec.friends where user_id1=? and user_id2=?";
+    PreparedStatement stmt1 = con.prepareStatement(query);
+    stmt1.setInt(1, user1);
+    stmt1.setInt(2, user2);
+    ResultSet result = stmt1.executeQuery();
+    if(result.next()) {
+      stmt1.close();
+      return true;
+    } else {
+      stmt1.close();
+      return false;
+    }
+  }
+  
+  public ArrayList<Integer> getFriends(int user_id) throws SQLException {
+    // get all user_ids where user1 = user_id
+    ArrayList<Integer> list = new ArrayList<>();
+    String query1 = "select * from oad_trec.friends where user_id1=?";
+    PreparedStatement stmt1 = con.prepareStatement(query1);
+    stmt1.setInt(1, user_id);
+    ResultSet result = stmt1.executeQuery();
+    while(result.next()) {
+      list.add(result.getInt("user_id2"));
+    }
+    stmt1.close();
+    return list;
+  }
+  
+  public void deleteFriend(int user_id, int friend_id) throws SQLException {
+    // delete where user1 = user_id and user2 = friend_id
+    // delete where user1 = friend_id and user2 = user_id
+    String query = "DELETE FROM oad_trec.friends WHERE user_id1=? and user_id2=?";
+    PreparedStatement updateStmt = con.prepareStatement(query);
+    updateStmt.setInt(1, user_id);
+    updateStmt.setInt(2, friend_id);
+    updateStmt.executeUpdate();
+    updateStmt.close();
+  }
+  
+  public void deleteFriendRelationship(int user_id, int friend_id) throws SQLException {
+    deleteFriend(user_id, friend_id);
+    deleteFriend(friend_id, user_id);
+  } 
 }

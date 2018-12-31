@@ -11,17 +11,20 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JRadioButton;
 import trec.Controller.UserController;
 import trec.Model.Accommodation;
 import trec.Model.City;
 import trec.Model.Country;
+import trec.Model.Destination;
+import trec.Model.Helper;
 
 /**
  *
  * @author basic
  */
 public class RankingsForm extends javax.swing.JFrame {
-  ArrayList<JButton> button_list = new ArrayList<>();
+  private Helper helper = new Helper();
   /**
    * Creates new form StatisticsForm
    */
@@ -30,20 +33,16 @@ public class RankingsForm extends javax.swing.JFrame {
     home_menu_bar_adminhub.setVisible(UserController.getInstance().getCurrentUser().isAdmin());
     try {
       ArrayList<Accommodation> list = UserController.getInstance().getAllAccommodations();
-//      list = sortAscending(list);
-      jPanel1.setLayout(new GridLayout(0, 1, 5, 5));
-      for(Accommodation acc : list) {
-        JButton btn = new JButton(acc.getName());
-        button_list.add(btn);
-        jPanel1.add(btn);
-        jPanel1.revalidate();
-        jPanel1.repaint();
-      }
       if(list != null) {
+        for (Accommodation acc : list) {
+          acc.setRanking(UserController.getInstance().getRatingByPlaceID(acc.getID()));
+        }
+        list = helper.sortAccommodationsAscending(list);
+        for(Accommodation acc : list) { 
+          place_combo_box.addItem(acc.getName());
+        }
         Accommodation first = list.get(0);
-        System.out.println("cityid: " + first.getCityID());
         City city = UserController.getInstance().getCityByCityID(first.getCityID());
-        System.out.println("country: " + city.getCountryID());
         city_label.setText(city.getName());
         Country country = UserController.getInstance().getCountryByCountryID(city.getCountryID());
         country_label.setText(country.getName());
@@ -55,7 +54,7 @@ public class RankingsForm extends javax.swing.JFrame {
       System.out.println(e.getMessage());
     }
   }
-
+  
   /**
    * This method is called from within the constructor to initialize the form.
    * WARNING: Do NOT modify this code. The content of this method is always
@@ -77,10 +76,9 @@ public class RankingsForm extends javax.swing.JFrame {
     country_label = new javax.swing.JLabel();
     jLabel6 = new javax.swing.JLabel();
     city_label = new javax.swing.JLabel();
-    jScrollPane3 = new javax.swing.JScrollPane();
-    jPanel1 = new javax.swing.JPanel();
     jLabel7 = new javax.swing.JLabel();
     rating_label = new javax.swing.JLabel();
+    place_combo_box = new javax.swing.JComboBox<>();
     adminhub_menu_bar = new javax.swing.JMenuBar();
     adminhub_menu_bar_logout = new javax.swing.JMenu();
     home_menu_bar_adminhub = new javax.swing.JMenu();
@@ -93,6 +91,11 @@ public class RankingsForm extends javax.swing.JFrame {
         back_buttonMouseClicked(evt);
       }
     });
+    back_button.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        back_buttonActionPerformed(evt);
+      }
+    });
 
     jLabel1.setText("You are seeing top");
 
@@ -101,8 +104,18 @@ public class RankingsForm extends javax.swing.JFrame {
     jLabel3.setText("order.");
 
     type_combo_box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "accommodations", "destinations" }));
+    type_combo_box.addItemListener(new java.awt.event.ItemListener() {
+      public void itemStateChanged(java.awt.event.ItemEvent evt) {
+        type_combo_boxItemStateChanged(evt);
+      }
+    });
 
     sort_type_combo_box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ascending", "descending" }));
+    sort_type_combo_box.addItemListener(new java.awt.event.ItemListener() {
+      public void itemStateChanged(java.awt.event.ItemEvent evt) {
+        sort_type_combo_boxItemStateChanged(evt);
+      }
+    });
 
     desc_field.setEditable(false);
     jScrollPane2.setViewportView(desc_field);
@@ -115,22 +128,15 @@ public class RankingsForm extends javax.swing.JFrame {
 
     city_label.setText("<city>");
 
-    javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-    jPanel1.setLayout(jPanel1Layout);
-    jPanel1Layout.setHorizontalGroup(
-      jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 225, Short.MAX_VALUE)
-    );
-    jPanel1Layout.setVerticalGroup(
-      jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 133, Short.MAX_VALUE)
-    );
-
-    jScrollPane3.setViewportView(jPanel1);
-
     jLabel7.setText("Rating:");
 
     rating_label.setText("<rating>");
+
+    place_combo_box.addItemListener(new java.awt.event.ItemListener() {
+      public void itemStateChanged(java.awt.event.ItemEvent evt) {
+        place_combo_boxItemStateChanged(evt);
+      }
+    });
 
     adminhub_menu_bar_logout.setText("Logout");
     adminhub_menu_bar_logout.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -155,39 +161,42 @@ public class RankingsForm extends javax.swing.JFrame {
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addContainerGap()
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+          .addGroup(layout.createSequentialGroup()
+            .addGap(21, 21, 21)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(jLabel4)
+              .addComponent(jLabel6)
+              .addComponent(jLabel7))
+            .addGap(18, 18, 18)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(city_label)
+              .addComponent(country_label)
+              .addComponent(rating_label)))
+          .addGroup(layout.createSequentialGroup()
+            .addContainerGap()
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+              .addComponent(place_combo_box, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+              .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(type_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))))
+          .addGroup(layout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(back_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addGroup(layout.createSequentialGroup()
-            .addComponent(jLabel1)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addComponent(type_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jLabel2)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addComponent(sort_type_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addComponent(jLabel3)
-            .addGap(0, 0, Short.MAX_VALUE))
+            .addGap(39, 39, 39))
           .addGroup(layout.createSequentialGroup()
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                  .addComponent(jLabel4)
-                  .addComponent(jLabel6)
-                  .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                  .addComponent(rating_label)
-                  .addComponent(city_label)
-                  .addComponent(country_label))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-              .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                  .addComponent(back_button, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                  .addComponent(jScrollPane3))
-                .addGap(10, 10, 10)))
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        .addContainerGap())
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,25 +209,25 @@ public class RankingsForm extends javax.swing.JFrame {
           .addComponent(type_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(sort_type_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addGap(18, 18, 18)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
           .addGroup(layout.createSequentialGroup()
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(11, 11, 11)
+            .addComponent(place_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(18, 18, 18)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
               .addComponent(jLabel4)
               .addComponent(country_label))
-            .addGap(18, 18, 18)
+            .addGap(37, 37, 37)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
               .addComponent(jLabel6)
               .addComponent(city_label))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+            .addGap(38, 38, 38)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-              .addComponent(jLabel7)
-              .addComponent(rating_label))
-            .addGap(18, 18, 18)
+              .addComponent(rating_label)
+              .addComponent(jLabel7))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(back_button))
-          .addComponent(jScrollPane2))
-        .addContainerGap())
+          .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
     pack();
@@ -253,6 +262,105 @@ public class RankingsForm extends javax.swing.JFrame {
     form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.dispose();
   }//GEN-LAST:event_back_buttonMouseClicked
+
+  private void back_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_buttonActionPerformed
+    // TODO add your handling code here:
+  }//GEN-LAST:event_back_buttonActionPerformed
+
+  private void place_combo_boxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_place_combo_boxItemStateChanged
+    // TODO add your handling code here:
+    String type = type_combo_box.getSelectedItem().toString();
+    try {
+      if(type.equals("accommodations")) {
+        String name = place_combo_box.getSelectedItem().toString();
+        Accommodation acc = UserController.getInstance().getAccommodationByName(name);
+        City city = UserController.getInstance().getCityByCityID(acc.getCityID());
+        city_label.setText(city.getName());
+        Country country = UserController.getInstance().getCountryByCountryID(city.getCountryID());
+        country_label.setText(country.getName());
+        desc_field.setText(acc.getDescription());
+        double rating = UserController.getInstance().getRatingByPlaceID(acc.getID());
+        rating_label.setText(String.valueOf(rating));
+      } else {
+        String name = place_combo_box.getSelectedItem().toString();
+        Destination dest = UserController.getInstance().getDestinationByName(name);
+        City city = UserController.getInstance().getCityByCityID(dest.getCityID());
+        city_label.setText(city.getName());
+        Country country = UserController.getInstance().getCountryByCountryID(city.getCountryID());
+        country_label.setText(country.getName());
+        desc_field.setText(dest.getDescription());
+        double rating = UserController.getInstance().getRatingByPlaceID(dest.getID());
+        rating_label.setText(String.valueOf(rating));
+      }
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+  }//GEN-LAST:event_place_combo_boxItemStateChanged
+
+  private void type_combo_boxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_type_combo_boxItemStateChanged
+    // TODO add your handling code here:
+    place_combo_box.removeAllItems();
+    try {
+      if(type_combo_box.getSelectedItem().toString().equals("accommodations")) {
+        ArrayList<Accommodation> list = UserController.getInstance().getAllAccommodations();
+        if(list != null) {
+          for (Accommodation acc : list) {
+            acc.setRanking(UserController.getInstance().getRatingByPlaceID(acc.getID()));
+          }
+          if(sort_type_combo_box.getSelectedItem().toString().equals("ascending")) {
+            list = helper.sortAccommodationsAscending(list);
+          } else {
+            list = helper.sortAccommodationsDescending(list);
+          }
+          for(Accommodation acc : list) { 
+            place_combo_box.addItem(acc.getName());
+          }
+          Accommodation first = list.get(0);
+          City city = UserController.getInstance().getCityByCityID(first.getCityID());
+          city_label.setText(city.getName());
+          Country country = UserController.getInstance().getCountryByCountryID(city.getCountryID());
+          country_label.setText(country.getName());
+          desc_field.setText(first.getDescription());
+          double rating = UserController.getInstance().getRatingByPlaceID(first.getID());
+          rating_label.setText(String.valueOf(rating));
+        }
+      } else {
+        ArrayList<Destination> list = UserController.getInstance().getAllDestinations();
+        if(list != null) {
+          for (Destination dest : list) {
+            dest.setRanking(UserController.getInstance().getRatingByPlaceID(dest.getID()));
+          }
+          if(sort_type_combo_box.getSelectedItem().toString().equals("ascending")) {
+            list = helper.sortDestinationsAscending(list);
+          } else {
+            list = helper.sortDestinationsDescending(list);
+          }
+          for(Destination dest : list) { 
+            place_combo_box.addItem(dest.getName());
+          }
+          Destination first = list.get(0);
+          City city = UserController.getInstance().getCityByCityID(first.getCityID());
+          city_label.setText(city.getName());
+          Country country = UserController.getInstance().getCountryByCountryID(city.getCountryID());
+          country_label.setText(country.getName());
+          desc_field.setText(first.getDescription());
+          double rating = UserController.getInstance().getRatingByPlaceID(first.getID());
+          rating_label.setText(String.valueOf(rating));
+        }
+      }
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+  }//GEN-LAST:event_type_combo_boxItemStateChanged
+
+  private void sort_type_combo_boxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_sort_type_combo_boxItemStateChanged
+    // TODO add your handling code here:
+    try {
+      type_combo_boxItemStateChanged(null);
+    } catch(Exception e) {
+      System.out.println(e.getMessage());
+    }
+  }//GEN-LAST:event_sort_type_combo_boxItemStateChanged
 
   /**
    * @param args the command line arguments
@@ -304,9 +412,8 @@ public class RankingsForm extends javax.swing.JFrame {
   private javax.swing.JLabel jLabel4;
   private javax.swing.JLabel jLabel6;
   private javax.swing.JLabel jLabel7;
-  private javax.swing.JPanel jPanel1;
   private javax.swing.JScrollPane jScrollPane2;
-  private javax.swing.JScrollPane jScrollPane3;
+  private javax.swing.JComboBox<String> place_combo_box;
   private javax.swing.JLabel rating_label;
   private javax.swing.JComboBox<String> sort_type_combo_box;
   private javax.swing.JComboBox<String> type_combo_box;

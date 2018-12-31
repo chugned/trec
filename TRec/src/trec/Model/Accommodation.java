@@ -14,6 +14,7 @@ public class Accommodation {
   private String description_;
   private int id_;
   private int city_id_;
+  private double ranking_;
   
   public Accommodation() {}
   
@@ -52,5 +53,13 @@ public class Accommodation {
   
   public int getCityID() {
     return city_id_;
+  }
+  
+  public void setRanking(double ranking) {
+    this.ranking_ = ranking;
+  }
+  
+  public double getRanking() {
+    return ranking_;
   }
 }

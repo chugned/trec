@@ -12,6 +12,7 @@ import trec.Model.City;
 import trec.Model.Country;
 import trec.Model.Database;
 import trec.Model.Destination;
+import trec.Model.MessageModel;
 import trec.Model.User;
 
 /**
@@ -276,5 +277,47 @@ public class UserController {
   
   public ArrayList<String> getRecommendations(int user_id) throws Exception {
     return Database.getInstance().getRecommendations(user_id);
+  }
+  
+  // admin - user communication
+  public void sendMessageToAdmin(int user_id, MessageModel message_model) throws Exception {
+    Database.getInstance().sendMessageToAdmin(user_id, message_model);
+  }
+  
+  public ArrayList<Integer> getAllUserIDsThatSentMessages() throws Exception {
+    return Database.getInstance().getAllUserIDsThatSentMessages();
+  }
+  
+  public ArrayList<String> getAllSubjectsByUserID(int user_id) throws Exception {
+    return Database.getInstance().getAllSubjectsByUserID(user_id);
+  }
+  
+  public String getMessageBySubject(String subject) throws Exception {
+    return Database.getInstance().getMessageBySubject(subject);
+  }
+  
+  // friend system
+  public boolean sendFriendRequest(int from, int to) throws Exception {
+    return Database.getInstance().sendFriendRequest(from, to);
+  }
+  
+  public ArrayList<Integer> getAllFriendRequests(int user_id) throws Exception {
+    return Database.getInstance().getAllFriendRequests(user_id);
+  }
+  
+  public void deleteFriendRequest(int from, int to) throws Exception {
+    Database.getInstance().deleteFriendRequest(from, to);
+  }
+  
+  public boolean acceptFriendRequest(int from, int to) throws Exception {
+    return Database.getInstance().acceptFriendRequest(from, to);
+  }
+  
+  public ArrayList<Integer> getFriends(int user_id) throws Exception {
+    return Database.getInstance().getFriends(user_id);
+  }
+  
+  public void deleteFriendRelationship(int user_id, int friend_id) throws Exception {
+    Database.getInstance().deleteFriendRelationship(user_id, friend_id);
   }
 }

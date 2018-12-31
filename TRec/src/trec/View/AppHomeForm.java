@@ -44,6 +44,8 @@ public class AppHomeForm extends javax.swing.JFrame {
     home_acommondations_button = new javax.swing.JButton();
     home_greet_label = new javax.swing.JLabel();
     home_bookmarks_button = new javax.swing.JButton();
+    contact_admin_button = new javax.swing.JButton();
+    friends_button = new javax.swing.JButton();
     home_menu_bar = new javax.swing.JMenuBar();
     home_menu_bar_logout = new javax.swing.JMenu();
     home_menu_bar_adminhub = new javax.swing.JMenu();
@@ -120,6 +122,30 @@ public class AppHomeForm extends javax.swing.JFrame {
       }
     });
 
+    contact_admin_button.setText("Contact admin");
+    contact_admin_button.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        contact_admin_buttonMouseClicked(evt);
+      }
+    });
+    contact_admin_button.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        contact_admin_buttonActionPerformed(evt);
+      }
+    });
+
+    friends_button.setText("Friends");
+    friends_button.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        friends_buttonMouseClicked(evt);
+      }
+    });
+    friends_button.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        friends_buttonActionPerformed(evt);
+      }
+    });
+
     home_menu_bar_logout.setText("Logout");
     home_menu_bar_logout.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -155,7 +181,9 @@ public class AppHomeForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                   .addComponent(home_edit_profile_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                   .addComponent(home_get_recommendations_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addComponent(rankings_form, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                  .addComponent(rankings_form, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addComponent(contact_admin_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addComponent(friends_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                   .addComponent(home_evaluate_button, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -184,7 +212,11 @@ public class AppHomeForm extends javax.swing.JFrame {
           .addComponent(home_evaluate_button)
           .addComponent(rankings_form))
         .addGap(18, 18, 18)
-        .addComponent(home_bookmarks_button)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(home_bookmarks_button)
+          .addComponent(contact_admin_button))
+        .addGap(18, 18, 18)
+        .addComponent(friends_button)
         .addContainerGap(26, Short.MAX_VALUE))
     );
 
@@ -312,6 +344,34 @@ public class AppHomeForm extends javax.swing.JFrame {
     this.dispose();
   }//GEN-LAST:event_home_bookmarks_buttonMouseClicked
 
+  private void contact_admin_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contact_admin_buttonMouseClicked
+    // TODO add your handling code here:
+    ContactAdminForm form = new ContactAdminForm();
+    form.setVisible(true);
+    form.pack();
+    form.setLocationRelativeTo(null);
+    form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.dispose();
+  }//GEN-LAST:event_contact_admin_buttonMouseClicked
+
+  private void contact_admin_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contact_admin_buttonActionPerformed
+    // TODO add your handling code here:
+  }//GEN-LAST:event_contact_admin_buttonActionPerformed
+
+  private void friends_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_friends_buttonMouseClicked
+    // TODO add your handling code here:
+    FriendsForm form = new FriendsForm();
+    form.setVisible(true);
+    form.pack();
+    form.setLocationRelativeTo(null);
+    form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.dispose();
+  }//GEN-LAST:event_friends_buttonMouseClicked
+
+  private void friends_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_friends_buttonActionPerformed
+    // TODO add your handling code here:
+  }//GEN-LAST:event_friends_buttonActionPerformed
+
   /**
    * @param args the command line arguments
    */
@@ -348,6 +408,8 @@ public class AppHomeForm extends javax.swing.JFrame {
   }
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
+  private javax.swing.JButton contact_admin_button;
+  private javax.swing.JButton friends_button;
   private javax.swing.JButton home_acommondations_button;
   private javax.swing.JButton home_bookmarks_button;
   private javax.swing.JButton home_edit_profile_button;

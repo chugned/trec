@@ -7,6 +7,8 @@ package trec.Model;
 
 import java.text.NumberFormat;
 import java.text.ParsePosition;
+import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  *
@@ -22,5 +24,25 @@ public class Helper {
     ParsePosition pos = new ParsePosition(0);
     formatter.parse(str, pos);
     return str.length() == pos.getIndex();
+  }
+  
+  public ArrayList<Accommodation> sortAccommodationsAscending(ArrayList<Accommodation> list) {
+    list.sort(Comparator.comparing(Accommodation::getRanking));
+    return list;
+  }
+  
+  public ArrayList<Accommodation> sortAccommodationsDescending(ArrayList<Accommodation> list) {
+    list.sort(Comparator.comparing(Accommodation::getRanking).reversed());
+    return list;
+  }
+  
+  public ArrayList<Destination> sortDestinationsAscending(ArrayList<Destination> list) {
+    list.sort(Comparator.comparing(Destination::getRanking));
+    return list;
+  }
+  
+  public ArrayList<Destination> sortDestinationsDescending(ArrayList<Destination> list) {
+    list.sort(Comparator.comparing(Destination::getRanking).reversed());
+    return list;
   }
 }

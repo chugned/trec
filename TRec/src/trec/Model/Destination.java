@@ -16,6 +16,8 @@ public class Destination {
   private String description_;
   private int id_;
   private int city_id_;
+  private double ranking_;
+  
   public Destination() {}
   
   public Destination(String name, String description) {
@@ -53,5 +55,13 @@ public class Destination {
   
   public int getCityID() {
     return city_id_;
+  }
+  
+  public void setRanking(double ranking) {
+    this.ranking_ = ranking;
+  }
+  
+  public double getRanking() {
+    return ranking_;
   }
 }

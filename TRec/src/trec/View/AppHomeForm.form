@@ -61,6 +61,8 @@
                                   <Component id="home_edit_profile_button" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
                                   <Component id="home_get_recommendations_button" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
                                   <Component id="rankings_form" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
+                                  <Component id="contact_admin_button" min="-2" pref="210" max="-2" attributes="0"/>
+                                  <Component id="friends_button" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -100,7 +102,12 @@
                   <Component id="rankings_form" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-              <Component id="home_bookmarks_button" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="home_bookmarks_button" min="-2" max="-2" attributes="0"/>
+                  <Component id="contact_admin_button" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="friends_button" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="26" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -180,6 +187,24 @@
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="home_bookmarks_buttonMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="contact_admin_button">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Contact admin"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="contact_admin_buttonMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="contact_admin_buttonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="friends_button">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Friends"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="friends_buttonMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="friends_buttonActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

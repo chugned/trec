@@ -34,7 +34,7 @@ public class AdminHub extends javax.swing.JFrame {
     adminhub_manage_hotels_button = new javax.swing.JButton();
     adminhub_manage_destinations_button = new javax.swing.JButton();
     adminhub_manage_evaluations_button = new javax.swing.JButton();
-    adminhub_statistics_button = new javax.swing.JButton();
+    user_messages_button = new javax.swing.JButton();
     adminhub_adminhub_label = new javax.swing.JLabel();
     adminhub_manage_countries_button = new javax.swing.JButton();
     adminhub_manage_cities_button = new javax.swing.JButton();
@@ -86,10 +86,10 @@ public class AdminHub extends javax.swing.JFrame {
       }
     });
 
-    adminhub_statistics_button.setText("See statistics");
-    adminhub_statistics_button.addMouseListener(new java.awt.event.MouseAdapter() {
+    user_messages_button.setText("View user messages");
+    user_messages_button.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
-        adminhub_statistics_buttonMouseClicked(evt);
+        user_messages_buttonMouseClicked(evt);
       }
     });
 
@@ -151,7 +151,7 @@ public class AdminHub extends javax.swing.JFrame {
             .addGap(33, 33, 33)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
               .addComponent(adminhub_manage_evaluations_button, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-              .addComponent(adminhub_statistics_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+              .addComponent(user_messages_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
               .addComponent(adminhub_manage_hotels_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
               .addComponent(adminhub_manage_users_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
               .addComponent(adminhub_manage_destinations_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -181,7 +181,7 @@ public class AdminHub extends javax.swing.JFrame {
           .addGroup(layout.createSequentialGroup()
             .addComponent(adminhub_manage_users_button)
             .addGap(18, 18, 18)
-            .addComponent(adminhub_statistics_button)
+            .addComponent(user_messages_button)
             .addGap(18, 18, 18)
             .addComponent(adminhub_manage_hotels_button)
             .addGap(18, 18, 18)
@@ -260,9 +260,15 @@ public class AdminHub extends javax.swing.JFrame {
     // TODO add your handling code here:
   }//GEN-LAST:event_adminhub_manage_evaluations_buttonMouseClicked
 
-  private void adminhub_statistics_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminhub_statistics_buttonMouseClicked
+  private void user_messages_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_user_messages_buttonMouseClicked
     // TODO add your handling code here:
-  }//GEN-LAST:event_adminhub_statistics_buttonMouseClicked
+    ViewUserMessagesForm form = new ViewUserMessagesForm();
+    form.setVisible(true);
+    form.pack();
+    form.setLocationRelativeTo(null);
+    form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.dispose();
+  }//GEN-LAST:event_user_messages_buttonMouseClicked
 
   private void adminhub_manage_countries_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminhub_manage_countries_buttonMouseClicked
     // TODO add your handling code here:
@@ -366,7 +372,7 @@ public class AdminHub extends javax.swing.JFrame {
   private javax.swing.JButton adminhub_manage_users_button;
   private javax.swing.JMenuBar adminhub_menu_bar;
   private javax.swing.JMenu adminhub_menu_bar_logout;
-  private javax.swing.JButton adminhub_statistics_button;
   private javax.swing.JButton bind_places_and_its_button;
+  private javax.swing.JButton user_messages_button;
   // End of variables declaration//GEN-END:variables
 }
