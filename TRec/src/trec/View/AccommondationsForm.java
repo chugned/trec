@@ -56,6 +56,7 @@ public class AccommondationsForm extends javax.swing.JFrame {
     accommodations_list_combo_box = new javax.swing.JComboBox<>();
     jScrollPane1 = new javax.swing.JScrollPane();
     desc_field = new javax.swing.JTextPane();
+    weather_button = new javax.swing.JButton();
     accommondations_menu_bar = new javax.swing.JMenuBar();
     acommondations_menu_bar_logout = new javax.swing.JMenu();
     acommondations_menu_bar_adminhub = new javax.swing.JMenu();
@@ -103,6 +104,13 @@ public class AccommondationsForm extends javax.swing.JFrame {
     desc_field.setEditable(false);
     jScrollPane1.setViewportView(desc_field);
 
+    weather_button.setText("Weather");
+    weather_button.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        weather_buttonMouseClicked(evt);
+      }
+    });
+
     acommondations_menu_bar_logout.setText("Logout");
     acommondations_menu_bar_logout.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -126,25 +134,27 @@ public class AccommondationsForm extends javax.swing.JFrame {
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addGap(17, 17, 17)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+        .addGap(26, 26, 26)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
           .addGroup(layout.createSequentialGroup()
-            .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(181, 181, 181)
-            .addComponent(bookmark_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-              .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(choose_country_label)
-                .addComponent(choose_city_label)
-                .addComponent(destinations_list_label))
-              .addGap(18, 18, 18)
-              .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(accommodations_list_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(city_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(country_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-        .addContainerGap(17, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(destinations_list_label)
+              .addComponent(choose_city_label)
+              .addComponent(choose_country_label))
+            .addGap(34, 34, 34)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(accommodations_list_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addComponent(city_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addComponent(country_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))
+          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+              .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+              .addComponent(weather_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addGap(24, 24, 24)
+              .addComponent(bookmark_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))))
+        .addContainerGap(28, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,9 +175,10 @@ public class AccommondationsForm extends javax.swing.JFrame {
         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addGap(18, 18, 18)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(back_button)
-          .addComponent(bookmark_button))
-        .addContainerGap(14, Short.MAX_VALUE))
+          .addComponent(weather_button)
+          .addComponent(bookmark_button)
+          .addComponent(back_button))
+        .addContainerGap(19, Short.MAX_VALUE))
     );
 
     pack();
@@ -287,6 +298,17 @@ public class AccommondationsForm extends javax.swing.JFrame {
     }
   }//GEN-LAST:event_accommodations_list_combo_boxItemStateChanged
 
+  private void weather_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_weather_buttonMouseClicked
+    // TODO add your handling code here:
+    String city = city_combo_box.getSelectedItem().toString();
+    WeatherForm form = new WeatherForm(city, "accommodations");
+    form.setVisible(true);
+    form.pack();
+    form.setLocationRelativeTo(null);
+    form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.dispose();
+  }//GEN-LAST:event_weather_buttonMouseClicked
+
   /**
    * @param args the command line arguments
    */
@@ -337,5 +359,6 @@ public class AccommondationsForm extends javax.swing.JFrame {
   private javax.swing.JTextPane desc_field;
   private javax.swing.JLabel destinations_list_label;
   private javax.swing.JScrollPane jScrollPane1;
+  private javax.swing.JButton weather_button;
   // End of variables declaration//GEN-END:variables
 }

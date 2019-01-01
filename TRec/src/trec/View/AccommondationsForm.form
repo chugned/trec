@@ -47,31 +47,33 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="back_button" min="-2" pref="121" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="181" max="-2" attributes="0"/>
-                      <Component id="bookmark_button" min="-2" pref="121" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="destinations_list_label" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="choose_city_label" min="-2" max="-2" attributes="0"/>
+                          <Component id="choose_country_label" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="accommodations_list_combo_box" alignment="0" min="-2" pref="219" max="-2" attributes="0"/>
+                          <Component id="city_combo_box" alignment="0" min="-2" pref="219" max="-2" attributes="0"/>
+                          <Component id="country_combo_box" alignment="0" min="-2" pref="219" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jScrollPane1" alignment="0" pref="0" max="32767" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="choose_country_label" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="choose_city_label" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="destinations_list_label" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="accommodations_list_combo_box" alignment="0" min="-2" pref="219" max="-2" attributes="0"/>
-                              <Component id="city_combo_box" alignment="0" min="-2" pref="219" max="-2" attributes="0"/>
-                              <Component id="country_combo_box" alignment="0" min="-2" pref="219" max="-2" attributes="0"/>
-                          </Group>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jScrollPane1" alignment="0" min="-2" pref="414" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="back_button" min="-2" pref="121" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="weather_button" min="-2" pref="121" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                          <Component id="bookmark_button" min="-2" pref="121" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="17" max="32767" attributes="0"/>
+              <EmptySpace pref="28" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -97,10 +99,11 @@
               <Component id="jScrollPane1" min="-2" pref="217" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="back_button" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="weather_button" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="bookmark_button" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="back_button" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="14" max="32767" attributes="0"/>
+              <EmptySpace pref="19" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -190,5 +193,13 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="weather_button">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Weather"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="weather_buttonMouseClicked"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>

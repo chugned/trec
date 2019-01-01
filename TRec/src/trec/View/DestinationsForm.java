@@ -57,6 +57,7 @@ public class DestinationsForm extends javax.swing.JFrame {
     destinations_dest_desc_field = new javax.swing.JTextPane();
     destinations_back_button = new javax.swing.JButton();
     destinations_bookmark_button = new javax.swing.JButton();
+    weather_button = new javax.swing.JButton();
     home_menu_bar = new javax.swing.JMenuBar();
     destinations_menu_bar_logout = new javax.swing.JMenu();
     destinations_menu_bar_adminhub = new javax.swing.JMenu();
@@ -104,6 +105,13 @@ public class DestinationsForm extends javax.swing.JFrame {
       }
     });
 
+    weather_button.setText("Weather");
+    weather_button.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        weather_buttonMouseClicked(evt);
+      }
+    });
+
     destinations_menu_bar_logout.setText("Logout");
     destinations_menu_bar_logout.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -131,7 +139,9 @@ public class DestinationsForm extends javax.swing.JFrame {
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
           .addGroup(layout.createSequentialGroup()
             .addComponent(destinations_back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(181, 181, 181)
+            .addGap(29, 29, 29)
+            .addComponent(weather_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(31, 31, 31)
             .addComponent(destinations_bookmark_button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
           .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -167,7 +177,8 @@ public class DestinationsForm extends javax.swing.JFrame {
         .addGap(18, 18, 18)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(destinations_back_button)
-          .addComponent(destinations_bookmark_button))
+          .addComponent(destinations_bookmark_button)
+          .addComponent(weather_button))
         .addContainerGap(20, Short.MAX_VALUE))
     );
 
@@ -290,6 +301,17 @@ public class DestinationsForm extends javax.swing.JFrame {
     }
   }//GEN-LAST:event_destinations_list_combo_boxItemStateChanged
 
+  private void weather_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_weather_buttonMouseClicked
+    // TODO add your handling code here:
+    String city = destinations_city_combo_box.getSelectedItem().toString();
+    WeatherForm form = new WeatherForm(city, "destinations");
+    form.setVisible(true);
+    form.pack();
+    form.setLocationRelativeTo(null);
+    form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.dispose();
+  }//GEN-LAST:event_weather_buttonMouseClicked
+
   /**
    * @param args the command line arguments
    */
@@ -339,5 +361,6 @@ public class DestinationsForm extends javax.swing.JFrame {
   private javax.swing.JMenu destinations_menu_bar_logout;
   private javax.swing.JMenuBar home_menu_bar;
   private javax.swing.JScrollPane jScrollPane1;
+  private javax.swing.JButton weather_button;
   // End of variables declaration//GEN-END:variables
 }
